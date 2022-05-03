@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>GCP的防火牆規則</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="GCP的防火牆規則" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/occm37/reference_firewall_rules_gcp.html" />
+	<meta property="og:description" content="Cloud Manager會建立GCP防火牆規則、其中包含Cloud Manager和Cloud Volumes ONTAP NetApp成功運作所需的傳入和傳出規則。您可能需要參照連接埠進行測試、或是偏好使用自己的安全性群組。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/occm37/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta http-equiv="nss-product" content="OnCommand Cloud Manager"/><meta name="description" content="Cloud Manager會建立GCP防火牆規則、其中包含Cloud Manager和Cloud Volumes ONTAP NetApp成功運作所需的傳入和傳出規則。您可能需要參照連接埠進行測試、或是偏好使用自己的安全性群組。">
+  <meta name="keywords" content=" firewall rules, gcp, ports, google, tcp, udp, snapmirror"><meta name="translate" content="false"/><!-- Icons -->
+  <link rel="icon" href="/zh-tw/occm37/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/occm37/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-tw/occm37/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/occm37/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/occm37/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-tw/occm37/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-tw/occm37/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-tw/occm37/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-tw/occm37/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-tw/occm37/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-tw/occm37/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/occm37/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/occm37/css/custom-dropdown.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/occm37/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-tw/occm37/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/occm37/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel='stylesheet' href='/zh-tw/occm37/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    if (document.location.hostname === "docs.netapp.com") {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      head.appendChild(onetrustScript);
+    }
+
+    function OptanonWrapper() { }
+
+    if (document.location.hostname === "docs.netapp.com") {
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+      head.appendChild(adobe);
+
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-81697994-3');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/occm37/js/na-search.js'></script><script src='/zh-tw/occm37/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-tw/occm37/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/occm37/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-tw/occm37/js/na-utility.js'></script>
+  <script src='/zh-tw/occm37/js/clouddocs.js'></script>
+  <script src='/zh-tw/occm37/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-tw/occm37/js/toc.js'></script>
+  <script src='/zh-tw/occm37/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/zh-tw/occm37/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/occm37/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/occm37/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/occm37/js/jszip.min.js'></script>
+  <script src='/zh-tw/occm37/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/occm37/issues/new?body=Page%3A%20[GCP的防火牆規則](https://docs.netapp.com/zh-tw/occm37/reference_firewall_rules_gcp.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/occm37/images/discuss-sm.svg" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/occm37/blob/main/reference_firewall_rules_gcp.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/occm37/images/edit-sm.svg" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/occm37/images/article-sm.svg" class="github-icon" />瞭解如何作出貢獻</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此頁面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">產品與解決方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支援與訓練</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社群</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">部落格</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客戶成功案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-tw/occm37/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-tw/occm37/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-tw/occm37/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-tw/occm37/search.html"
+          data-type="widget" 
+          data-placeholder="搜尋文件" 
+          data-no-results-found="找不到符合 {query} 的相關結果。" 
+          data-did-you-mean="搜尋 {suggestion}。" 
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？" 
+          data-results-found="找到 {hitCount} 筆結果"  
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/occm37/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">繁體中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/occm37/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/occm37/reference_firewall_rules_gcp.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/occm37/reference_firewall_rules_gcp.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/occm37/reference_firewall_rules_gcp.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/occm37/reference_firewall_rules_gcp.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-tw/occm37/reference_firewall_rules_gcp.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>可用的 PDF<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/zh-tw/occm37/pdfs/fullsite-sidebar/Cloud_Manager_與_Cloud_Volumes_ONTAP_技術文件.pdf" >
+          <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>此文件網站（PDF 格式）</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/版本資訊.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            版本資訊
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/Cloud_Manager.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            Cloud Manager
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/概念.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            概念
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/雲端供應商帳戶.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            雲端供應商帳戶
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/儲存設備.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            儲存設備
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/高可用度配對.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            高可用度配對
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/開始使用.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            開始使用
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/設定Cloud_Manager.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            設定Cloud Manager
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/網路需求.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            網路需求
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/其他部署選項.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            其他部署選項
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/部署_Cloud_Volumes_ONTAP.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            部署 Cloud Volumes ONTAP
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/配置儲存設備.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            配置儲存設備
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/複寫及保護資料.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            複寫及保護資料
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/深入瞭解資料隱私.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            深入瞭解資料隱私
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/管理Cloud_Volumes_ONTAP.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            管理Cloud Volumes ONTAP
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/管理_Cloud_Manager.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            管理 Cloud Manager
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/為檔案服務配置磁碟區.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            為檔案服務配置磁碟區
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/API與自動化.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            API與自動化
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/occm37/pdfs/sidebar/參考資料.pdf" 
+            
+          >
+            <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+            參考資料
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/zh-tw/occm37/pdfs/pages/reference_firewall_rules_gcp.pdf" >
+    <img src="/zh-tw/occm37/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/zh-tw/occm37/images/pdf-zip.png" width="16" height="16"/>
+      <pre>個別 PDF 文件的集合<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/index.html">
+        Cloud Manager 3.7文件
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 版本資訊</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Cloud Manager</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_new_occm.html">
+        新增功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_issues.html">
+        已知問題
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_limitations.html">
+        已知限制
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://docs.netapp.com/us-en/cloud-volumes-ontap/">
+        Cloud Volumes ONTAP
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 概念</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_overview.html">
+        產品總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_cloud_central.html">
+        NetApp Cloud Central
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_cloud_central_accounts.html">
+        Cloud Central帳戶
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 雲端供應商帳戶</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_accounts_aws.html">
+        AWS帳戶
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_accounts_azure.html">
+        Azure帳戶
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_accounts_gcp.html">
+        GCP帳戶
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 儲存設備</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_storage.html">
+        磁碟與集合體
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_data_tiering.html">
+        資料分層
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_storage_management.html">
+        儲存管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_worm.html">
+        WORM 儲存設備
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 高可用度配對</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_ha.html">
+        AWS 中的 HA 配對
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_ha_azure.html">
+        Azure 中的 HA 配對
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_evaluating.html">
+        評估
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_licensing.html">
+        授權
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_security.html">
+        安全性
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_performance.html">
+        效能
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 開始使用</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_deployment_overview.html">
+        部署總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_getting_started_aws.html">
+        開始使用 AWS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_getting_started_azure.html">
+        開始使用 Azure
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_getting_started_gcp.html">
+        開始使用 GCP
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 設定Cloud Manager</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_setting_up_cloud_central_accounts.html">
+        設定Cloud Central帳戶
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_adding_aws_accounts.html">
+        新增AWS帳戶
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_adding_azure_accounts.html">
+        新增Azure帳戶
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_adding_gcp_accounts.html">
+        新增GCP帳戶
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_adding_nss_accounts.html">
+        新增NetApp支援網站帳戶
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_installing_https_cert.html">
+        安裝 HTTPS 憑證
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_setting_up_kms.html">
+        設定 AWS KMS
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 網路需求</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_networking_cloud_manager.html">
+        Cloud Manager
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_networking_aws.html">
+        AWS 適用的 Cloud Volumes ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_setting_up_transit_gateway.html">
+        設定 AWS 傳輸閘道
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_networking_azure.html">
+        適用於 Azure Cloud Volumes ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_networking_gcp.html">
+        適用於 GCP Cloud Volumes ONTAP
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 其他部署選項</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_cloud_mgr_reqs.html">
+        Cloud Manager主機需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_installing_linux.html">
+        在Linux上安裝Cloud Manager
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_launching_aws_mktp.html">
+        從AWS Marketplace部署Cloud Manager
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_launching_azure_mktp.html">
+        從Azure Marketplace部署Cloud Manager
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_installing_azure_gov.html">
+        在Azure Gov區域部署Cloud Manager
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_installing_azure_germany.html">
+        在Azure Germany地區部署Cloud Manager
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://docs.netapp.com/us-en/occm/media/c2s.pdf">
+        開始使用 AWS C2S
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_keep_up.html">
+        讓Cloud Manager持續運作
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 部署 Cloud Volumes ONTAP</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_before.html">
+        開始之前
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_logging_in.html">
+        登入 Cloud Manager
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_planning_your_config.html">
+        規劃您的組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_finding_system_id.html">
+        尋找您的系統 ID
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_enabling_flash_cache.html">
+        啟用Flash Cache
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_deploying_otc_aws.html">
+        在Cloud Volumes ONTAP AWS中啟動
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_deploying_otc_azure.html">
+        在Cloud Volumes ONTAP Azure中推出功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_deploying_gcp.html">
+        在Cloud Volumes ONTAP GCP中推出
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_registering.html">
+        註冊隨用隨付系統
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_setting_up_ontap_cloud.html">
+        設定 Cloud Volumes ONTAP 功能
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 配置儲存設備</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_provisioning_storage.html">
+        建立磁碟區、集合體和 LUN
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_tiering.html">
+        將非作用中資料分層至物件儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_connecting_kubernetes.html">
+        使用功能區做為持續儲存的儲存設備 ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_encrypting_volumes.html">
+        使用NetApp Volume Encryption加密磁碟區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_managing_storage.html">
+        管理現有儲存設備
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 複寫及保護資料</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_discovering_ontap.html">
+        探索及管理ONTAP 叢集
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_replicating_data.html">
+        在系統之間複寫資料
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_backup_to_s3.html">
+        備份至 Amazon S3
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_syncing_s3.html">
+        將資料同步至Amazon S3
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 深入瞭解資料隱私</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/concept_cloud_compliance.html">
+        深入瞭解雲端法規遵循
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_getting_started_compliance.html">
+        開始使用
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_controlling_private_data.html">
+        取得資料的可見度與控制權
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_generating_compliance_reports.html">
+        產生報告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_responding_to_dsar.html">
+        回應 DSAR
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_managing_compliance.html">
+        停用雲端法規遵循
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/faq_cloud_compliance.html">
+        常見問題集
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理Cloud Volumes ONTAP</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_connecting_to_otc.html">
+        連線 Cloud Volumes ONTAP 至
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_updating_ontap_cloud.html">
+        更新軟體
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_modifying_ontap_cloud.html">
+        修改系統組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_managing_state.html">
+        停止並啟動系統
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_monitoring_costs.html">
+        監控 AWS 成本
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_protecting_ransomware.html">
+        改善勒索軟體保護
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_adding_ontap_cloud.html">
+        新增現有系統
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_deleting_working_env.html">
+        刪除系統
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理 Cloud Manager</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_updating_cloud_manager.html">
+        更新Cloud Manager
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_managing_cloud_central_accounts.html">
+        管理Cloud Central帳戶
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_removing.html">
+        移除工作環境
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_configuring_proxy.html">
+        設定 Proxy 設定
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_renewing_cert.html">
+        續約HTTPS憑證
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_restoring.html">
+        還原Cloud Manager
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_uninstalling.html">
+        解除安裝Cloud Manager
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 為檔案服務配置磁碟區</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_manage_anf.html">
+        Azure NetApp Files
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/task_manage_cvs_aws.html">
+        AWS 適用的 Cloud Volumes Service
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> API與自動化</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://docs.netapp.com/us-en/occm/api.html">
+        API 開發人員指南
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_infrastructure_as_code.html">
+        自動化範例
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 參考資料</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_integration_faq.html">
+        Cloud Central整合常見問題集
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://docs.netapp.com/us-en/cloud-volumes-ontap/index.html">
+        支援的組態Cloud Volumes ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://cloud.netapp.com/cloud-volumes-global-regions">
+        支援的地區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_security_groups.html">
+        AWS 的安全群組規則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_security_groups_azure.html">
+        Azure的安全性群組規則
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_firewall_rules_gcp.html">
+        GCP的防火牆規則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_aws_marketplace.html">
+        AWS Marketplace 頁面
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_permissions.html">
+        權限
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_default_configs.html">
+        預設組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_user_roles.html">
+        使用者角色
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_additional_info.html">
+        相關連結
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_earlier_versions.html">
+        舊版
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/occm37/reference_legal_notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-tw/occm37/">Cloud&nbsp;Manager&nbsp;3.7</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      
+<div class="ie-notification">
+  <span class="ie-notification-highlight">本文件適用於舊版的 Cloud Manager。</span><br>
+  <span><a href="https://docs.netapp.com/zh-tw/occm/">前往文件取得最新版本。</a></span>
+</div>
+<div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-tw/occm37/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">GCP的防火牆規則</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-05-03 06:12:02 +0000">05/03/2022</time>
+    
+  
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Cloud Manager會建立GCP防火牆規則、其中包含Cloud Manager和Cloud Volumes ONTAP NetApp成功運作所需的傳入和傳出規則。您可能需要參照連接埠進行測試、或是偏好使用自己的安全性群組。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cloud-manager規則">Cloud Manager規則</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cloud Manager的防火牆規則需要傳入和傳出規則。</p>
+</div>
+<div class="sect2">
+<h3 id="cloud-manager的傳入規則">Cloud Manager的傳入規則</h3>
+<div class="paragraph">
+<p>預先定義的防火牆規則中的傳入規則來源為0.00.0.0/0。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">傳輸協定</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">提供對Cloud Manager主機的SSH存取權</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">提供從用戶端網頁瀏覽器到Cloud Manager網頁主控台的HTTP存取</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTPS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">443..</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">提供從用戶端網頁瀏覽器到Cloud Manager網頁主控台的HTTPS存取</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="cloud-manager的傳出規則">Cloud Manager的傳出規則</h3>
+<div class="paragraph">
+<p>Cloud Manager預先定義的防火牆規則會開啟所有傳出流量。如果可以接受、請遵循基本的傳出規則。如果您需要更嚴格的規則、請使用進階的傳出規則。</p>
+</div>
+<div class="sect3">
+<h4 id="基本傳出規則">基本傳出規則</h4>
+<div class="paragraph">
+<p>Cloud Manager預先定義的防火牆規則包括下列傳出規則。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">傳輸協定</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有 TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">全部</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有傳出流量</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有的 udp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">全部</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有傳出流量</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="進階傳出規則">進階傳出規則</h4>
+<div class="paragraph">
+<p>如果您需要嚴格的傳出流量規則、可以使用下列資訊、僅開啟Cloud Manager傳出通訊所需的連接埠。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/occm37/images/note.svg" alt="附註">
+</td>
+<td class="content">
+來源IP位址為Cloud Manager主機。
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">服務</th>
+<th class="tableblock halign-left valign-top">傳輸協定</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">目的地</th>
+<th class="tableblock halign-left valign-top">目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="9"><p class="tableblock">Active Directory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">88</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos V 驗證</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">139.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBios 服務工作階段</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">389</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LDAP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">445</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microsoft SMB/CIFS over TCP 搭配 NetBios 架構</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">464.64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos V 變更及設定密碼（ Set_change ）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">749</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory Kerberos V 變更及設定密碼（ RPCSEC_GSS ）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">137.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBios 名稱服務</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">138</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBios 資料報服務</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">464.64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos 金鑰管理</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API 呼叫與 AutoSupport 功能</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTPS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">443..</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">傳出網際網路和 ONTAP 叢集管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API 呼叫 GCP 和 ONTAP 功能、並將 AutoSupport 不二的訊息傳送給 NetApp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API 呼叫</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">叢集管理 LIF ONTAP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API 呼叫 ONTAP 至</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DNS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">53.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DNS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用於 Cloud Manager 的 DNS 解析</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="規則-cloud-volumes-ontap">規則 Cloud Volumes ONTAP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>適用於此功能的安全性群組 Cloud Volumes ONTAP 需要傳入和傳出規則。</p>
+</div>
+<div class="sect2">
+<h3 id="內部規則cloud-volumes-ontap">內部規則Cloud Volumes ONTAP</h3>
+<div class="paragraph">
+<p>預先定義之安全性群組中的傳入規則來源為 0.00.0.0/0 。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">傳輸協定</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有 ICMP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">全部</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ping 執行個體</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用叢集管理 LIF 的 IP 位址、以 HTTP 存取 System Manager Web 主控台</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTPS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">443..</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用叢集管理 LIF 的 IP 位址、以 HTTPS 存取 System Manager 網路主控台</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH 存取叢集管理 LIF 的 IP 位址或節點管理 LIF</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">111.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">遠端程序需要 NFS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">139.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIFS 的 NetBios 服務工作階段</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">161-162</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">簡單的網路管理傳輸協定</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">445</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microsoft SMB/CIFS over TCP 搭配 NetBios 架構</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">635</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS 掛載</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">749</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2049</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS 伺服器精靈</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3260</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">透過 iSCSI 資料 LIF 存取 iSCSI</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4045</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS 鎖定精靈</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4046</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS 的網路狀態監控</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用 NDMP 備份</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11104.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">管理 SnapMirror 的叢集間通訊工作階段</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11105.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用叢集間生命體進行 SnapMirror 資料傳輸</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">111.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">遠端程序需要 NFS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">161-162</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">簡單的網路管理傳輸協定</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">635</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS 掛載</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2049</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS 伺服器精靈</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4045</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS 鎖定精靈</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4046</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS 的網路狀態監控</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4049</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFS rquotad 傳輸協定</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="適用於的傳出規則cloud-volumes-ontap">適用於的傳出規則Cloud Volumes ONTAP</h3>
+<div class="paragraph">
+<p>預先定義 Cloud Volumes ONTAP 的 Security Group for the 旅行團會開啟所有的傳出流量。如果可以接受、請遵循基本的傳出規則。如果您需要更嚴格的規則、請使用進階的傳出規則。</p>
+</div>
+<div class="sect3">
+<h4 id="基本傳出規則-2">基本傳出規則</h4>
+<div class="paragraph">
+<p>適用於此功能的預先定義安全性群組 Cloud Volumes ONTAP 包括下列傳出規則。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">傳輸協定</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有 ICMP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">全部</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有傳出流量</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有 TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">全部</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有傳出流量</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有的 udp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">全部</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有傳出流量</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="進階傳出規則-2">進階傳出規則</h4>
+<div class="paragraph">
+<p>如果您需要嚴格的傳出流量規則、可以使用下列資訊、僅開啟 Cloud Volumes ONTAP 那些由真人進行傳出通訊所需的連接埠。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/occm37/images/note.svg" alt="附註">
+</td>
+<td class="content">
+來源是 Cloud Volumes ONTAP 指在整個系統上的介面（ IP 位址）。
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 18.1818%;">
+<col style="width: 36.3637%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">服務</th>
+<th class="tableblock halign-left valign-top">傳輸協定</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">來源</th>
+<th class="tableblock halign-left valign-top">目的地</th>
+<th class="tableblock halign-left valign-top">目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="18"><p class="tableblock">Active Directory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">88</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos V 驗證</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">137.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBios 名稱服務</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">138</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBios 資料報服務</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">139.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBios 服務工作階段</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">389</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LDAP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">445</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microsoft SMB/CIFS over TCP 搭配 NetBios 架構</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">464.64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos V 變更及設定密碼（ Set_change ）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">464.64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos 金鑰管理</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">749</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos V 變更與設定密碼（ RPCSEC_GSS ）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">88</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos V 驗證</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">137.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBios 名稱服務</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">138</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBios 資料報服務</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">139.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBios 服務工作階段</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">389</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LDAP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">445</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microsoft SMB/CIFS over TCP 搭配 NetBios 架構</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">464.64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos V 變更及設定密碼（ Set_change ）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">464.64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos 金鑰管理</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">749</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Active Directory 樹系</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos V 變更及設定密碼（ RPCSEC_GSS ）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">叢集</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有流量</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有流量</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">一個節點上的所有 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">其他節點上的所有 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">叢集間通訊（ Cloud Volumes ONTAP 僅限不含 HA ）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HA 中介</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ZAPI 呼叫（ Cloud Volumes ONTAP 僅限 RHA ）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ICMP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HA 中介</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keepive Alive （ Cloud Volumes ONTAP 僅限 HHA ）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DHCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">68</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DHCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">第一次設定的 DHCP 用戶端</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DHCPS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">67</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DHCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DHCP 伺服器</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DNS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">53.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF 與資料 LIF （ NFS 、 CIFS ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DNS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DNS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NDMP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18600 – 18699</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">目的地伺服器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NDMP 複本</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SMTP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">郵件伺服器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">可以使用 SMTP 警示 AutoSupport 來執行功能</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="4"><p class="tableblock">SNMP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">161.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">監控伺服器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">透過 SNMP 設陷進行監控</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">161.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">監控伺服器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">透過 SNMP 設陷進行監控</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">162%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">監控伺服器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">透過 SNMP 設陷進行監控</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">162%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">監控伺服器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">透過 SNMP 設陷進行監控</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">SnapMirror</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11104.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">叢集間 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">叢集間 LIF ONTAP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">管理 SnapMirror 的叢集間通訊工作階段</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11105.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">叢集間 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">叢集間 LIF ONTAP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SnapMirror 資料傳輸</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">系統記錄</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">514</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">節點管理 LIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">系統記錄伺服器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">系統記錄轉送訊息</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">legal-terms</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">legal-privacy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">legal-cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">cookie-settings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <span class="n-footer__fine-print">對我們的網站有任何意見或要求？</span>
+              <a target="_self" href="javascript:netapp_mailto()">請與我們聯絡</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://docs.netapp.com/zh-tw/announcements/">公告</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/occm37/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/occm37/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/occm37/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/occm37/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/occm37/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/occm37/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/occm37/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/occm37/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/occm37/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/occm37/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/occm37/js/www-ntap.js'></script>
+    <script src='/zh-tw/occm37/js/tabbed-blocks.js'></script>
+  </body></html>
