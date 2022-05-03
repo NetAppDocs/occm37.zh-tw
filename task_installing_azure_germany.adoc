@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: task_installing_azure_germany.html 
+keywords: install, installation, installing, linux, installer, software, germany, azure, region 
+summary: Azure Marketplace不適用於Azure Germany地區、因此您必須從NetApp支援網站下載Cloud Manager安裝程式、並將其安裝在該地區現有的Linux主機上。 
+---
+= 在Azure Germany地區安裝Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Azure Marketplace不適用於Azure Germany地區、因此您必須從NetApp支援網站下載Cloud Manager安裝程式、並將其安裝在該地區現有的Linux主機上。
+
+.步驟
+. link:reference_networking_azure.html["檢閱Azure的網路需求"]。
+. link:reference_cloud_mgr_reqs.html["檢閱Cloud Manager主機需求"]。
+. link:task_installing_linux.html["下載並安裝Cloud Manager"]。
+. link:task_adding_azure_accounts.html["使用服務主體將Azure權限授予Cloud Manager"]。
+
+
+Cloud Manager現在已準備好在Cloud Volumes ONTAP Azure Germany地區部署支援、就像其他地區一樣。不過、您可能需要先執行其他設定。

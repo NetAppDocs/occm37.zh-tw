@@ -1,0 +1,100 @@
+---
+sidebar: sidebar 
+permalink: concept_security.html 
+keywords: security, encryption, antivirus, concepts, key managers, safenet, kms, keys, vscan, encrypt, aws, key management service, cmk, customer master key, data at rest, data-at-rest, netapp storage encryption, certificate signing request, csr, certificate, ca certificate, virus, scan, virus scan, certificate authority, netapp volume encryption, nve, volume encryption, key management server, ransomware, fpolicy, snapshots 
+summary: 支援資料加密、並提供防範病毒和勒索軟體的功能。 Cloud Volumes ONTAP 
+---
+= 安全性
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+支援資料加密、並提供防範病毒和勒索軟體的功能。 Cloud Volumes ONTAP
+
+
+
+== 加密閒置的資料
+
+支援下列加密技術： Cloud Volumes ONTAP
+
+* NetApp Volume Encryption（從Cloud Volumes ONTAP 推出時起）
+* AWS 金鑰管理服務
+* Azure 儲存服務加密
+* Google Cloud Platform 預設加密
+
+
+您可以使用NetApp Volume Encryption搭配原生AWS、Azure或GCP加密、以加密Hypervisor層級的資料。
+
+
+
+=== NetApp Volume Encryption
+
+NetApp Volume Encryption（NVE）是一項軟體技術、可一次加密閒置一個磁碟區的資料。資料、Snapshot複本和中繼資料都會加密。資料的存取權是由唯一的XTS-AES-256金鑰提供、每個磁碟區一個金鑰。
+
+支援NetApp Volume Encryption搭配外部金鑰管理伺服器。Cloud Volumes ONTAP不支援Onboard Key Manager。您可以在中找到支援的金鑰管理程式 http://mysupport.netapp.com/matrix["NetApp 互通性對照表工具"^] 在*關鍵經理*解決方案下。
+
+您可以使用CLI或System Manager、在新的或現有的磁碟區上啟用NetApp Volume Encryption。Cloud Manager不支援NetApp Volume Encryption。如需相關指示、請參閱 link:task_encrypting_volumes.html["使用NetApp Volume Encryption加密磁碟區"]。
+
+
+
+=== AWS 金鑰管理服務
+
+當您在 Cloud Volumes ONTAP AWS 中啟動一個支援功能系統時、可以使用啟用資料加密 http://docs.aws.amazon.com/kms/latest/developerguide/overview.html["AWS 金鑰管理服務（ KMS ）"^]。Cloud Manager 會使用客戶主金鑰（ CMK ）要求資料金鑰。
+
+
+TIP: 建立 Cloud Volumes ONTAP 一套系統後、您無法變更 AWS 資料加密方法。
+
+如果您要使用此加密選項、則必須確保 AWS KMS 設定適當。如需詳細資訊、請參閱 link:task_setting_up_kms.html["設定 AWS KMS"]。
+
+
+
+=== Azure 儲存服務加密
+
+https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/["Azure 儲存服務加密"^] Azure 中 Cloud Volumes ONTAP 預設會啟用靜止資料的功能、以供資料使用。無需設定。
+
+
+NOTE: 不支援Cloud Volumes ONTAP 客戶管理的金鑰。
+
+
+
+=== Google Cloud Platform 預設加密
+
+https://cloud.google.com/security/encryption-at-rest/["Google Cloud Platform 閒置資料加密"^] 預設為 Cloud Volumes ONTAP 啟用以供使用。無需設定。
+
+雖然 Google Cloud Storage 會在資料寫入磁碟之前先加密資料、但您可以使用 Cloud Manager API 來建立 Cloud Volumes ONTAP 使用 _ 客戶管理的加密金鑰 _ 的支援系統。這些是您使用 Cloud Key Management Service 在 GCP 中產生及管理的金鑰。
+
+請參閱 link:api.html#_creating_systems_in_gcp["API 開發人員指南"^] 如需使用「GcpEncryption」參數的詳細資訊、
+
+
+
+== 執行防毒掃描 ONTAP
+
+您可以在 ONTAP 更新系統上使用整合式防毒功能、保護資料免受病毒或其他惡意程式碼的侵害。
+
+名為 _VScann_ 的還原病毒掃描、結合同級最佳的協力廠商防毒軟體與各種功能、讓您靈活控制掃描檔案的時間與時間。 ONTAP ONTAP
+
+如需 VScan 支援的廠商、軟體及版本資訊、請參閱 http://mysupport.netapp.com/matrix["NetApp 互通性對照表"^]。
+
+如需有關如何設定 ONTAP 及管理作業系統上防毒功能的資訊、請參閱 http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-acg/home.html["《 9 防毒組態指南》 ONTAP"^]。
+
+
+
+== 勒索軟體保護
+
+勒索軟體攻擊可能會耗費一定的時間、資源和商譽。Cloud Manager 可讓您針對勒索軟體實作 NetApp 解決方案、提供有效的可見度、偵測及補救工具。
+
+* Cloud Manager 可識別未受 Snapshot 原則保護的磁碟區、並可讓您在這些磁碟區上啟動預設的 Snapshot 原則。
++
+Snapshot 複本為唯讀、可防止勒索軟體毀損。他們也能提供精細度、以建立單一檔案複本或完整災難恢復解決方案的映像。
+
+* Cloud Manager 也可啟用 ONTAP 的 FPolicy 解決方案、封鎖常見的勒索軟體副檔名。
+
+
+image:screenshot_ransomware_protection.gif["顯示工作環境中可用之勒索軟體保護頁面的快照。畫面會顯示沒有 Snapshot 原則的磁碟區數量、以及封鎖勒索軟體副檔名的能力。"]
+
+link:task_protecting_ransomware.html["瞭解如何實作 NetApp 勒索軟體解決方案"]。

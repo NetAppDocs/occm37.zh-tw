@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: task_restoring.html 
+keywords: cloud manager, restore, restoring, restore cloud manager, back up, backup, backups, back up cloud manager 
+summary: NetApp Cloud Central帳戶可讓您輕鬆還原Cloud Manager組態。帳戶是在Cloud Central中執行的服務、因此您與帳戶相關聯的使用者、工作區和服務連接器永遠都可以存取。即使您的Cloud Manager系統被意外刪除、 
+---
+= 還原Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您的 link:concept_cloud_central_accounts.html["NetApp Cloud Central帳戶"] 讓您輕鬆還原Cloud Manager組態。帳戶是在Cloud Central中執行的服務、因此您與帳戶相關聯的使用者、工作區和服務連接器永遠都可以存取。即使您的Cloud Manager系統被意外刪除、
+
+
+NOTE: 從3.7.1版開始、Cloud Manager不再支援下載備份並使用備份來還原組態。您必須依照下列步驟還原Cloud Manager。
+
+.步驟
+. 在現有的Cloud Central帳戶中部署新的Cloud Manager系統。
++
+link:reference_deployment_overview.html["部署選項"]
+
+. 將您的雲端供應商帳戶和NetApp支援網站帳戶新增至Cloud Manager。
++
+這個步驟讓Cloud Manager準備就緒、讓您可以在Cloud Volumes ONTAP 雲端供應商中建立更多的支援系統。
+
++
+如果您使用AWS金鑰來部署想Cloud Volumes ONTAP 要在這個新的Cloud Manager系統上探索的現有的功能表系統、請務必完成此步驟。Cloud Manager需要AWS金鑰才能正確探索Cloud Volumes ONTAP 及管理功能。
+
++
+** link:task_adding_aws_accounts.html["將AWS帳戶新增至Cloud Manager"]
+** link:task_adding_azure_accounts.html["將Azure帳戶新增至Cloud Manager"]
+** link:task_adding_nss_accounts.html["新增 NetApp 支援網站帳戶至 Cloud Manager"]
+
+
+. 重新探索您的工作環境：Cloud Volumes ONTAP 適用於雲端組態的架構系統、內部部署叢集和NetApp私有儲存設備。
++
+** link:task_adding_ontap_cloud.html["將現有 Cloud Volumes ONTAP 的功能系統新增至 Cloud Manager"]
+** link:task_discovering_ontap.html#discovering-ontap-clusters["探索 ONTAP 叢集"]
+
+
+
+
+您的Cloud Manager組態現已隨帳戶、設定和工作環境一起還原。

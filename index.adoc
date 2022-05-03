@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: index.html 
+summary: 歡迎使用Cloud Manager與Cloud Volumes ONTAP 解決方案的文件入口網站。 
+---
+= Cloud Manager 與 Cloud Volumes ONTAP 技術文件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+Cloud Manager可讓您部署及管理NetApp Cloud Volumes ONTAP 功能、這是一套資料管理解決方案、可為雲端型工作負載提供保護、可見度及控制能力。
+
+
+
+== 瞭解新功能
+
+* link:reference_new_occm.html["Cloud Manager 的新功能"]
+* https://docs.netapp.com/us-en/cloud-volumes-ontap/reference_new_97.html["更新功能 Cloud Volumes ONTAP"^]
+
+
+
+
+== 開始使用
+
+* link:task_getting_started_aws.html["開始使用 AWS"]
+* link:task_getting_started_azure.html["開始使用 Azure"]
+* link:task_getting_started_gcp.html["開始使用Google Cloud Platform"]
+* https://docs.netapp.com/us-en/cloud-volumes-ontap/index.html["尋找Cloud Volumes ONTAP 支援的支援組態以供使用"^]
+* link:reference_networking_cloud_manager.html["檢閱Cloud Manager的網路需求"]
+* link:reference_networking_aws.html["檢閱Cloud Volumes ONTAP AWS的網路需求"]
+* link:reference_networking_azure.html["檢閱Cloud Volumes ONTAP Azure的網路需求"]
+* link:reference_networking_gcp.html["檢閱Cloud Volumes ONTAP GCP的網路需求"]
+* link:task_planning_your_config.html["規劃Cloud Volumes ONTAP 您的需求組態"]
+
+
+
+
+== 利用 API 實現自動化
+
+* link:api.html["API 開發人員指南"^]
+* link:reference_infrastructure_as_code.html["自動化範例"]
+
+
+
+
+== 與同儕交流、取得協助、並尋找更多資訊
+
+* https://community.netapp.com/t5/Cloud-Data-Services/ct-p/CDS["NetApp 社群：雲端資料服務"^]
+* https://mysupport.netapp.com/cloudontap["NetApp Cloud Volumes ONTAP 支援"^]
+* link:reference_additional_info.html["何處可取得協助及尋找更多資訊"]
+

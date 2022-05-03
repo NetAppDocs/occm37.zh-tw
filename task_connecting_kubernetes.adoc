@@ -1,0 +1,101 @@
+---
+pagenav: false 
+sidebar: sidebar 
+permalink: task_connecting_kubernetes.html 
+keywords: kubernetes, persistent volumes, containers, persistent storage, kubeconfig, trident, kubernetes cluster, storage classes, classes, cvo-single, cvo-ha, thick provisioning, trident_trident, connect, disconnect, provision 
+summary: Cloud Manager可在Kubernetes叢集上自動化NetApp Trident的部署、讓ONTAP 您可以將NetApp Trident用作容器的持續儲存設備。這可搭配Cloud Volumes ONTAP 使用的是功能不全ONTAP 的和內部的等化叢集。入門包括幾個步驟。 
+---
+= 使用支援Kubernetes的不變儲存ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager可自動化部署 https://netapp-trident.readthedocs.io/en/stable-v18.10/introduction.html["NetApp Trident"^] 在Kubernetes叢集上、您可以使用ONTAP 效能不穩定的功能來儲存容器。這可搭配Cloud Volumes ONTAP 使用的是功能不全ONTAP 的和內部的等化叢集。
+
+完成這些步驟之前、您必須先完成 link:reference_before.html["建立Cloud Volumes ONTAP 一套系統"] 或 link:task_discovering_ontap.html["探索內部部署ONTAP 的叢集"] 來自Cloud Manager。
+
+如果您使用部署Kubernetes叢集 https://cloud.netapp.com/kubernetes-service["NetApp Kubernetes服務"^]Cloud Manager可自動從您的NetApp Cloud Central帳戶探索叢集。如果是這種情況、請跳過前兩個步驟、從步驟3開始。
+
+
+
+=== 驗證網路連線能力
+
+. Cloud Manager和Kubernetes叢集之間、以及Kubernetes叢集到ONTAP 支援的系統之間、都必須有網路連線。
+. 安裝Trident時、Cloud Manager需要連線到外傳網際網路、才能存取下列端點：
++
+\https://packages.cloud.google.com/yum \https://github.com/NetApp/trident/releases/download/
+
++
+當您將工作環境連線至叢集時、Cloud Manager會在Kubernetes叢集上安裝Trident。
+
+
+
+
+
+=== 將Kubernetes組態檔案上傳至Cloud Manager
+
+[role="quick-margin-para"]
+對於每個Kubernetes叢集、Account Admin需要上傳Yaml格式的組態檔（Kubeconfig）。上傳檔案之後、 Cloud Manager 會驗證與叢集的連線、並儲存 Kbeconfig 檔案的加密複本。
+
+[role="quick-margin-para"]
+按一下「* Kubernetes叢集>探索>上傳檔案*」、然後選取Kubeconfig檔案。
+
+[role="quick-margin-para"]
+image:screenshot_kubernetes_setup.gif["螢幕擷取畫面會顯示Kubernetes叢集索引標籤、並顯示「探索」按鈕、然後按一下「上傳檔案」以上傳Kubeconfig檔案的畫面。"]
+
+
+
+=== 將您的工作環境連接至Kubernetes叢集
+
+[role="quick-margin-para"]
+在工作環境中、按一下Kubernetes圖示、然後依照提示進行。您可以將不同的叢集連接至不同ONTAP 的支援系統、並將多個叢集連接至同ONTAP 一個支援系統。
+
+[role="quick-margin-para"]
+您可以選擇將NetApp儲存類別設為Kubernetes叢集的預設儲存類別。當使用者建立持續磁碟區時、Kubernetes叢集ONTAP 預設會使用連線的支援功能作為後端儲存設備。
+
+[role="quick-margin-para"]
+image:screenshot_kubernetes_connect.gif["螢幕快照顯示Kubernetes圖示的內部及Cloud Volumes ONTAP 運作環境、以及可讓您選取Kubernetes叢集的後續頁面、然後按一下「Connect（連線）」。"]
+
+
+
+=== 開始配置持續磁碟區
+
+[role="quick-margin-para"]
+使用原生 Kubernetes 介面和架構來要求及管理持續磁碟區。Cloud Manager會建立四個Kubernetes儲存類別、供您在配置持續磁碟區時使用：
+
+* * NetApp-file*：將持續磁碟區繫結至單節點ONTAP 的各種系統
+* * NetApp-file-San*：將iSCSI持續磁碟區繫結至單節點ONTAP 的支援系統
+* * NetApp-file-redund*：將持續Volume繫結至ONTAP VMware HA配對
+* * NetApp-file-redunde-San*：將iSCSI持續磁碟區繫結ONTAP 至VMware HA配對
+
+
+[role="quick-margin-para"]
+Cloud Manager預設會將Trident設定為使用下列資源配置選項：
+
+* 精簡磁碟區
+* 預設的Snapshot原則
+* 可存取的Snapshot目錄
+
+
+[role="quick-margin-para"]
+https://netapp-trident.readthedocs.io/["深入瞭解如何使用 Kubernetes 的 Trident 來配置第一個 Volume"^]
+
+.什麼是Trident磁碟區？
+****
+Cloud Manager會在第一個ONTAP 連接Kubernetes叢集的支援系統上建立磁碟區。磁碟區名稱會附加「_trident _triident」。 使用此磁碟區連線至Kubernetes叢集。ONTAP您不應該刪除這些磁碟區。
+
+****
+.當您中斷連接或移除Kubernetes叢集時、會發生什麼情況？
+****
+Cloud Manager可讓您從ONTAP Kubernetes叢集中斷個別的支援系統連線。當您中斷系統連線時、將無法再將ONTAP 該系統當成容器的持續儲存設備。不會刪除現有的持續磁碟區。
+
+從Kubernetes叢集中斷所有系統的連線後、您也可以從Cloud Manager移除整個Kubernetes組態。移除叢集時、Cloud Manager不會解除安裝Trident、也不會刪除任何持續Volume。
+
+這兩種動作都只能透過API使用。我們計畫在未來的版本中、將行動新增至介面。link:api.html#_kubernetes["按一下此處以取得API的詳細資料"]。
+
+****

@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: task_setting_up_cloud_central_accounts.html 
+keywords: account settings, workspaces, service connector, account admin, workspace admin, users, associate, disassociate, add user, add users, user management, administer, user, management, account, user account, user accounts, create workspace, add workspace, setup workspace, workspace, service connector, manage service connector, manage workspace, associate service connector 
+summary: 每個Cloud Manager系統都會與NetApp Cloud Central帳戶建立關聯。設定與Cloud Manager系統相關的Cloud Central帳戶、讓使用者能夠存取Cloud Manager、Cloud Volumes ONTAP 並在工作空間中部署整套系統。您只需新增使用者或新增多個使用者和工作區即可。 
+---
+= 在 Cloud Central 帳戶中設定工作區和使用者
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+每個Cloud Manager系統都會與_NetApp Cloud Central帳戶建立關聯。設定與Cloud Manager系統相關的Cloud Central帳戶、讓使用者能夠存取Cloud Manager、Cloud Volumes ONTAP 並在工作空間中部署整套系統。只要新增使用者或新增多個使用者和工作區即可。
+
+此帳戶會保留在Cloud Central中、因此您所做的任何變更都可用於其他Cloud Manager系統和其他NetApp雲端資料服務。 link:concept_cloud_central_accounts.html["深入瞭解 Cloud Central 帳戶的運作方式"]。
+
+
+
+== 新增工作區
+
+在 Cloud Manager 中、工作區可讓您將一組工作環境與其他工作環境和其他使用者隔離。例如、您可以建立兩個工作區、並將個別使用者與工作區建立關聯。
+
+.步驟
+. 按一下*帳戶設定*。
++
+image:screenshot_account_settings_menu.gif["在 Cloud Manager 上方橫幅中顯示「帳戶設定」選項的快照。"]
+
+. 按一下 * 工作區 * 。
+. 按一下「 * 新增工作區 * 」。
+. 輸入工作區名稱、然後按一下 * 「 Add* （新增 * ）」。
+
+
+您現在可以將使用者和服務連接器與工作區建立關聯。
+
+
+
+== 新增使用者
+
+將 Cloud Central 使用者與 Cloud Central 帳戶建立關聯、讓這些使用者可以在 Cloud Manager 中建立及管理工作環境。
+
+.步驟
+. 如果使用者尚未這麼做、請要求使用者前往 https://cloud.netapp.com["NetApp Cloud Central"^] 並建立帳戶。
+. 在Cloud Manager中、按一下*帳戶設定*。
+. 在「使用者」索引標籤中、按一下「*建立使用者關聯*」。
+. 輸入使用者的電子郵件地址、然後為使用者選取角色：
++
+** * 客戶管理 * ：可在 Cloud Manager 中執行任何動作。
+** * 工作區管理 * ：可在指派的工作區中建立及管理資源。
+
+
+. 如果您選取「工作區管理」、請選取一個或多個工作區以與該使用者建立關聯。
++
+image:screenshot_associate_user.gif["螢幕擷取畫面、顯示如何透過選取角色和相關工作區來建立使用者關聯。"]
+
+. 按一下「 * 建立使用者關聯 * 」。
+
+
+使用者應收到 NetApp Cloud Central 寄送的電子郵件、標題為「 Account Association （客戶關聯）」。 電子郵件中包含存取 Cloud Manager 所需的資訊。
+
+
+
+== 將 Workspace Admins 與工作區建立關聯
+
+您可以隨時將 Workspace Admins 與其他工作區建立關聯。建立使用者關聯可讓他們在該工作區中建立及檢視工作環境。
+
+.步驟
+. 按一下*帳戶設定*。
+. 按一下對應使用者列中的動作功能表。
++
+image:screenshot_associate_user_workspace.gif["快照顯示將游標移到「使用者」表格中使用者名稱上時可用的動作功能表。"]
+
+. 按一下 * 管理工作區 * 。
+. 選取一或多個工作區、然後按一下「 * 套用 * 」。
+
+
+只要服務連接器也與工作區相關聯、使用者就能從Cloud Manager存取這些工作區。
+
+
+
+== 將服務連接器與工作區建立關聯
+
+服務連接器是Cloud Manager系統的一部分。它可在部署於雲端供應商的虛擬機器執行個體上執行、或是在您設定的內部部署主機上執行。您需要將此服務連接器與工作區建立關聯、以便Workspace Admins可從Cloud Manager存取這些工作區。
+
+如果您只有帳戶管理員、則不需要將服務連接器與工作區建立關聯。根據預設、 Account Admins 可存取 Cloud Manager 中的所有工作區。
+
+link:concept_cloud_central_accounts.html#users-workspaces-and-service-connectors["深入瞭解使用者、工作區和服務連接器"]。
+
+.步驟
+. 按一下*帳戶設定*。
+. 按一下「*服務連接器*」。
+. 按一下*管理工作區*以取得您要關聯的服務連接器。
+. 選取一或多個工作區、然後按一下「 * 套用 * 」。
+
+
+只要使用者也與工作區相關聯、Workspace Admins現在即可存取相關的工作區。

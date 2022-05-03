@@ -1,0 +1,365 @@
+---
+sidebar: sidebar 
+permalink: reference_security_groups_azure.html 
+keywords: security group, security groups, rules, ports, azure, inbound, outbound, rules 
+summary: Cloud Manager會建立Azure安全性群組、其中包含Cloud Manager和Cloud Volumes ONTAP NetApp成功運作所需的傳入和傳出規則。您可能需要參照連接埠進行測試、或是需要使用自己的連接埠。 
+translate: false 
+---
+= Azure的安全性群組規則
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager會建立Azure安全性群組、其中包含Cloud Manager和Cloud Volumes ONTAP NetApp成功運作所需的傳入和傳出規則。您可能需要參照連接埠進行測試、或是偏好使用自己的安全性群組。
+
+
+
+== Cloud Manager規則
+
+Cloud Manager的安全性群組需要傳入和傳出規則。
+
+
+
+=== Cloud Manager的傳入規則
+
+預先定義之安全性群組中的傳入規則來源為 0.00.0.0/0 。
+
+[cols="3*"]
+|===
+| 連接埠 | 傳輸協定 | 目的 
+
+
+| 22 | SSH | 提供對Cloud Manager主機的SSH存取權 
+
+
+| 80 | HTTP | 提供從用戶端網頁瀏覽器到Cloud Manager網頁主控台的HTTP存取 
+
+
+| 443.. | HTTPS | 提供從用戶端網頁瀏覽器到Cloud Manager網頁主控台的HTTPS存取 
+|===
+
+
+=== Cloud Manager的傳出規則
+
+Cloud Manager的預先定義安全性群組會開啟所有傳出流量。如果可以接受、請遵循基本的傳出規則。如果您需要更嚴格的規則、請使用進階的傳出規則。
+
+
+
+==== 基本傳出規則
+
+Cloud Manager預先定義的安全性群組包括下列傳出規則。
+
+[cols="3*"]
+|===
+| 連接埠 | 傳輸協定 | 目的 
+
+
+| 全部 | 所有 TCP | 所有傳出流量 
+
+
+| 全部 | 所有的 udp | 所有傳出流量 
+|===
+
+
+==== 進階傳出規則
+
+如果您需要嚴格的傳出流量規則、可以使用下列資訊、僅開啟Cloud Manager傳出通訊所需的連接埠。
+
+
+NOTE: 來源IP位址為Cloud Manager主機。
+
+[cols="5*"]
+|===
+| 服務 | 連接埠 | 傳輸協定 | 目的地 | 目的 
+
+
+.9+| Active Directory | 88 | TCP | Active Directory 樹系 | Kerberos V 驗證 
+
+
+| 139. | TCP | Active Directory 樹系 | NetBios 服務工作階段 
+
+
+| 389 | TCP | Active Directory 樹系 | LDAP 
+
+
+| 445 | TCP | Active Directory 樹系 | Microsoft SMB/CIFS over TCP 搭配 NetBios 架構 
+
+
+| 464.64 | TCP | Active Directory 樹系 | Kerberos V 變更及設定密碼（ Set_change ） 
+
+
+| 749 | TCP | Active Directory 樹系 | Active Directory Kerberos V 變更及設定密碼（ RPCSEC_GSS ） 
+
+
+| 137. | UDP | Active Directory 樹系 | NetBios 名稱服務 
+
+
+| 138 | UDP | Active Directory 樹系 | NetBios 資料報服務 
+
+
+| 464.64 | UDP | Active Directory 樹系 | Kerberos 金鑰管理 
+
+
+| API 呼叫與 AutoSupport 功能 | 443.. | HTTPS | 傳出網際網路和 ONTAP 叢集管理 LIF | API 呼叫 AWS 和 ONTAP es供 、並傳送 AutoSupport 不只是功能的訊息給 NetApp 
+
+
+| API 呼叫 | 3000 | TCP | 叢集管理 LIF ONTAP | API 呼叫 ONTAP 至 
+
+
+| DNS | 53. | UDP | DNS | 用於 Cloud Manager 的 DNS 解析 
+|===
+
+
+== 規則 Cloud Volumes ONTAP
+
+適用於此功能的安全性群組 Cloud Volumes ONTAP 需要傳入和傳出規則。
+
+
+
+=== 單一節點系統的傳入規則
+
+下列規則會允許流量、除非說明中註明會封鎖特定的傳入流量。
+
+[cols="4*"]
+|===
+| 優先順序和名稱 | 連接埠與傳輸協定 | 來源與目的地 | 說明 
+
+
+| 1000 inbound SSH | 22 TCP | 任意 | SSH 存取叢集管理 LIF 的 IP 位址或節點管理 LIF 
+
+
+| 1001 inbound http | 80 TCP | 任意 | 使用叢集管理 LIF 的 IP 位址、以 HTTP 存取 System Manager Web 主控台 
+
+
+| 1002inbound （入站） _111_TCP | 111 TCP | 任意 | 遠端程序需要 NFS 
+
+
+| 1003 inbound _111_udp | 111 udp | 任意 | 遠端程序需要 NFS 
+
+
+| 1004 inbound （傳入） _139 | 139 TCP | 任意 | CIFS 的 NetBios 服務工作階段 
+
+
+| 1005inbound （傳入） _161-162 _tcp | 161-162 TCP | 任意 | 簡單的網路管理傳輸協定 
+
+
+| 1006 inbound （傳入） _161-162 _udp | 161-162 udp | 任意 | 簡單的網路管理傳輸協定 
+
+
+| 1007 inbound _443 | 443 TCP | 任意 | 使用叢集管理 LIF 的 IP 位址、以 HTTPS 存取 System Manager 網路主控台 
+
+
+| 1008 inbound _445 | 445 TCP | 任意 | Microsoft SMB/CIFS over TCP 搭配 NetBios 架構 
+
+
+| 1009 inbound _6335_tcp | 635 TCP | 任意 | NFS 掛載 
+
+
+| 1010 inbound _6335_udp | 635 udp | 任意 | NFS 掛載 
+
+
+| 1011 inbound （傳入） _749 | 749 TCP | 任意 | Kerberos 
+
+
+| 1012 inbound _2049_tcp | 2049 TCP | 任意 | NFS 伺服器精靈 
+
+
+| 1013 inbound _2049_udp | 2049 udp | 任意 | NFS 伺服器精靈 
+
+
+| 1014 inbound （傳入） _3260 | 3260 TCP | 任意 | 透過 iSCSI 資料 LIF 存取 iSCSI 
+
+
+| 1015 inbound _4045-4046_tcp | 4045-4046 TCP | 任意 | NFS 鎖定精靈和網路狀態監控 
+
+
+| 1016 inbound _4045-4046_udp | 4045-4046 udp | 任意 | NFS 鎖定精靈和網路狀態監控 
+
+
+| 1017 inbound _10000 | 10000 TCP | 任意 | 使用 NDMP 備份 
+
+
+| 1018 inbound （傳入） _11104-11105 | 11104-11105 TCP | 任意 | SnapMirror 資料傳輸 
+
+
+| 3000 inbound 拒絕 _all_tcp | 任何連接埠 TCP | 任意 | 封鎖所有其他 TCP 傳入流量 
+
+
+| 3001 inbound 拒絕 _all_udp | 任何連接埠 udp | 任意 | 封鎖所有其他的 UDP 傳入流量 
+
+
+| 65000 AllowVnetInBound | 任何連接埠任何傳輸協定 | 虛擬網路至虛擬網路 | 來自 vnet 的傳入流量 
+
+
+| 65001 AllowAzureLoad BalancerInBound | 任何連接埠任何傳輸協定 | 將 AzureLoadBalancer 移至任何 | Azure Standard 負載平衡器的資料流量 
+
+
+| 65500 DenyAllInBound | 任何連接埠任何傳輸協定 | 任意 | 封鎖所有其他傳入流量 
+|===
+
+
+=== HA 系統的傳入規則
+
+下列規則會允許流量、除非說明中註明會封鎖特定的傳入流量。
+
+
+NOTE: HA 系統的傳入規則少於單一節點系統、因為傳入資料流量會流經 Azure Standard Load Balancer 。因此、來自負載平衡器的流量應開啟、如「 AllowAzureLoadBalancerInBound 」規則所示。
+
+[cols="4*"]
+|===
+| 優先順序和名稱 | 連接埠與傳輸協定 | 來源與目的地 | 說明 
+
+
+| 100 inbound （傳入） _443 | 443 任何傳輸協定 | 任意 | 使用叢集管理 LIF 的 IP 位址、以 HTTPS 存取 System Manager 網路主控台 
+
+
+| 101 inbound （傳入） _111_TCP | 111 任何傳輸協定 | 任意 | 遠端程序需要 NFS 
+
+
+| 102 inbound _2049_tcp | 2049 任何傳輸協定 | 任意 | NFS 伺服器精靈 
+
+
+| 111 inbound （傳入） _ssh | 22 任何傳輸協定 | 任意 | SSH 存取叢集管理 LIF 的 IP 位址或節點管理 LIF 
+
+
+| 121inbound （傳入） _53 | 53 任何傳輸協定 | 任意 | DNS 與 CIFS 
+
+
+| 65000 AllowVnetInBound | 任何連接埠任何傳輸協定 | 虛擬網路至虛擬網路 | 來自 vnet 的傳入流量 
+
+
+| 65001 AllowAzureLoad BalancerInBound | 任何連接埠任何傳輸協定 | 將 AzureLoadBalancer 移至任何 | Azure Standard 負載平衡器的資料流量 
+
+
+| 65500 DenyAllInBound | 任何連接埠任何傳輸協定 | 任意 | 封鎖所有其他傳入流量 
+|===
+
+
+=== 適用於的傳出規則Cloud Volumes ONTAP
+
+預先定義 Cloud Volumes ONTAP 的 Security Group for the 旅行團會開啟所有的傳出流量。如果可以接受、請遵循基本的傳出規則。如果您需要更嚴格的規則、請使用進階的傳出規則。
+
+
+
+==== 基本傳出規則
+
+適用於此功能的預先定義安全性群組 Cloud Volumes ONTAP 包括下列傳出規則。
+
+[cols="3*"]
+|===
+| 連接埠 | 傳輸協定 | 目的 
+
+
+| 全部 | 所有 TCP | 所有傳出流量 
+
+
+| 全部 | 所有的 udp | 所有傳出流量 
+|===
+
+
+==== 進階傳出規則
+
+如果您需要嚴格的傳出流量規則、可以使用下列資訊、僅開啟 Cloud Volumes ONTAP 那些由真人進行傳出通訊所需的連接埠。
+
+
+NOTE: 來源是 Cloud Volumes ONTAP 指在整個系統上的介面（ IP 位址）。
+
+[cols="10,10,10,20,20,40"]
+|===
+| 服務 | 連接埠 | 傳輸協定 | 來源 | 目的地 | 目的 
+
+
+.18+| Active Directory | 88 | TCP | 節點管理 LIF | Active Directory 樹系 | Kerberos V 驗證 
+
+
+| 137. | UDP | 節點管理 LIF | Active Directory 樹系 | NetBios 名稱服務 
+
+
+| 138 | UDP | 節點管理 LIF | Active Directory 樹系 | NetBios 資料報服務 
+
+
+| 139. | TCP | 節點管理 LIF | Active Directory 樹系 | NetBios 服務工作階段 
+
+
+| 389 | TCP | 節點管理 LIF | Active Directory 樹系 | LDAP 
+
+
+| 445 | TCP | 節點管理 LIF | Active Directory 樹系 | Microsoft SMB/CIFS over TCP 搭配 NetBios 架構 
+
+
+| 464.64 | TCP | 節點管理 LIF | Active Directory 樹系 | Kerberos V 變更及設定密碼（ Set_change ） 
+
+
+| 464.64 | UDP | 節點管理 LIF | Active Directory 樹系 | Kerberos 金鑰管理 
+
+
+| 749 | TCP | 節點管理 LIF | Active Directory 樹系 | Kerberos V 變更與設定密碼（ RPCSEC_GSS ） 
+
+
+| 88 | TCP | 資料 LIF （ NFS 、 CIFS ） | Active Directory 樹系 | Kerberos V 驗證 
+
+
+| 137. | UDP | 資料 LIF （ NFS 、 CIFS ） | Active Directory 樹系 | NetBios 名稱服務 
+
+
+| 138 | UDP | 資料 LIF （ NFS 、 CIFS ） | Active Directory 樹系 | NetBios 資料報服務 
+
+
+| 139. | TCP | 資料 LIF （ NFS 、 CIFS ） | Active Directory 樹系 | NetBios 服務工作階段 
+
+
+| 389 | TCP | 資料 LIF （ NFS 、 CIFS ） | Active Directory 樹系 | LDAP 
+
+
+| 445 | TCP | 資料 LIF （ NFS 、 CIFS ） | Active Directory 樹系 | Microsoft SMB/CIFS over TCP 搭配 NetBios 架構 
+
+
+| 464.64 | TCP | 資料 LIF （ NFS 、 CIFS ） | Active Directory 樹系 | Kerberos V 變更及設定密碼（ Set_change ） 
+
+
+| 464.64 | UDP | 資料 LIF （ NFS 、 CIFS ） | Active Directory 樹系 | Kerberos 金鑰管理 
+
+
+| 749 | TCP | 資料 LIF （ NFS 、 CIFS ） | Active Directory 樹系 | Kerberos V 變更及設定密碼（ RPCSEC_GSS ） 
+
+
+| DHCP | 68 | UDP | 節點管理 LIF | DHCP | 第一次設定的 DHCP 用戶端 
+
+
+| DHCPS | 67 | UDP | 節點管理 LIF | DHCP | DHCP 伺服器 
+
+
+| DNS | 53. | UDP | 節點管理 LIF 與資料 LIF （ NFS 、 CIFS ） | DNS | DNS 
+
+
+| NDMP | 18600 – 18699 | TCP | 節點管理 LIF | 目的地伺服器 | NDMP 複本 
+
+
+| SMTP | 25 | TCP | 節點管理 LIF | 郵件伺服器 | 可以使用 SMTP 警示 AutoSupport 來執行功能 
+
+
+.4+| SNMP | 161. | TCP | 節點管理 LIF | 監控伺服器 | 透過 SNMP 設陷進行監控 
+
+
+| 161. | UDP | 節點管理 LIF | 監控伺服器 | 透過 SNMP 設陷進行監控 
+
+
+| 162% | TCP | 節點管理 LIF | 監控伺服器 | 透過 SNMP 設陷進行監控 
+
+
+| 162% | UDP | 節點管理 LIF | 監控伺服器 | 透過 SNMP 設陷進行監控 
+
+
+.2+| SnapMirror | 11104. | TCP | 叢集間 LIF | 叢集間 LIF ONTAP | 管理 SnapMirror 的叢集間通訊工作階段 
+
+
+| 11105. | TCP | 叢集間 LIF | 叢集間 LIF ONTAP | SnapMirror 資料傳輸 
+
+
+| 系統記錄 | 514 | UDP | 節點管理 LIF | 系統記錄伺服器 | 系統記錄轉送訊息 
+|===

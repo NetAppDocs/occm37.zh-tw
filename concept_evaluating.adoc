@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: concept_evaluating.html 
+keywords: free trial, evaluation, evaluate 
+summary: 您可以在 Cloud Volumes ONTAP 購買軟體前先評估其功能。 
+---
+= 評估
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以在 Cloud Volumes ONTAP 購買軟體前先評估其功能。
+
+如需單節點Cloud Volumes ONTAP 的免費試用30天、請參閱 https://cloud.netapp.com["NetApp Cloud Central"^]。不收取每小時軟體費用、但基礎架構費用仍需支付。免費試用版會在到期時自動轉換為付費的每小時訂閱。
+
+如果您需要概念驗證方面的協助、請聯絡 https://cloud.netapp.com/contact-cds["銷售團隊"^] 或是透過聊天選項與您聯絡 https://cloud.netapp.com["NetApp Cloud Central"^] 以及 Cloud Manager 。

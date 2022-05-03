@@ -1,0 +1,123 @@
+---
+sidebar: sidebar 
+permalink: task_installing_linux.html 
+keywords: install, installation, installing, linux, installer, software, on prem, on-prem, silent 
+summary: 部署Cloud Manager最常見的方法是從Cloud Central或雲端供應商的市場部署。但您可以選擇在網路或雲端的現有Linux主機上下載並安裝Cloud Manager軟體。 
+---
+= 在現有的Linux主機上安裝Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+部署Cloud Manager最常見的方法是從Cloud Central或雲端供應商的市場部署。但您可以選擇在網路或雲端的現有Linux主機上下載並安裝Cloud Manager軟體。
+
+
+NOTE: 您可以在GCP的主機上安裝Cloud Manager、但不能安裝在內部部署網路中。Cloud Manager必須安裝在GCP中、才能在Cloud Volumes ONTAP GCP中部署。
+
+.開始之前
+* Red Hat Enterprise Linux 系統必須在 Red Hat 訂購管理中註冊。如果尚未註冊、系統將無法在Cloud Manager安裝期間存取儲存庫來更新所需的協力廠商軟體。
+* Cloud Manager安裝程式會在安裝程序期間存取多個URL。您必須確保允許這些端點存取傳出網際網路。請參閱 link:reference_networking_cloud_manager.html["Cloud Manager的網路需求"]。
+
+
+.關於這項工作
+* 安裝Cloud Manager不需要root權限。
+* Cloud Manager會安裝AWS命令列工具（awscli）、以啟用NetApp支援的還原程序。
++
+如果您收到安裝 awscli 失敗的訊息、您可以放心忽略該訊息。Cloud Manager無需使用工具即可順利運作。
+
+* NetApp 支援網站上提供的安裝程式可能是較早的版本。安裝完成後、Cloud Manager會在有新版本可用時自動更新。
+
+
+.步驟
+. 檢閱網路需求：
++
+** link:reference_networking_cloud_manager.html["Cloud Manager的網路需求"]
+** link:reference_networking_aws.html["AWS 的網路需求 Cloud Volumes ONTAP"]
+** link:reference_networking_azure.html["Azure 的網路需求 Cloud Volumes ONTAP"]
+** link:reference_networking_gcp.html["GCP 中的功能需求 Cloud Volumes ONTAP"]
+
+
+. 檢閱 link:reference_cloud_mgr_reqs.html["Cloud Manager主機需求"]。
+. 從下載軟體 http://mysupport.netapp.com/NOW/cgi-bin/software["NetApp 支援網站"^]，然後將其複製到 Linux 主機。
++
+如需將檔案連線及複製到 AWS 中 EC2 執行個體的說明、請參閱 http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html["AWS 文件：使用 SSH 連線至 Linux 執行個體"^]。
+
+. 指派執行指令碼的權限。
++
+* 範例 *
+
++
+ chmod +x OnCommandCloudManager-V3.7.0.sh
+. 執行安裝指令碼：
++
+ ./OnCommandCloudManager-V3.7.0.sh [silent] [proxy=ipaddress] [proxyport=port] [proxyuser=user_name] [proxypwd=password]
++
+_silon_ 在不提示您提供資訊的情況下執行安裝。
+
++
+如果Cloud Manager主機位於Proxy伺服器後方、則需要_proxy_。
+
++
+_proxyport_ 是 Proxy 伺服器的連接埠。
+
++
+_proxyuser_ 是 Proxy 伺服器的使用者名稱（如果需要基本驗證）。
+
++
+_proxyypwd_ 是您指定之使用者名稱的密碼。
+
+. 除非您指定無聲參數、否則請輸入 * Y* 繼續指令碼、然後在出現提示時輸入 HTTP 和 HTTPS 連接埠。
++
+如果您變更HTTP和HTTPS連接埠、則必須確保使用者能從遠端主機存取Cloud Manager Web主控台：
+
++
+** 修改安全性群組、允許透過連接埠進行傳入連線。
+** 輸入Cloud Manager網路主控台的URL時、請指定連接埠。
++
+Cloud Manager 現已安裝。安裝結束時、如果您指定 Proxy 伺服器、 Cloud Manager 服務（ occm ）會重新啟動兩次。
+
+
+
+. 開啟網頁瀏覽器並輸入下列 URL ：
++
+https://_ipaddress_:__port__[]
+
++
+_ipaddress_可以是localhost、私有IP位址或公有IP位址、視Cloud Manager主機的組態而定。例如、如果Cloud Manager位於沒有公有IP位址的公有雲中、您必須輸入與Cloud Manager主機連線的主機私有IP位址。
+
++
+如果您變更預設的 HTTP （ 80 ）或 HTTPS （ 443 ）連接埠、則必須使用 _port_ 。例如、如果 HTTPS 連接埠變更為 8443 、您可以輸入 https://_ipaddress_:8443[]
+
+. 請在 NetApp Cloud Central 註冊或登入。
+. 登入之後、請設定 Cloud Manager ：
++
+.. 指定要與此Cloud Manager系統建立關聯的Cloud Central帳戶。
++
+link:concept_cloud_central_accounts.html["深入瞭解 Cloud Central 帳戶"]。
+
+.. 輸入系統名稱。
++
+image:screenshot_set_up_cloud_manager.gif["螢幕快照顯示「Set Up Cloud Manager」（設定Cloud Manager）畫面、可讓您選取Cloud Central帳戶並命名Cloud Manager系統。"]
+
+
+
+
+
+設定權限、讓Cloud Manager能夠在Cloud Volumes ONTAP 雲端供應商中部署支援功能：
+
+* AWS ： link:task_adding_aws_accounts.html["設定 AWS 帳戶、然後將其新增至 Cloud Manager"]。
+* Azure ： link:task_adding_azure_accounts.html["設定 Azure 帳戶、然後將其新增至 Cloud Manager"]。
+* GCP ：設定具有 Cloud Manager 所需權限的服務帳戶、以便在 Cloud Volumes ONTAP 專案中建立及管理各種系統。
++
+.. https://cloud.google.com/iam/docs/creating-custom-roles#iam-custom-roles-create-gcloud["在 GCP 中建立角色"^] 這包括在中定義的權限 https://occm-sample-policies.s3.amazonaws.com/Policy_for_Cloud_Manager_3.8.0_GCP.yaml["GCP 的 Cloud Manager 原則"^]。
+.. https://cloud.google.com/iam/docs/creating-managing-service-accounts#creating_a_service_account["建立 GCP 服務帳戶、並套用您剛建立的自訂角色"^]。
+.. https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances#changeserviceaccountandscopes["將此服務帳戶與Cloud Manager VM建立關聯"^]。
+.. 如果您想要在 Cloud Volumes ONTAP 其他專案中部署 https://cloud.google.com/iam/docs/granting-changing-revoking-access#granting-console["將具有 Cloud Manager 角色的服務帳戶新增至該專案、以授予存取權"^]。您必須針對每個專案重複此步驟。
+
+
+

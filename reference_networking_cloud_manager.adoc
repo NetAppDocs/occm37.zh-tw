@@ -1,0 +1,275 @@
+---
+sidebar: sidebar 
+permalink: reference_networking_cloud_manager.html 
+keywords: networking, network, requirements, connection, connections, vpc, security group, security groups, subnets, proxy server, vpn, outbound, inbound, connections, jump host, URL, URLs, endpoints, endpoint, ports 
+summary: 設定您的網路、讓Cloud Manager能夠在Cloud Volumes ONTAP AWS或Microsoft Azure中部署支援功能完善的系統。最重要的步驟是確保從網際網路存取各種端點。 
+---
+= Cloud Manager的網路需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+設定您的網路、讓Cloud Manager能夠在Cloud Volumes ONTAP AWS、Microsoft Azure或Google Cloud Platform中部署不支援的系統。最重要的步驟是確保從網際網路存取各種端點。
+
+
+TIP: 如果您的網路使用Proxy伺服器來進行所有與網際網路的通訊、Cloud Manager會在設定期間提示您指定Proxy。您也可以從「設定」頁面指定Proxy伺服器。請參閱 link:task_configuring_proxy.html["設定Cloud Manager使用Proxy伺服器"]。
+
+
+
+== 連線至目標網路
+
+Cloud Manager需要網路連線至您要部署Cloud Volumes ONTAP 的VPC和VNets。
+
+例如、如果您在公司網路中安裝Cloud Manager、則必須設定VPN連線至VPC或vnet、以便在其中啟動Cloud Volumes ONTAP 更新。
+
+
+
+== 傳出網際網路存取
+
+Cloud Manager需要存取外部網際網路、才能部署Cloud Volumes ONTAP 及管理功能。從網頁瀏覽器存取Cloud Manager時、以及在Linux主機上執行Cloud Manager安裝程式時、也需要外傳網際網路存取。
+
+下列各節將說明特定的端點。
+
+
+
+=== 端點以管理Cloud Volumes ONTAP AWS中的功能
+
+Cloud Manager在Cloud Volumes ONTAP AWS中部署及管理功能時、需要透過外傳網際網路連絡下列端點：
+
+[cols="43,57"]
+|===
+| 端點 | 目的 
+
+
+ a| 
+AWS 服務（ amazonaws.com):
+
+* CloudForation
+* 彈性運算雲端（ EC2 ）
+* 金鑰管理服務（ KMS ）
+* 安全性權杖服務（ STOS ）
+* 簡易儲存服務（ S3 ）
+
+
+確切的端點取決於您部署 Cloud Volumes ONTAP 的區域。 https://docs.aws.amazon.com/general/latest/gr/rande.html["如需詳細資料、請參閱 AWS 文件。"^]
+| 讓Cloud Manager能夠在Cloud Volumes ONTAP AWS中部署及管理功能。 
+
+
+| \https://api.services.cloud.netapp.com:443 | API 要求 NetApp Cloud Central 。 
+
+
+| \https://cloud.support.netapp.com.s3.us-west-1.amazonaws.com | 提供軟體映像、資訊清單和範本的存取權限。 
+
+
+| \https://cognito-idp.us-east-1.amazonaws.com \https://cognito-identity.us-east-1.amazonaws.com | 讓Cloud Manager能夠存取及下載資訊清單、範本及Cloud Volumes ONTAP 升級影像。 
+
+
+| \https://kinesis.us-east-1.amazonaws.com | 讓 NetApp 能夠從稽核記錄串流資料。 
+
+
+| \https://cloudmanager.cloud.netapp.com | 與 Cloud Manager 服務（包括 Cloud Central 帳戶）進行通訊。 
+
+
+| \https://netapp-cloud-account.auth0.com | 與 NetApp Cloud Central 通訊、以進行集中式使用者驗證。 
+
+
+| \https://w86yt021u5.execute-api.us-east-1.amazonaws.com/production/whitelist | 用於將AWS帳戶ID新增至允許備份至S3的使用者清單。 
+
+
+| \https://support.netapp.com/aods/asupmessage \https://support.netapp.com/asupprod/post/1.0/postAsup | 與 NetApp AutoSupport 通訊 
+
+
+| \https://support.netapp.com/svcgw \https://support.netapp.com/ServiceGW/entitlement | 與 NetApp 溝通以取得系統授權與支援登錄。 
+
+
+| \https://ipa-signer.cloudmanager.netapp.com | 讓 Cloud Manager 能夠產生授權（例如 FlexCache 、針對 Cloud Volumes ONTAP 功能不全的 
+
+
+| \https://packages.cloud.google.com/yum \https://github.com/NetApp/trident/releases/download/ | 需要將Cloud Volumes ONTAP 支援的系統與Kubernetes叢集連線。端點可安裝NetApp Trident。 
+
+
+ a| 
+各種協力廠商位置、例如：
+
+* \https://repo1.maven.org/maven2
+* \https://oss.sonatype.org/content/repositories
+* \https://repo.typesafe.org
+
+
+第三方據點可能會有所變更。
+| 在升級期間、 Cloud Manager 會針對協力廠商相依性下載最新的套件。 
+|===
+
+
+=== 在Cloud Volumes ONTAP Azure中管理功能的端點
+
+在Cloud Volumes ONTAP Microsoft Azure中部署及管理功能時、Cloud Manager需要透過外傳網際網路連絡下列端點：
+
+[cols="43,57"]
+|===
+| 端點 | 目的 
+
+
+| \https://management.azure.com \https://login.microsoftonline.com | 讓 Cloud Manager 能夠在 Cloud Volumes ONTAP 大多數 Azure 地區部署及管理功能。 
+
+
+| \https://management.microsoftazure.de \https://login.microsoftonline.de | 讓 Cloud Manager 能夠在 Cloud Volumes ONTAP Azure Germany 地區部署及管理功能。 
+
+
+| \https://management.usgovcloudapi.net \https://login.microsoftonline.com | 讓 Cloud Manager 能夠在 Cloud Volumes ONTAP Azure US Gov 地區部署及管理功能。 
+
+
+| \https://api.services.cloud.netapp.com:443 | API 要求 NetApp Cloud Central 。 
+
+
+| \https://cloud.support.netapp.com.s3.us-west-1.amazonaws.com | 提供軟體映像、資訊清單和範本的存取權限。 
+
+
+| \https://cognito-idp.us-east-1.amazonaws.com \https://cognito-identity.us-east-1.amazonaws.com \https://sts.amazonaws.com | 讓Cloud Manager能夠存取及下載資訊清單、範本及Cloud Volumes ONTAP 升級影像。 
+
+
+| \https://kinesis.us-east-1.amazonaws.com | 讓 NetApp 能夠從稽核記錄串流資料。 
+
+
+| \https://cloudmanager.cloud.netapp.com | 與 Cloud Manager 服務（包括 Cloud Central 帳戶）進行通訊。 
+
+
+| \https://netapp-cloud-account.auth0.com | 與 NetApp Cloud Central 通訊、以進行集中式使用者驗證。 
+
+
+| \https://mysupport.netapp.com | 與 NetApp AutoSupport 通訊 
+
+
+| \https://support.netapp.com/svcgw \https://support.netapp.com/ServiceGW/entitlement | 與 NetApp 溝通以取得系統授權與支援登錄。 
+
+
+| \https://ipa-signer.cloudmanager.netapp.com | 讓 Cloud Manager 能夠產生授權（例如 FlexCache 、針對 Cloud Volumes ONTAP 功能不全的 
+
+
+| \https://packages.cloud.google.com/yum \https://github.com/NetApp/trident/releases/download/ | 需要將Cloud Volumes ONTAP 支援的系統與Kubernetes叢集連線。端點可安裝NetApp Trident。 
+
+
+ a| 
+各種協力廠商位置、例如：
+
+* \https://repo1.maven.org/maven2
+* \https://oss.sonatype.org/content/repositories
+* \https://repo.typesafe.org
+
+
+第三方據點可能會有所變更。
+| 在升級期間、 Cloud Manager 會針對協力廠商相依性下載最新的套件。 
+|===
+
+
+=== 端點以管理Cloud Volumes ONTAP GCP中的功能
+
+Cloud Manager在Cloud Volumes ONTAP GCP中部署及管理功能時、需要透過外傳網際網路連絡下列端點：
+
+[cols="43,57"]
+|===
+| 端點 | 目的 
+
+
+| \https://www.googleapis.com | 讓Cloud Manager能夠聯絡Google API、以便在Cloud Volumes ONTAP GCP中部署及管理功能。 
+
+
+| \https://api.services.cloud.netapp.com:443 | API 要求 NetApp Cloud Central 。 
+
+
+| \https://cloud.support.netapp.com.s3.us-west-1.amazonaws.com | 提供軟體映像、資訊清單和範本的存取權限。 
+
+
+| \https://cognito-idp.us-east-1.amazonaws.com \https://cognito-identity.us-east-1.amazonaws.com \https://sts.amazonaws.com | 讓Cloud Manager能夠存取及下載資訊清單、範本及Cloud Volumes ONTAP 升級影像。 
+
+
+| \https://kinesis.us-east-1.amazonaws.com | 讓 NetApp 能夠從稽核記錄串流資料。 
+
+
+| \https://cloudmanager.cloud.netapp.com | 與 Cloud Manager 服務（包括 Cloud Central 帳戶）進行通訊。 
+
+
+| \https://netapp-cloud-account.auth0.com | 與 NetApp Cloud Central 通訊、以進行集中式使用者驗證。 
+
+
+| \https://mysupport.netapp.com | 與 NetApp AutoSupport 通訊 
+
+
+| \https://support.netapp.com/svcgw \https://support.netapp.com/ServiceGW/entitlement | 與 NetApp 溝通以取得系統授權與支援登錄。 
+
+
+| \https://ipa-signer.cloudmanager.netapp.com | 讓 Cloud Manager 能夠產生授權（例如 FlexCache 、針對 Cloud Volumes ONTAP 功能不全的 
+
+
+| \https://packages.cloud.google.com/yum \https://github.com/NetApp/trident/releases/download/ | 需要將Cloud Volumes ONTAP 支援的系統與Kubernetes叢集連線。端點可安裝NetApp Trident。 
+
+
+ a| 
+各種協力廠商位置、例如：
+
+* \https://repo1.maven.org/maven2
+* \https://oss.sonatype.org/content/repositories
+* \https://repo.typesafe.org
+
+
+第三方據點可能會有所變更。
+| 在升級期間、 Cloud Manager 會針對協力廠商相依性下載最新的套件。 
+|===
+
+
+=== 從網頁瀏覽器存取端點
+
+使用者必須從網頁瀏覽器存取 Cloud Manager 。執行 Web 瀏覽器的機器必須連線至下列端點：
+
+[cols="43,57"]
+|===
+| 端點 | 目的 
+
+
+| Cloud Manager主機  a| 
+您必須從網頁瀏覽器輸入主機的 IP 位址、才能載入 Cloud Manager 主控台。
+
+視您與雲端供應商的連線能力而定、您可以使用指派給主機的私有 IP 或公有 IP ：
+
+* 如果您有 VPN 並直接連線至虛擬網路、則私有 IP 可正常運作
+* 公有 IP 適用於任何網路情境
+
+
+無論如何、您應該確保安全群組規則僅允許從授權的 IP 或子網路存取、以確保網路存取安全。
+
+
+
+| \https://auth0.com \https://cdn.auth0.com \https://netapp-cloud-account.auth0.com \https://services.cloud.netapp.com | 您的網頁瀏覽器會連線至這些端點、以便透過 NetApp Cloud Central 進行集中式使用者驗證。 
+
+
+| \https://widget.intercom.io | 產品內對談可讓您與 NetApp 雲端專家交談。 
+|===
+
+
+=== 端點以在Linux主機上安裝Cloud Manager
+
+Cloud Manager安裝程式必須在安裝過程中存取下列URL：
+
+* \http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+* \https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+* \https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
+
+
+
+
+== 連接埠和安全性群組
+
+* 如果您從Cloud Central或市場映像部署Cloud Manager、請參閱下列內容：
++
+** link:reference_security_groups.html#rules-for-cloud-manager["AWS中Cloud Manager的安全群組規則"]
+** link:reference_security_groups_azure.html#rules-for-cloud-manager["Azure中Cloud Manager的安全群組規則"]
+** link:reference_firewall_rules_gcp.html#rules-for-cloud-manager["GCP中Cloud Manager的防火牆規則"]
+
+
+* 如果您在現有的Linux主機上安裝Cloud Manager、請參閱 link:reference_cloud_mgr_reqs.html["Cloud Manager主機需求"]。
+

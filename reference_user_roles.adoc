@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: reference_user_roles.html 
+keywords: user, users, roles, role, task, permission, permissions, tasks, admin, Account Admin, Workspace Admin 
+summary: 「帳戶管理」和「工作區管理」角色可為使用者提供特定權限。 
+translate: false 
+---
+= 角色
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+「帳戶管理」和「工作區管理」角色可為使用者提供特定權限。
+
+[cols="34,33,33"]
+|===
+| 工作 | 帳戶管理員 | 工作區管理 
+
+
+| 管理工作環境 | 是的 | 是、適用於相關的工作區 
+
+
+| 檢視資料複寫狀態 | 是的 | 是、適用於相關的工作區 
+
+
+| 檢視時間表 | 是的 | 是、適用於相關的工作區 
+
+
+| 刪除工作環境 | 是的 | 否 
+
+
+| 將Kubernetes叢集連線Cloud Volumes ONTAP 至 | 是的 | 否 
+
+
+| 接收 Cloud Volumes ONTAP 此報告 | 是的 | 否 
+
+
+| 管理 Cloud Central 帳戶 | 是的 | 否 
+
+
+| 管理雲端供應商帳戶 | 是的 | 否 
+
+
+| 修改 Cloud Manager 設定 | 是的 | 否 
+
+
+| 檢視及管理支援儀表板 | 是的 | 否 
+
+
+| 從 Cloud Manager 移除工作環境 | 是的 | 否 
+
+
+| 更新Cloud Manager | 是的 | 否 
+
+
+| 安裝 HTTPS 憑證 | 是的 | 否 
+
+
+| 設定Active Directory | 是的 | 否 
+|===
+.相關連結
+* link:task_setting_up_cloud_central_accounts.html["在 Cloud Central 帳戶中設定工作區和使用者"]
+* link:task_managing_cloud_central_accounts.html["管理 Cloud Central 帳戶中的工作區和使用者"]
+

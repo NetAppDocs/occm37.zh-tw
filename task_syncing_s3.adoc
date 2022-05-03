@@ -1,0 +1,80 @@
+---
+sidebar: sidebar 
+permalink: task_syncing_s3.html 
+keywords: sync, data, s3, cloud sync, bucket, service, sync to s3, volume sync 
+summary: 您可以ONTAP 將工作環境與NetApp Cloud Sync 支援整合、將資料從功能區同步到Amazon S3儲存區。然後您可以將同步資料當作次要複本、或是使用AWS服務（例如EMR和Redshift）來處理資料。 
+---
+= 將資料同步至Amazon S3
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以ONTAP 將工作環境與整合、將資料從功能區同步到Amazon S3儲存區 https://www.netapp.com/us/cloud/data-sync-saas-product-details["NetApp Cloud Sync"^]。然後您可以將同步資料當作次要複本、或是使用AWS服務（例如EMR和Redshift）來處理資料。
+
+
+
+== 同步至S3功能的運作方式
+
+您可以Cloud Sync 隨時將工作環境與整套服務整合。當您整合工作環境時Cloud Sync 、此服務會將所選磁碟區的資料同步至單一S3儲存區。整合功能可搭配Cloud Volumes ONTAP 內部ONTAP 部署或NetApp私有儲存設備（NPS）組態一部分的不協調工作環境、以及不協調的叢集。
+
+若要同步資料、服務會在VPC中啟動資料代理執行個體。每個工作環境使用一個資料代理程式、將資料從磁碟區同步到S3儲存區。Cloud Sync在初始同步之後、服務會在每天午夜同步所有變更的資料一次。
+
+image:screenshot_sync_to_s3.gif["螢幕擷取畫面：顯示資料代理程式將工作環境中的磁碟區與S3儲存區同步的概念性映像。"]
+
+如果您想要執行進階Cloud Sync 的動作、請直接前往Cloud Sync 該服務。您可以從這裡執行下列動作：從S3同步到NFS伺服器、為磁碟區選擇不同的S3儲存區、以及修改排程。
+
+
+
+=== 14天免費試用
+
+如果您是Cloud Sync 全新的使用者、您的前14天免費。在免費試用結束後、您必須以每小時費率或購買授權來支付每筆_同步關係_的費用。您同步至S3儲存區的每個磁碟區均視為同步關係。您可以直接從Cloud Sync 「授權設定」頁面中的「功能」頁面設定這兩種付款選項。
+
+
+
+=== 如何取得協助
+
+下列選項適用於Cloud Manager同步至S3功能或Cloud Sync 一般支援的相關支援：
+
+* 一般產品意見反應：ng-cloudsync-contact@netapp.com
+* 技術支援選項：
++
+** NetApp Cloud Sync 產品社群
+** 產品內對談（Cloud Manager右下角）
+
+
+
+
+
+
+== 將工作環境與Cloud Sync 整合到整個服務之中
+
+如果您想要直接從Cloud Manager將磁碟區同步至Amazon S3、則必須將工作環境與Cloud Sync 該服務整合。
+
+video::3hOtLs70_xE[youtube, width=848,height=480]
+.步驟
+. 開啟工作環境、然後按一下*「同步至S3」。
+. 按一下「*同步*」、然後依照提示將資料同步至S3。
+
+
+
+NOTE: 您無法將資料保護磁碟區同步至S3。磁碟區必須可寫入。
+
+
+
+== 管理Volume同步關係
+
+在您將工作環境與Cloud Sync Sync-Service整合之後、您可以同步其他Volume、停止同步Volume、以及移除Cloud Sync 與Sync-Integration的整合。
+
+.步驟
+. 在「工作環境」頁面上、按兩下您要管理同步關係的工作環境。
+. 如果您要啟用或停用磁碟區的「同步至S3」功能、請選取該磁碟區、然後按一下「*同步至S3 *」或「*刪除同步關係*」。
+. 如果您想要刪除工作環境的所有同步關係、請按一下「*與S3同步*」索引標籤、然後按一下「*刪除同步*」。
++
+此動作不會刪除S3儲存區中的同步資料。如果資料代理程式未用於任何其他同步關係、Cloud Sync 則該服務會刪除資料代理程式。
+
+

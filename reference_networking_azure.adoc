@@ -1,0 +1,64 @@
+---
+sidebar: sidebar 
+permalink: reference_networking_azure.html 
+keywords: networking, network, requirements, connection, connections, vnet, security group, security groups, subnet, vpn, internet, proxy, HTTP, private, proxy server, routing, firewall, autosupport, connection, jump host, outbound, ports, blob, service endpoint 
+summary: 設定您的 Azure 網路、 Cloud Volumes ONTAP 使其能夠正常運作。 
+---
+= Azure 的網路需求 Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+設定您的 Azure 網路、 Cloud Volumes ONTAP 使其能夠正常運作。
+
+輸出網際網路存取 Cloud Volumes ONTAP 功能:: 支援向 NetApp 支援部門傳送訊息、以便主動監控儲存設備的健全狀況。 Cloud Volumes ONTAP AutoSupport
++
+--
+路由和防火牆原則必須允許將 HTTP / HTTPS 流量傳送至下列端點、 Cloud Volumes ONTAP 才能讓下列端點傳送 AutoSupport 動態訊息：
+
+* \https://support.netapp.com/aods/asupmessage
+* \https://support.netapp.com/asupprod/post/1.0/postAsup
+
+
+--
+安全性群組:: 您不需要建立安全性群組、因為 Cloud Manager 會為您建立安全性群組。如果您需要使用自己的、請參閱 link:reference_security_groups_azure.html["安全性群組規則"]。
+IP 位址數:: Cloud Manager 會將下列 IP 位址分配給 Cloud Volumes ONTAP Azure 中的功能：
++
+--
+* 單一節點： 5 個 IP 位址
+* HA 配對： 16 個 IP 位址
++
+請注意、 Cloud Manager 會在 HA 配對上建立 SVM 管理 LIF 、但不會在 Azure 中的單一節點系統上建立。
+
++
+
+TIP: LIF 是與實體連接埠相關聯的 IP 位址。諸如 VMware 的管理工具需要 SVM 管理 LIF SnapCenter 。
+
+
+
+--
+從邊到 Azure Blob 儲存設備的連線 Cloud Volumes ONTAP 、可用於資料分層:: 如果您想要將冷資料分層至 Azure Blob 儲存設備、只要 Cloud Manager 具備必要的權限、就不需要在效能層與容量層之間建立連線。如果 Cloud Manager 原則具有下列權限、 Cloud Manager 可為您啟用 vnet 服務端點：
++
+--
+[source, json]
+----
+"Microsoft.Network/virtualNetworks/subnets/write",
+"Microsoft.Network/routeTables/join/action",
+----
+這些權限包含在最新版本中 https://mysupport.netapp.com/cloudontap/iampolicies["Cloud Manager 原則"]。
+
+如需設定資料分層的詳細資訊、請參閱 link:task_tiering.html["將冷資料分層至低成本物件儲存設備"]。
+
+--
+連線 ONTAP 至其他網路中的不二系統:: 若要在 Cloud Volumes ONTAP Azure 中的某個更新系統與 ONTAP 其他網路中的其他更新系統之間複寫資料、您必須在 Azure vnet 與其他網路（例如 AWS VPC 或公司網路）之間建立 VPN 連線。
++
+--
+如需相關指示、請參閱 https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-site-to-site-resource-manager-portal["Microsoft Azure 文件：在 Azure 入口網站中建立站台對站台連線"^]。
+
+--
+

@@ -1,0 +1,153 @@
+---
+sidebar: sidebar 
+permalink: task_manage_cvs_aws.html 
+keywords: cloud volumes service for aws, cloud volumes, create cloud volumes, discover cloud volumes service for aws, delete cloud volumes, cloud volumes service subscription, discover cloud volumes service subscription, access key, secret key, discover region, service level, allowed clients 
+summary: Cloud Manager可讓您在Cloud Volumes Service 訂閱AWS時、在您的支援中探索NFS雲端磁碟區。探索之後、您可以直接從Cloud Manager新增其他NFS雲端磁碟區。 
+---
+= 管理 Cloud Volumes Service AWS 的功能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager可讓您探索中的NFS雲端磁碟區 https://cloud.netapp.com/cloud-volumes-service-for-aws["AWS 適用的 Cloud Volumes Service"^] 訂購：探索之後、您可以直接從Cloud Manager新增其他NFS雲端磁碟區。
+
+
+NOTE: Cloud Manager不支援使用Cloud Volumes Service 適用於AWS的解決方案的SMB或雙傳輸協定磁碟區。
+
+
+
+== 開始之前
+
+* Cloud Manager可探索_existing _ Cloud Volumes Service 的AWS訂閱功能。請參閱 https://docs.netapp.com/us-en/cloud_volumes/aws/media/cvs_aws_account_setup.pdf["NetApp Cloud Volumes Service 《 AWS 帳戶設定指南》"^] 如果您尚未設定訂閱、
++
+在Cloud Volumes Service Cloud Manager中探索區域之前、您必須遵循每個區域的此設定程序、並從下列項目配置第一個Volume。
+
+* 您需要取得 Cloud Volumes API 金鑰和秘密金鑰、才能將其提供給 Cloud Manager 。 https://docs.netapp.com/us-en/cloud_volumes/aws/reference_cloud_volume_apis.html#finding-the-api-url-api-key-and-secret-key["如需相關指示、請參閱 Cloud Volumes Service 《關於 AWS 文件》"^]。
+
+
+
+
+== 探索Cloud Volumes Service AWS訂閱的功能
+
+若要開始使用、您需要探索AWS區域的雲端磁碟區。您可以稍後再探索其他地區。
+
+.步驟
+. 在「工作環境」頁面上、按一下*「激發需求」*。
+. 選取* Cloud Volumes Service 《*適用於AWS *》。
++
+image:screenshot_discover.gif["快照顯示Cloud Manager中的「Discover（探索）」頁面、可讓您探索ONTAP 以Cloud Volumes ONTAP 供AWS訂閱的功能在支援時使用的叢集、作業系統或Cloud Volumes Service 雲端磁碟區。"]
+
+. 提供 Cloud Volumes Service 有關您的不訂閱資訊：
++
+.. 選取雲端磁碟區所在的AWS區域。
+.. 輸入Cloud Volumes API金鑰和秘密金鑰。 https://docs.netapp.com/us-en/cloud_volumes/aws/reference_cloud_volume_apis.html#finding-the-api-url-api-key-and-secret-key["如需相關指示、請參閱 Cloud Volumes Service 《關於 AWS 文件》"^]。
+.. 按一下「 * 執行 * 」。
++
+image:screenshot_cvs_aws_details.gif["「更新詳細資料」頁面的快照Cloud Volumes Service 、可讓您探索組態。其中包含三個欄位：AWS區域、存取金鑰和秘密金鑰。"]
+
+
+
+
+
+Cloud Manager現在應會在Cloud Volumes Service 「工作環境」頁面上顯示您的for AWS組態。
+
+image:screenshot_cvs_aws_cloud.gif["工作環境頁面上的《 AWS 版》擷取畫面 Cloud Volumes Service 。"]
+
+
+
+== 探索其他地區
+
+如果您在其他地區有雲端磁碟區、則需要探索各個地區。
+
+.步驟
+. 在「工作環境」頁面上、選取工作環境（但不要按兩下以開啟）。
+. 在右窗格中、按一下*「探索Cloud Volumes Service 其他地區的樣片」*。
++
+image:screenshot_cvs_discover_region.gif["顯示「探索Cloud Volumes Service 其他地區的功能」選項的快照。當您選取工作環境時、此窗格會開啟。"]
+
+. 提供 Cloud Volumes Service 有關您的不訂閱資訊：
++
+.. 選取雲端磁碟區所在的AWS區域。
+.. 輸入Cloud Volumes API金鑰和秘密金鑰。 https://docs.netapp.com/us-en/cloud_volumes/aws/reference_cloud_volume_apis.html#finding-the-api-url-api-key-and-secret-key["如需相關指示、請參閱 Cloud Volumes Service 《關於 AWS 文件》"^]。
+.. 按一下「 * 執行 * 」。
+
+
+
+
+Cloud Manager會探索所選區域的雲端磁碟區相關資訊。
+
+
+
+== 建立雲端磁碟區
+
+Cloud Manager可讓您建立NFSv3雲端磁碟區。您只能使用初始大小和單一匯出原則來建立雲端磁碟區。必須從Cloud Volume Service使用者介面編輯Volume。
+
+. 開啟工作環境。
+. 按一下「 * 新增 Volume * 」。
+. 輸入有關Volume的詳細資料：
++
+.. 輸入磁碟區名稱。
+.. 指定介於 100 GiB 到 9 、 000 GiB （相當於 88 Tibs ）之間的大小。
++
+
+NOTE: Cloud Manager以GiB顯示磁碟區、Cloud Volumes Service 而功能表則以GB顯示磁碟區。
+
+.. 指定服務層級： Standard 、 Premium 或 Extreme 。
++
+https://docs.netapp.com/us-en/cloud_volumes/aws/reference_selecting_service_level_and_quota.html#service-levels["深入瞭解這些服務層級"^]。
+
+.. 選擇地區。您可以在Cloud Manager探索到的區域中建立磁碟區。
+.. 指定IP位址或無類別網域間路由（CIDR）來限制用戶端存取。
++
+image:screenshot_cvs_aws_add_volume.gif["適用於Cloud Volumes Service AWS的「新增Volume」畫面快照。"]
+
+
+
+. 按一下「 * 執行 * 」。
+
+
+
+
+== 刪除雲端磁碟區
+
+刪除不再需要的雲端磁碟區。
+
+.步驟
+. 開啟工作環境。
+. 將游標暫留在Volume上、然後按一下功能表。按一下*刪除*。
++
+image:screenshot_cvs_aws_menu.gif["顯示Volume的快照、右上角的功能表、以及兩個選項：資訊和刪除。"]
+
+. 確認您要刪除該磁碟區。
+
+
+
+
+== 取得協助
+
+使用 Cloud Manager 聊天室來回答一般服務問題。
+
+如需雲端磁碟區的相關技術支援問題、請使用 Cloud Volumes Service 位在支援選項卡上的 20 位數「 930 」序號（英文）。開啟網路票證或致電尋求支援時、請使用此支援 ID 。請務必啟動 Cloud Volumes Service 您的不支援序號 Cloud Volumes Service 、以便從支援中心使用者介面獲得支援。 https://docs.netapp.com/us-en/cloud_volumes/aws/task_activating_support_entitlement.html["以下將說明這些步驟"^]。
+
+
+
+== 限制
+
+* Cloud Manager不支援SMB或雙傳輸協定磁碟區。
+* 您只能使用初始大小和單一匯出原則來建立雲端磁碟區。必須從Cloud Volume Service使用者介面編輯Volume。
+* Cloud Manager不支援將資料複寫至Cloud Volumes Service 或從支援AWS訂閱的功能中複寫。
+* 不支援從 Cloud Volumes Service Cloud Manager 移除您的 AWS 訂購功能。從Cloud Manager探索某個區域不需付費。
+
+
+
+
+== 相關連結
+
+* https://cloud.netapp.com/cloud-volumes-service-for-aws["NetApp Cloud Central ： Cloud Volumes Service AWS 適用的解決方案"^]
+* https://docs.netapp.com/us-en/cloud_volumes/aws/["NetApp Cloud Volumes Service for AWS 文件"^]
+

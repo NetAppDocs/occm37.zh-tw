@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: reference_integration_faq.html 
+keywords: faq, questions, integration, migration, cloud manager, cloud central, authentication, users, accounts, email, ldap, scripts, automation 
+summary: 升級至Cloud Manager 3.5時、如果尚未整合、NetApp會選擇特定的Cloud Manager系統來與NetApp Cloud Central整合。此常見問題集可回答您對此程序可能有的問題。 
+translate: false 
+---
+= 常見問題集：整合Cloud Manager與NetApp Cloud Central
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+從Cloud Manager 3.4或更早版本升級時、如果尚未整合、NetApp會選擇特定的Cloud Manager系統來與NetApp Cloud Central整合。此常見問題集可回答您對此程序可能有的問題。
+
+
+
+== 什麼是NetApp Cloud Central？
+
+NetApp Cloud Central提供集中位置、可存取及管理NetApp雲端資料服務。這些服務可讓您在雲端上執行關鍵應用程式、建立自動化的DR站台、備份SaaS資料、以及在多個雲端之間有效地移轉和控制資料。
+
+
+
+== 為何NetApp會將我的Cloud Manager系統與Cloud Central整合？
+
+Cloud Manager與NetApp Cloud Central的整合提供多項優點、包括簡化部署體驗、單一位置即可檢視及管理多個Cloud Manager系統、以及集中式使用者驗證。
+
+
+
+== 整合過程中會發生什麼事？
+
+NetApp會將Cloud Manager系統中的所有本機使用者帳戶移轉至Cloud Central中提供的集中式使用者驗證。
+
+
+
+== 集中式使用者驗證如何運作？
+
+透過集中式使用者驗證、您可以在Cloud Manager系統之間、Cloud Manager與Cloud Sync 其他資料服務（例如：）之間使用相同的認證資料集。如果您忘記密碼、也很容易重設密碼。
+
+
+
+== 我需要註冊Cloud Central使用者帳戶嗎？
+
+當我們將Cloud Manager系統與Cloud Central整合時、NetApp將為您建立Cloud Central使用者帳戶。您只需重設密碼、即可完成註冊程序。
+
+
+
+== 如果我已經擁有Cloud Central使用者帳戶該怎麼辦？
+
+如果您用來登入Cloud Manager的電子郵件地址與Cloud Central使用者帳戶的電子郵件地址相符、則您可以登入Cloud Manager系統。
+
+
+
+== 如果我的Cloud Manager系統有多個使用者帳戶該怎麼辦？
+
+NetApp會將所有本機使用者帳戶移轉至Cloud Central使用者帳戶。每位使用者都需要重設密碼。
+
+
+
+== 如果我的使用者帳戶在多個Cloud Manager系統上使用相同的電子郵件地址、該怎麼辦？
+
+您只需重設密碼一次、即可使用相同的Cloud Central使用者帳戶登入每個Cloud Manager系統。
+
+
+
+== 如果我的本機使用者帳戶使用無效的電子郵件地址該怎麼辦？
+
+重設密碼需要有效的電子郵件地址。請透過Cloud Manager介面右下角的聊天圖示與我們聯絡。
+
+
+
+== 如果我有Cloud Manager API的自動化指令碼該怎麼辦？
+
+所有API都向下相容。如果您在重設密碼時變更密碼、則需要更新使用密碼的指令碼。
+
+
+
+== 如果我的Cloud Manager系統使用LDAP、該怎麼辦？
+
+如果您的系統使用LDAP、則NetApp無法自動將系統與Cloud Central整合。您需要手動執行下列步驟：
+
+. 從部署新的Cloud Manager系統 https://cloud.netapp.com/["NetApp Cloud Central"^]。
+. https://services.cloud.netapp.com/misc/federation-support["使用新系統設定LDAP"^]。
+. link:task_adding_ontap_cloud.html["探索現有Cloud Volumes ONTAP 的系統"] 全新Cloud Manager系統。
+. 刪除舊的Cloud Manager系統。
+
+
+
+
+== 我的Cloud Manager系統安裝位置是否重要？
+
+不可以無論系統位於何處、AWS、Azure或內部部署、NetApp都能將其與Cloud Central整合。
+
+
+NOTE: 唯一的例外是AWS商業雲端服務環境。

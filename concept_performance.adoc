@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: concept_performance.html 
+keywords: performance, technical report, TR, workload 
+summary: 您可以檢閱效能結果、協助您決定 Cloud Volumes ONTAP 哪些工作負載適合 VMware 。 
+---
+= 效能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以檢閱效能結果、協助您決定 Cloud Volumes ONTAP 哪些工作負載適合 VMware 。
+
+如需Cloud Volumes ONTAP AWS的相關資訊、請參閱 https://www.netapp.com/us/media/tr-4383.pdf["NetApp 技術報告 4383 ： Cloud Volumes ONTAP 運用應用程式工作負載、將 Amazon Web Services 中的功能特性化"^]。
+
+如需Cloud Volumes ONTAP Microsoft Azure適用的功能、請參閱 https://www.netapp.com/us/media/tr-4671.pdf["NetApp 技術報告 4671 ： Cloud Volumes ONTAP 利用應用程式工作負載、將 Azure 中的效能特性化"^]。

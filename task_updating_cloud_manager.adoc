@@ -1,0 +1,79 @@
+---
+sidebar: sidebar 
+permalink: task_updating_cloud_manager.html 
+keywords: updating, upgrading, patch, automatic, updates, upgrade, update 
+summary: 您可以將Cloud Manager更新為最新版本、或使用NetApp人員與您共享的修補程式。 
+---
+= 正在更新Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以將Cloud Manager更新為最新版本、或使用NetApp人員與您共享的修補程式。
+
+
+
+== 啟用自動更新
+
+Cloud Manager可在新版本推出時自動自行更新。如此可確保您執行的是最新版本。
+
+如果沒有執行任何作業、Cloud Manager會在午夜12：00自動更新。
+
+.步驟
+. 在 Cloud Manager 主控台右上角、按一下「設定」圖示、然後選取「 * Cloud Manager 設定 * 」。
+. 選取「Automatic Cloud Manager Updates（自動Cloud Manager更新）」下方的核取方塊、然後按一下「* Save（*儲存）
+
+
+
+
+== 將Cloud Manager更新為最新版本
+
+您應該啟用Cloud Manager的自動更新、但您可以隨時直接從網路主控台手動更新。Cloud Manager會從AWS中NetApp擁有的S3儲存區取得軟體更新。
+
+您應該已經檢閱過 link:reference_new_occm.html["版本的新功能"] 找出新的需求和支援變更。
+
+軟體更新需要幾分鐘的時間。更新期間無法使用Cloud Manager。
+
+.步驟
+. 查看主控台右下角、檢查是否有可用的新版本：
++
+image:screenshot_new_version.gif["螢幕擷取畫面：顯示Cloud Manager網路主控台右下角的可用新版本連結。"]
+
+. 如果有可用的新版本、請按一下* Timeline *以判斷是否有任何工作在進行中。
++
+如果有任何工作正在進行中、請等待工作完成、然後再繼續下一步。
+
+. 在主控台右下角、按一下*「New version Available」（可用的新版本）*。
+. 在Cloud Manager軟體更新頁面上、按一下您要的版本旁邊的*更新*。
+. 完成確認對話方塊、然後按一下*確定*。
+
+
+Cloud Manager會開始更新程序。您可以在幾分鐘後登入主控台。
+
+
+
+== 使用修補程式更新Cloud Manager
+
+如果NetApp與您共享修補程式、您可以直接從Cloud Manager網路主控台、使用隨附的修補程式來更新Cloud Manager。
+
+修補程式更新通常需要幾分鐘的時間。更新期間無法使用Cloud Manager。
+
+.步驟
+. 在Cloud Manager主控台右上角、按一下「設定」圖示、然後選取「*軟體更新*」。
++
+image:screenshot_settings_icon.gif["顯示 Cloud Manager 主控台右上角「設定」圖示的快照。"]
+
+. 按一下連結、以隨附的修補程式更新Cloud Manager。
++
+image:screenshot_patch.gif["螢幕擷取畫面：顯示以修補程式更新Cloud Manager的連結。"]
+
+. 完成確認對話方塊、然後按一下*確定*。
+. 選取您所提供的修補程式。
+
+
+Cloud Manager會套用修補程式。您可以在幾分鐘後登入主控台。

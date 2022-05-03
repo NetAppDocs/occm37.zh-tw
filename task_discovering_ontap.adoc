@@ -1,0 +1,86 @@
+---
+sidebar: sidebar 
+permalink: task_discovering_ontap.html 
+keywords: ontap, cluster, discover, manage, provision, provisioning, volumes, add, adding, discovering, fas, aff 
+summary: Cloud Manager 可在 ONTAP 內部部署環境、 NetApp 私有儲存組態和 IBM Cloud 中探索這些功能集區。探索這些叢集可讓您直接從Cloud Manager輕鬆地在混合雲環境中複寫資料。 
+---
+= 探索及管理ONTAP 叢集
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+Cloud Manager 可在 ONTAP 內部部署環境、 NetApp 私有儲存組態和 IBM Cloud 中探索這些功能集區。探索這些叢集可讓您直接從Cloud Manager輕鬆地在混合雲環境中複寫資料。
+
+
+
+== 探索 ONTAP 叢集
+
+在ONTAP Cloud Manager中探索一個支援功能的叢集、可讓您在混合雲中配置儲存設備並複寫資料。
+
+您必須擁有叢集管理IP位址和管理員使用者帳戶密碼、才能將叢集新增至Cloud Manager。
+
+Cloud Manager 使用 ONTAP HTTPS 探索各個叢集。如果使用自訂防火牆原則、則必須符合下列需求：
+
+* Cloud Manager主機必須允許透過連接埠443進行傳出HTTPS存取。
++
+如果Cloud Manager位於AWS中、則預先定義的安全性群組會允許所有傳出通訊。
+
+* 這個支援叢集必須允許透過連接埠 443 進行傳入 HTTPS 存取。 ONTAP
++
+預設的「管理」防火牆原則允許從所有 IP 位址進行傳入 HTTPS 存取。如果您修改此預設原則、或是建立自己的防火牆原則、則必須將HTTPS傳輸協定與該原則建立關聯、並啟用從Cloud Manager主機存取的功能。
+
+
+
+.步驟
+. 在「工作環境」頁面上、按一下*「激發需求」*、然後選取* ONTAP 「叢集」*。
+. 在* ONTAP 《叢集詳細資料》*頁面上、輸入叢集管理IP位址、管理使用者帳戶的密碼、以及叢集的位置。
++
+image:screenshot_discover_ontap.gif["螢幕快照顯示ONTAP 「叢集詳細資料」頁面的範例：叢集管理IP位址、使用者名稱和密碼、以及在內部部署中選取作為叢集位置。"]
+
+. 在「詳細資料」頁面上、輸入工作環境的名稱和說明、然後按一下「 * 執行 * 」。
+
+
+Cloud Manager會探索叢集。您現在可以建立磁碟區、在叢集之間複寫資料、以及啟動OnCommand 「系統管理程式」來執行進階工作。
+
+
+
+== 在ONTAP 叢集上配置磁碟區
+
+Cloud Manager可讓您在ONTAP 不支援的叢集上配置NFS和CIFS磁碟區。
+
+必須在叢集上設定NFS或CIFS。您可以使用System Manager或CLI設定NFS和CIFS。
+
+您可以在現有的集合體上建立磁碟區。您無法從Cloud Manager建立新的Aggregate。
+
+.步驟
+. 在「工作環境」頁面上、按兩下ONTAP 您要在其中配置磁碟區的叢集名稱。
+. 按一下「 * 新增 Volume * 」。
+. 在「 Create New Volume 」（建立新磁碟區）頁面上、輸入磁碟區的詳細資料、然後按一下「 * Create* 」。
++
+本頁中的部分欄位是不知自明的。下表說明您可能需要指導的欄位：
+
++
+[cols="2,6"]
+|===
+| 欄位 | 說明 
+
+
+| 尺寸 | 您可以輸入的最大大小、主要取決於您是否啟用精簡配置、這可讓您建立比目前可用實體儲存容量更大的磁碟區。 
+
+
+| 存取控制（僅適用於 NFS ） | 匯出原則會定義子網路中可存取磁碟區的用戶端。根據預設、 Cloud Manager 會輸入一個值、讓您存取子網路中的所有執行個體。 
+
+
+| 權限與使用者 / 群組（僅限 CIFS ） | 這些欄位可讓您控制使用者和群組（也稱為存取控制清單或 ACL ）的共用存取層級。您可以指定本機或網域 Windows 使用者或群組、或 UNIX 使用者或群組。如果您指定網域 Windows 使用者名稱、則必須使用網域 \ 使用者名稱格式來包含使用者的網域。 
+
+
+| 使用設定檔 | 使用率設定檔定義了已啟用 Volume 的 NetApp 儲存效率功能。 
+
+
+| Snapshot 原則 | Snapshot 複製原則會指定自動建立的 NetApp Snapshot 複本的頻率和數量。NetApp Snapshot 複本是一種不影響效能的時間點檔案系統映像、需要最少的儲存容量。您可以選擇預設原則或無。您可以針對暫時性資料選擇「無」：例如、 Microsoft SQL Server 的 Tempdb 。 
+|===
+

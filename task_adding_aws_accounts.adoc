@@ -1,0 +1,112 @@
+---
+sidebar: sidebar 
+permalink: task_adding_aws_accounts.html 
+keywords: permissions, aws, policy, iam, iam role, role, granting, policy, iam policy, iam user, access keys, arn, cloud provider accounts, aws, cloud provider profile, json, iam 
+summary: 如果您想要在 Cloud Volumes ONTAP 不同的 AWS 帳戶中部署此功能、則必須提供這些帳戶所需的權限、然後將詳細資料新增至 Cloud Manager 。您提供權限的方式取決於您是要為 Cloud Manager 提供 AWS 金鑰、還是要為信任帳戶中的角色提供 ARN 。 
+---
+= 設定AWS帳戶並將其新增至Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+如果您想要在Cloud Volumes ONTAP 不同的AWS帳戶中部署功能、則需要提供必要的權限、並將詳細資料新增至Cloud Manager。您提供權限的方式取決於您是要為 Cloud Manager 提供 AWS 金鑰、還是要為信任帳戶中的角色提供 ARN 。
+
+
+NOTE: 當您從Cloud Central部署Cloud Manager時、Cloud Manager會自動新增AWS帳戶、讓您在其中部署Cloud Manager。如果您在現有系統上手動安裝Cloud Manager軟體、則不會新增初始帳戶。 link:concept_accounts_aws.html["深入瞭解AWS帳戶和權限"]。
+
+* 選項 *
+
+* <<Granting permissions by providing AWS keys>>
+* <<Granting permissions by assuming IAM roles in other accounts>>
+
+
+
+
+== 提供 AWS 金鑰來授予權限
+
+如果您想要為 IAM 使用者提供 AWS 金鑰給 Cloud Manager 、則必須將必要的權限授予該使用者。Cloud Manager IAM 原則定義了允許 Cloud Manager 使用的 AWS 動作和資源。
+
+.步驟
+. 請從下載 Cloud Manager IAM 原則 https://mysupport.netapp.com/cloudontap/iampolicies["Cloud Manager 原則頁面"^]。
+. 從 IAM 主控台複製並貼上 Cloud Manager IAM 原則中的文字、以建立您自己的原則。
++
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html["AWS 文件：建立 IAM 原則"^]
+
+. 將原則附加至 IAM 角色或 IAM 使用者。
++
+** https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html["AWS 文件：建立 IAM 角色"^]
+** https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html["AWS 文件：新增和移除 IAM 原則"^]
+
+
+
+
+帳戶現在擁有必要的權限。 <<Adding AWS accounts to Cloud Manager,您現在可以將它新增至 Cloud Manager>>。
+
+
+
+== 在其他帳戶中假設 IAM 角色來授予權限
+
+您可以使用IAM角色、在部署Cloud Manager執行個體的來源AWS帳戶與其他AWS帳戶之間建立信任關係。接著、您將從信任的帳戶中、為 Cloud Manager 提供 IAM 角色的 ARN 。
+
+.步驟
+. 前往您要部署 Cloud Volumes ONTAP 的目標帳戶、並選取 * 其他 AWS 帳戶 * 來建立 IAM 角色。
++
+請務必執行下列動作：
+
++
+** 輸入Cloud Manager執行個體所在帳戶的ID。
+** 附加 Cloud Manager IAM 原則、可從取得 https://mysupport.netapp.com/cloudontap/iampolicies["Cloud Manager 原則頁面"^]。
++
+image:screenshot_iam_create_role.gif["顯示 AWS IAM Console 中「 Create role 」（建立角色）頁面的快照。在選取信任實體類型下、會選取另一個 AWS 帳戶。"]
+
+
+
+. 前往Cloud Manager執行個體所在的來源帳戶、然後選取附加至執行個體的IAM角色。
++
+.. 按一下*信任關係>編輯信任關係*。
+.. 新增「STS:AssumeRole」動作和您在目標帳戶中建立之角色的ARN。
++
+* 範例 *
+
++
+[source, json]
+----
+{
+ "Version": "2012-10-17",
+ "Statement": {
+   "Effect": "Allow",
+   "Action": "sts:AssumeRole",
+   "Resource": "arn:aws:iam::ACCOUNT-B-ID:role/ACCOUNT-B-ROLENAME"
+}
+}
+----
+
+
+
+
+帳戶現在擁有必要的權限。 <<Adding AWS accounts to Cloud Manager,您現在可以將它新增至 Cloud Manager>>。
+
+
+
+== 將AWS帳戶新增至Cloud Manager
+
+在您提供具備所需權限的AWS帳戶之後、您可以將帳戶新增至Cloud Manager。如此一來、您就能在 Cloud Volumes ONTAP 該帳戶中啟動支援系統。
+
+.步驟
+. 在Cloud Manager主控台右上角、按一下「設定」圖示、然後選取「* Cloud Provider & Support Account*」。
++
+image:screenshot_settings_icon.gif["顯示 Cloud Manager 主控台右上角「設定」圖示的快照。"]
+
+. 按一下「*新增帳戶*」、然後選取「* AWS *」。
+. 選擇您要提供AWS金鑰或信任IAM角色的ARN。
+. 確認已符合原則需求、然後按一下「 * 建立帳戶 * 」。
+
+
+您現在可以在建立新的工作環境時、從「詳細資料與認證」頁面切換至其他帳戶：
+
+image:screenshot_accounts_switch_aws.gif["在詳細資料 & 認證頁面中按一下「切換帳戶」之後、顯示在雲端供應商帳戶之間選取的快照。"]

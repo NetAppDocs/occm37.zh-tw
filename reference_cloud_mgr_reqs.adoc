@@ -1,0 +1,88 @@
+---
+sidebar: sidebar 
+permalink: reference_cloud_mgr_reqs.html 
+keywords: configurations, ec2, vm, ports, ram, operating system, os, host, requirement, requirements, hypervisor, disk, space, mysql, centos, rhel, red hat, cpu, disk space, 3306 
+summary: 如果您在自己的主機上安裝Cloud Manager、則必須驗證組態的支援、包括作業系統需求、連接埠需求等。 
+---
+= Cloud Manager主機需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+如果您在自己的主機上安裝Cloud Manager、則必須驗證組態的支援、包括作業系統需求、連接埠需求等。
+
+
+NOTE: 您可以在GCP的主機上安裝Cloud Manager、但不能安裝在內部部署網路中。Cloud Manager必須安裝在GCP中、才能在Cloud Volumes ONTAP GCP中部署。
+
+需要專用主機:: 與其他應用程式共用的主機不支援Cloud Manager。主機必須是專屬主機。
+支援的AWS EC2執行個體類型::
++
+--
+* T2.medium
+* T3.medium（建議）
+* M4.Large
+* M5.xLarge
+* m5.2xLarge
+* M5.4xLarge
+* M5.8xLarge
+
+
+--
+支援的Azure VM大小:: A2、D2 v2或D2 v3（視可用度而定）
+支援的GCP機器類型:: 一種至少有2個vCPU和4 GB記憶體的機器類型。
+支援的作業系統::
++
+--
+* CentOS 7.2
+* CentOS 7.3.
+* CentOS 7.4.
+* CentOS 7.5
+* Red Hat Enterprise Linux 7.2
+* Red Hat Enterprise Linux 7.3
+* Red Hat Enterprise Linux 7.4
+* Red Hat Enterprise Linux 7.5
++
+Red Hat Enterprise Linux 系統必須在 Red Hat 訂購管理中註冊。如果尚未註冊、系統將無法在Cloud Manager安裝期間存取儲存庫來更新所需的協力廠商軟體。
+
++
+這些作業系統的英文版本支援Cloud Manager。
+
+
+
+--
+Hypervisor:: 通過認證可執行 CentOS 或 Red Hat Enterprise Linux 的裸機或託管 Hypervisorhttps://access.redhat.com/certified-hypervisors["Red Hat 解決方案：哪些 Hypervisor 已通過認證、可執行 Red Hat Enterprise Linux ？"^]
+CPU:: 2.27 GHz或更高、含兩個核心
+RAM:: 4 GB
+可用磁碟空間:: 50 GB
+傳出網際網路存取:: 安裝Cloud Manager及使用Cloud Manager部署Cloud Volumes ONTAP 時、需要外傳網際網路存取功能。如需端點清單、請參閱 link:reference_networking_cloud_manager.html["Cloud Manager的網路需求"]。
+連接埠:: 下列連接埠必須可用：
++
+--
+* 80 （用於 HTTP 存取）
+* 用於 HTTPS 存取的 443
+* 適用於 Cloud Manager 資料庫的 3306
+* 8080 for the Cloud Manager API Proxy
++
+如果其他服務使用這些連接埠、Cloud Manager安裝將會失敗。
+
++
+
+NOTE: 連接埠3306可能發生衝突。如果主機上正在執行另一個MySQL執行個體、則預設會使用連接埠3306。您必須變更現有MySQL執行個體使用的連接埠。
+
++
+安裝Cloud Manager時、您可以變更預設的HTTP和HTTPS連接埠。您無法變更MySQL資料庫的預設連接埠。如果您變更HTTP和HTTPS連接埠、則必須確保使用者能從遠端主機存取Cloud Manager Web主控台：
+
++
+** 修改安全性群組、允許透過連接埠進行傳入連線。
+** 輸入Cloud Manager網路主控台的URL時、請指定連接埠。
+
+
+
+
+--
+

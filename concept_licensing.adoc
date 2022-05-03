@@ -1,0 +1,47 @@
+---
+sidebar: sidebar 
+permalink: concept_licensing.html 
+keywords: licenses, licensing, byol, license, subscription, renewal, expire, netapp support site, account, credentials, file, license file, upload, nlf 
+summary: 每Cloud Volumes ONTAP 個BYOL系統都必須安裝有效訂閱的授權。Cloud Manager可為您管理授權、並在授權到期前通知您、藉此簡化授權程序。 
+---
+= 授權
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+每Cloud Volumes ONTAP 個BYOL系統都必須安裝有效訂閱的授權。如果未安裝使用中的授權、Cloud Volumes ONTAP 則在30天後、無法自行關閉。Cloud Manager 可為您管理授權、並在授權到期前通知您、藉此簡化程序。
+
+[discrete]
+=== 新系統的授權管理
+
+當您建立BYOL系統時、Cloud Manager會提示您輸入NetApp支援網站帳戶。Cloud Manager 使用帳戶從 NetApp 下載授權檔案、並將其安裝在 Cloud Volumes ONTAP 整個作業系統上。
+
+link:task_adding_nss_accounts.html["瞭解如何將 NetApp 支援網站帳戶新增至 Cloud Manager"]。
+
+如果Cloud Manager無法透過安全的網際網路連線存取授權檔案、您可以自行取得檔案、然後手動將檔案上傳至Cloud Manager。如需相關指示、請參閱 link:task_modifying_ontap_cloud.html#installing-license-files-on-cloud-volumes-ontap-byol-systems["在Cloud Volumes ONTAP 不含BYOL的系統上安裝授權檔案"]。
+
+[discrete]
+=== 授權過期
+
+Cloud Manager 會在授權到期前 30 天、以及授權到期時再次發出警告。下圖顯示 30 天到期警告：
+
+image:screenshot_warning.gif["螢幕擷取畫面：顯示 Cloud Volumes ONTAP 包含警告圖示的功能不全的工作環境。圖示表示需要採取行動。"]
+
+您可以選取工作環境來檢閱訊息。
+
+如果您未及時續約授權、Cloud Volumes ONTAP 則無法自行關閉。如果您重新啟動、它會再次自動關機。
+
+
+NOTE: 透過電子郵件、 SNMP traphost 或使用 EMS （事件管理系統）事件通知的 syslog 伺服器、也可以通知您。 Cloud Volumes ONTAP如需相關指示、請參閱 http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-ems/home.html["《 9 EMS 組態快速指南》 ONTAP"^]。
+
+[discrete]
+=== 授權續約
+
+當您透過聯絡 NetApp 代表續約 BYOL 訂閱時、 Cloud Manager 會自動從 NetApp 取得新授權、並將其安裝在 Cloud Volumes ONTAP 該系統上。
+
+如果Cloud Manager無法透過安全的網際網路連線存取授權檔案、您可以自行取得檔案、然後手動將檔案上傳至Cloud Manager。如需相關指示、請參閱 link:task_modifying_ontap_cloud.html#installing-license-files-on-cloud-volumes-ontap-byol-systems["在Cloud Volumes ONTAP 不含BYOL的系統上安裝授權檔案"]。

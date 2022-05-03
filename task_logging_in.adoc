@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: task_logging_in.html 
+keywords: logging in, log in, sign in, signing in, cloud central, netapp cloud central, user account 
+summary: 您可以從任何連線至Cloud Manager系統的網頁瀏覽器登入Cloud Manager。您應該使用NetApp Cloud Central使用者帳戶登入。 
+---
+= 登入 Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以從任何連線至Cloud Manager系統的網頁瀏覽器登入Cloud Manager。您應該使用登入 https://cloud.netapp.com["NetApp Cloud Central"^] 使用者帳戶。
+
+.步驟
+. 開啟網頁瀏覽器並登入 https://cloud.netapp.com["NetApp Cloud Central"^]。
++
+此步驟應會自動引導您前往Fabric View。如果沒有、請按一下「* Fabric View *」。
+
+. 選取您要存取的Cloud Manager系統。
++
+
+TIP: 如果您沒有看到任何列出的系統、請確定帳戶管理員已將您新增至與Cloud Manager系統相關聯的Cloud Central帳戶。
+
+. 使用您的NetApp Cloud Central認證登入Cloud Manager。
++
+image:screenshot_login.gif["Cloud Manager的登入畫面。"]
+
+

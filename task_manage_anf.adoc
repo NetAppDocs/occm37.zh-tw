@@ -1,0 +1,153 @@
+---
+sidebar: sidebar 
+permalink: task_manage_anf.html 
+keywords: azure netapp files, create volumes, delete volumes, create nfs volumes, delete nfs volumes, netapp account, capacity pool, create capacity pool, azure netapp files permissions, azure permissions, mount path, get mount path, find mount path, mount volume 
+summary: 直接Azure NetApp Files 從Cloud Manager檢視並建立NFS Volume以供使用。 
+---
+= 管理Volume以供Azure NetApp Files 使用
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+檢視及建立的NFS Volume https://cloud.netapp.com/azure-netapp-files["Azure NetApp Files"^] 直接從Cloud Manager取得。
+
+
+
+== 設定組態
+
+您的組態需要滿足幾項需求、才能Azure NetApp Files 從Cloud Manager管理for NetApp的Volume。
+
+. 必須從Azure入口網站完成下列項目、才能設定此項目：Azure NetApp Files
++
+** https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-register["註冊Azure NetApp Files 以供使用"^]
+** https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["建立NetApp帳戶"^]
+** https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["設定容量資源池"^]
+** https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["將子網路委派Azure NetApp Files 給"^]
+
+
+. Cloud Manager必須設定如下：
++
+** Cloud Manager必須在Azure NetApp Files Azure上執行、並在設定了此功能的帳戶中執行。
+** Cloud Manager虛擬機器必須透過接收權限 https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["託管身分識別"^]。
++
+如果您是從Cloud Central部署Cloud Manager、就能輕鬆完成所有設定。Cloud Central會自動在Cloud Manager虛擬機器上啟用系統指派的託管身分識別。
+
++
+如果您是從Azure Marketplace部署Cloud Manager、您就應該遵循此程序 link:task_launching_azure_mktp.html["啟用託管身分識別的指示"]。
+
+** 指派給Cloud Manager虛擬機器的Azure角色必須包含最新所列的權限 https://occm-sample-policies.s3.amazonaws.com/Policy_for_cloud_Manager_Azure_3.7.4.json["Azure 的 Cloud Manager 原則"^]：
++
+[source, json]
+----
+"Microsoft.NetApp/netAppAccounts/read",
+"Microsoft.NetApp/netAppAccounts/capacityPools/read",
+"Microsoft.NetApp/netAppAccounts/capacityPools/volumes/write",
+"Microsoft.NetApp/netAppAccounts/capacityPools/volumes/read",
+"Microsoft.NetApp/netAppAccounts/capacityPools/volumes/delete"
+----
+
+
+
+
+設定組態後、Cloud Manager會自動在Azure NetApp Files 「工作環境」頁面上顯示「功能」：
+
+image:screenshot_anf_cloud.gif["「工作環境」頁面上Azure NetApp Files 的一份關於雲端的快照。"]
+
+
+
+== 建立磁碟區
+
+Cloud Manager可讓您建立NFSv3 Volume Azure NetApp Files 以供使用。
+
+.步驟
+. 開啟工作環境。
+. 按一下「 * 新增 Volume * 」。
+. 在*帳戶資訊*頁面中輸入有關磁碟區的基本詳細資料：
++
+.. 選擇Azure訂閱和Azure NetApp Files 不含此功能的帳戶。
+.. 輸入磁碟區名稱。
+.. 選取容量資源池並指定配額、即分配給磁碟區的邏輯儲存容量。
++
+image:screenshot_anf_account_info.gif["全新Azure NetApp Files 的《帳戶資訊》頁面的螢幕快照。"]
+
+
+
+. 填寫*位置與匯出政策*頁面：
++
+.. 選取Vnet和子網路。
+.. 設定匯出原則以控制對磁碟區的存取。
++
+image:screenshot_anf_location.gif["新Azure NetApp Files 版功能適用的「位置&匯出原則」頁面的快照。"]
+
+
+
+. 按一下「 * 執行 * 」。
+
+
+
+
+== 取得磁碟區的掛載路徑
+
+複製磁碟區的掛載路徑、以便將磁碟區掛載至Linux機器。
+
+.步驟
+. 開啟工作環境。
+. 將游標暫留在Volume上、然後按一下功能表。
++
+image:screenshot_anf_volume_menu.gif["顯示右上角可用磁碟區和功能表的快照。"]
+
+. 按一下*掛載Command*。
++
+image:screenshot_anf_mount.gif["螢幕擷取畫面、顯示選取功能表後可用的Volume和Mount Command選項。"]
+
+. 複製掛載路徑、然後使用複製的文字將磁碟區掛載到Linux機器。
+
+
+
+
+== 正在刪除磁碟區
+
+刪除不再需要的磁碟區。
+
+.步驟
+. 開啟工作環境。
+. 將游標暫留在Volume上、然後按一下功能表。
++
+image:screenshot_anf_volume_menu.gif["顯示右上角可用磁碟區和功能表的快照。"]
+
+. 按一下*刪除*。
+. 確認您要刪除該磁碟區。
+
+
+
+
+== 取得協助
+
+使用 Cloud Manager 聊天室來回答一般服務問題。
+
+如需 Azure NetApp Files 有關支援方面的技術支援問題、請使用 Azure 入口網站將支援要求記錄給 Microsoft 。選取您的相關Microsoft訂閱、然後在Azure NetApp Files 「* Storage（儲存設備）」下選取*《*》*服務名稱。*提供建立Microsoft支援要求所需的其餘資訊。
+
+Cloud Manager提供AutoSupport *支援儀表板*功能表選項下的本機下載功能。此7z檔案包含Azure偵錯檔案、可顯示傳入和傳出通訊至Azure NetApp Files 您的整套帳戶。
+
+
+
+== 限制
+
+* Cloud Manager不支援SMB Volume。
+* Cloud Manager無法讓您管理容量資源池或Volume快照。
+* 您可以使用初始大小和單一匯出原則來建立磁碟區。您必須從Azure NetApp Files Azure入口網站的整個功能區介面編輯Volume。
+* Cloud Manager不支援資料複寫至Azure NetApp Files 或從無法複寫。
+
+
+
+
+== 相關連結
+
+* https://cloud.netapp.com/azure-netapp-files["NetApp Cloud Central Azure NetApp Files"^]
+* https://docs.microsoft.com/en-us/azure/azure-netapp-files/["本文檔 Azure NetApp Files"^]
+

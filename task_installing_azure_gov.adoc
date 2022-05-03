@@ -1,0 +1,138 @@
+---
+sidebar: sidebar 
+permalink: task_installing_azure_gov.html 
+keywords: software, azure, us gov, gov, marketplace, deploy 
+summary: 從Azure政府Marketplace部署Cloud Manager、然後提供Cloud Manager部署Cloud Volumes ONTAP 整套系統所需的權限。 
+---
+= 在Azure美國政府區域部署Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+若要讓Cloud Manager在美國政府區域內正常運作、請先從Azure政府Marketplace部署Cloud Manager。然後提供Cloud Manager部署和管理Cloud Volumes ONTAP 功能所需的權限。
+
+如需受支援Azure美國政府區域的清單、請參閱 https://cloud.netapp.com/cloud-volumes-global-regions["Cloud Volumes全球區域"^]。
+
+
+
+== 從Azure美國政府市場部署Cloud Manager
+
+Cloud Manager可在Azure US Government Marketplace中以映像形式提供。
+
+.步驟
+. 請確認您的訂閱已啟用Azure政府Marketplace：
++
+.. 以企業管理員身分登入入口網站。
+.. 瀏覽至*管理*。
+.. 在「*註冊詳細資料*」下、按一下「* Azure Marketplace *」旁邊的鉛筆圖示。
+.. 選擇*已啟用*。
+.. 按一下「 * 儲存 * 」。
++
+https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-manage-marketplace["Microsoft Azure文件：Azure政府市場"^]
+
+
+
+. 在OnCommand Azure US政府入口網站中搜尋《解決方案與解決方案：
+. 按一下「*建立*」、然後依照步驟設定虛擬機器。
++
+設定虛擬機器時請注意下列事項：
+
++
+** Cloud Manager 可搭配 HDD 或 SSD 磁碟以最佳方式執行。
+** 您應該選擇建議的虛擬機器大小之一：A2、D2 v2或D2 v3（視可用度而定）。
+** 對於網路安全性群組、最好選擇*進階*。
++
+「*進階*」選項會建立新的安全性群組、其中包含Cloud Manager所需的傳入規則。如果您選擇「基本」、請參閱 link:reference_security_groups_azure.html["安全性群組規則"] 以取得必要規則清單。
+
+
+
+. 在摘要頁面上、檢閱您的選擇、然後按一下「*建立*」開始部署。
++
+Azure 以指定的設定部署虛擬機器。虛擬機器和Cloud Manager軟體應在大約五分鐘內執行。
+
+. 從連線至Cloud Manager虛擬機器的主機開啟網頁瀏覽器、然後輸入下列URL：
++
+http://_ipaddress_:80[]
+
+. 登入之後、請設定 Cloud Manager ：
++
+.. 指定要與此Cloud Manager系統建立關聯的Cloud Central帳戶。
++
+link:concept_cloud_central_accounts.html["深入瞭解 Cloud Central 帳戶"]。
+
+.. 輸入系統名稱。
++
+image:screenshot_set_up_cloud_manager.gif["螢幕快照顯示「Set Up Cloud Manager」（設定Cloud Manager）畫面、可讓您選取Cloud Central帳戶並命名Cloud Manager系統。"]
+
+
+
+
+
+雲端管理程式現已安裝並設定完成。您必須先授予 Azure 權限、使用者才能在 Cloud Volumes ONTAP Azure 中部署不必要的功能。
+
+
+
+== 使用託管身分識別、將Azure權限授予Cloud Manager
+
+提供權限的最簡單方法是啟用 https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["託管身分識別"^] 在Cloud Manager虛擬機器上、然後將所需權限指派給虛擬機器。如有需要、另一種方法是 link:task_adding_azure_accounts.html["使用服務主體授予Azure權限"]。
+
+.步驟
+. 在Cloud Manager虛擬機器上啟用託管身分識別：
++
+.. 瀏覽至Cloud Manager虛擬機器、然後選取* Identity *。
+.. 按一下「*系統指派*」下的「*開啟*」、然後按一下「*儲存*」。
+
+
+. 使用 Cloud Manager 原則建立自訂角色：
++
+.. 下載 https://mysupport.netapp.com/cloudontap/iampolicies["Cloud Manager Azure 原則"^]。
+.. 將 Azure 訂閱 ID 新增至可指派的範圍、以修改 Json 檔案。
++
+您應該為使用者建立 Cloud Volumes ONTAP 的各個 Azure 訂閱新增 ID 。
+
++
+* 範例 *
+
++
+「 AssignableScopes 」： [ 「 /unorder/d333af45-0d07-4154-943d-c25fbzzzz 」、「 /unorder/54b91999-b3e6-4599-908e-416e0zzzz 」、「 /unuses/398e471c-3bzzz-4bez-4bez-4bez-4bz-4bz-4bz-4bz-4bz-4bz-4bz-4bz-4bz-4bz-4bz-4bez-
+
+.. 使用 Json 檔案在 Azure 中建立自訂角色。
++
+下列範例說明如何使用 Azure CLI 2.0 建立自訂角色：
+
++
+* AZ角色定義建立：-role定義C：\Policy_for_cove_Manager_Azure _3.7.4.json*
+
++
+現在您應該要有名為OnCommand 「Cloud Manager操作員」的自訂角色、可以指派給Cloud Manager虛擬機器。
+
+
+
+. 將角色指派給Cloud Manager虛擬機器以進行一或多項訂閱：
++
+.. 開啟 * 「訂閱」 * 服務、然後選取您要在其中部署 Cloud Volumes ONTAP 的訂閱。
+.. 按一下 * 存取控制（ IAM ） * 。
+.. 按一下「*新增*」、按一下「*新增角色指派*」、然後新增權限：
++
+*** 選擇* OnCommand 《Cloud Manager operator*》角色。
++
+
+NOTE: 中提供的預設名稱為「Cloud Manager操作員」OnCommand https://mysupport.netapp.com/info/web/ECMP11022837.html["Cloud Manager 原則"]。如果您為角色選擇不同的名稱、請改為選取該名稱。
+
+*** 指派 * 虛擬機器 * 的存取權。
+*** 選取建立Cloud Manager虛擬機器的訂閱。
+*** 輸入虛擬機器的名稱、然後加以選取。
+*** 按一下「 * 儲存 * 」。
+
+
+.. 如果您想要從 Cloud Volumes ONTAP 其他訂閱中部署、請切換至該訂閱、然後重複這些步驟。
+
+
+
+
+Cloud Manager現在擁有在Cloud Volumes ONTAP Azure中部署及管理功能所需的權限。

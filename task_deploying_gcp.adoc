@@ -1,0 +1,188 @@
+---
+sidebar: sidebar 
+permalink: task_deploying_gcp.html 
+keywords: Cloud Volumes ONTAP, deploying, launching, creating, deploy, launch, create, gcp, BYOL, license key, serial number, location, license, preconfigured packages, programmatic deployments, disk size, write speed, access control, volume protection, usage profile, register, CIFS share, quota, qtree 
+summary: 您可以Cloud Volumes ONTAP 建立工作環境、在GCP中啟動單一節點的不二系統。 
+---
+= 在 Cloud Volumes ONTAP GCP 中啟動
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以Cloud Volumes ONTAP 建立工作環境、在GCP中啟動單一節點的不二系統。
+
+.開始之前
+* 您應該已經選擇組態、並從系統管理員取得GCP網路資訊。如需詳細資訊、請參閱 link:task_planning_your_config.html["規劃 Cloud Volumes ONTAP 您的需求組態"]。
+* 若要部署 BYOL 系統、您需要每個節點的 20 位數序號（授權金鑰）。
+
+
+.步驟
+. [[訂閱]在「工作環境」頁面上、按一下「*建立Cloud Volumes ONTAP 參考資料*」、然後依照提示進行。
+. *定義您的工作環境*：按一下*繼續*。
+. *訂閱Cloud Volumes ONTAP 此產品*：如果系統出現提示、Cloud Volumes ONTAP 請在GCP Marketplace訂閱此產品。
++
+下列影片顯示訂閱程序：
+
++
+video::video_subscribing_gcp.mp4[width=848,height=480]
+. *詳細資料與認證*：選取專案、指定叢集名稱、選擇性地新增標籤、然後指定認證資料。
++
+下表說明您可能需要指導的欄位：
+
++
+[cols="25,75"]
+|===
+| 欄位 | 說明 
+
+
+| Google Cloud Project  a| 
+選取 Cloud Volumes ONTAP 您要駐留的專案。預設專案是 Cloud Manager 所在的專案。
+
+如果您在下拉式清單中沒有看到任何其他專案、則表示您尚未將 Cloud Manager 服務帳戶與其他專案建立關聯。前往 Google Cloud 主控台、開啟 IAM 服務、然後選取專案。將具有 Cloud Manager 角色的服務帳戶新增至該專案。您必須針對每個專案重複此步驟。
+
+
+NOTE: 這是您為 Cloud Manager 設定的服務帳戶、 link:task_getting_started_gcp.html#service-account["如本頁步驟 4b 所述"]。
+
+
+
+| 工作環境名稱 | Cloud Manager 會使用工作環境名稱來命名 Cloud Volumes ONTAP 支援系統和 GCP VM 執行個體。如果您選取該選項、它也會使用名稱做為預先定義安全性群組的前置詞。 
+
+
+| 新增標籤 | 標籤是 GCP 資源的中繼資料。Cloud Manager 會將標籤新增 Cloud Volumes ONTAP 至與系統相關的支援系統和 GCP 資源。建立工作環境時、您最多可以從使用者介面新增四個標籤、然後在建立之後新增更多標籤。請注意、在建立工作環境時、 API 不會限制您使用四個標籤。如需標籤的相關資訊、請參閱 https://cloud.google.com/compute/docs/labeling-resources["Google Cloud 文件：標示資源"^]。 
+
+
+| 認證資料 | 這些是 Cloud Volumes ONTAP 適用於整個叢集管理帳戶的認證資料。您可以使用這些認證資料、 Cloud Volumes ONTAP 透過 System Manager 或其 CLI 連線至功能驗證。 
+|===
+. * 位置與連線 * ：選取位置、選擇防火牆原則、然後勾選核取方塊、確認與 Google Cloud 儲存設備的網路連線、以進行資料分層。
++
+如果您想要將冷資料分層至 Google Cloud Storage 資源桶、 Cloud Volumes ONTAP 則必須將駐留的子網路設定為私有 Google Access 。如需相關指示、請參閱 https://cloud.google.com/vpc/docs/configure-private-google-access["Google Cloud 文件：設定私有 Google Access"^]。
+
+. * 授權與支援網站帳戶 * ：指定您要使用「隨用隨付」或「 BYOL 」、然後指定 NetApp 支援網站帳戶。
++
+若要瞭解授權的運作方式、請參閱 link:concept_licensing.html["授權"]。
+
++
+NetApp 支援網站帳戶是隨用隨付的選項、但 BYOL 系統則為必填項目。 link:task_adding_nss_accounts.html["瞭解如何新增 NetApp 支援網站帳戶"]。
+
+. * 預先設定的套件 * ：選取其中一個套件以快速部署 Cloud Volumes ONTAP 某個作業系統、或按一下 * 建立我自己的組態 * 。
++
+如果您選擇其中一個套件、則只需指定一個 Volume 、然後檢閱並核准組態。
+
+. * 授權 * ：視 Cloud Volumes ONTAP 需要變更版本、選取授權、然後選取虛擬機器類型。
++
+如果您在啟動系統之後需要變更、您可以稍後修改授權或虛擬機器類型。
+
++
+
+NOTE: 如果所選版本有較新的發行候選版本、一般可用度或修補程式版本、 Cloud Manager 會在建立工作環境時、將系統更新至該版本。例如、如果您選取Cloud Volumes ONTAP 了「SUpdate 9.5 RC1」和「9.5 GA」、就會進行更新。此更新不會從一個版本發生到另一個版本、例如從9.4到9.5。
+
+. * 基礎儲存資源 * ：選擇初始 Aggregate 的設定：磁碟類型、每個磁碟的大小、以及是否應啟用資料分層。
++
+磁碟類型適用於初始磁碟區。您可以為後續磁碟區選擇不同的磁碟類型。
+
++
+磁碟大小適用於初始 Aggregate 中的所有磁碟、以及 Cloud Manager 在使用簡易資源配置選項時所建立的任何其他集合體。您可以使用進階配置選項、建立使用不同磁碟大小的集合體。
+
++
+如需選擇磁碟類型和大小的說明、請參閱 link:task_planning_your_config.html#sizing-your-system-in-gcp["在 GCP 中調整系統規模"]。
+
+. * 寫入速度與 WORM * ：選擇 * 正常 * 或 * 高速 * 寫入速度、並視需要啟動一次寫入、多次讀取（ WORM ）儲存設備。
++
+link:task_planning_your_config.html#choosing-a-write-speed["深入瞭解寫入速度"]。
+
++
+link:concept_worm.html["深入瞭解 WORM 儲存設備"]。
+
+. * 建立 Volume * ：輸入新磁碟區的詳細資料、或按一下 * 跳過 * 。
++
+如果您想要使用iSCSI、請跳過此步驟。Cloud Manager可讓您建立僅適用於NFS和CIFS的磁碟區。
+
++
+本頁中的部分欄位是不知自明的。下表說明您可能需要指導的欄位：
+
++
+[cols="25,75"]
+|===
+| 欄位 | 說明 
+
+
+| 尺寸 | 您可以輸入的最大大小、主要取決於您是否啟用精簡配置、這可讓您建立比目前可用實體儲存容量更大的磁碟區。 
+
+
+| 存取控制（僅適用於 NFS ） | 匯出原則會定義子網路中可存取磁碟區的用戶端。根據預設、 Cloud Manager 會輸入一個值、讓您存取子網路中的所有執行個體。 
+
+
+| 權限與使用者 / 群組（僅限 CIFS ） | 這些欄位可讓您控制使用者和群組（也稱為存取控制清單或 ACL ）的共用存取層級。您可以指定本機或網域 Windows 使用者或群組、或 UNIX 使用者或群組。如果您指定網域 Windows 使用者名稱、則必須使用網域 \ 使用者名稱格式來包含使用者的網域。 
+
+
+| Snapshot 原則 | Snapshot 複製原則會指定自動建立的 NetApp Snapshot 複本的頻率和數量。NetApp Snapshot 複本是一種不影響效能的時間點檔案系統映像、需要最少的儲存容量。您可以選擇預設原則或無。您可以針對暫時性資料選擇「無」：例如、 Microsoft SQL Server 的 Tempdb 。 
+|===
++
+下圖顯示 CIFS 傳輸協定的「 Volume 」（磁碟區）頁面：
+
++
+image:screenshot_cot_vol.gif["螢幕擷取畫面：顯示針對 Cloud Volumes ONTAP 某個實例填寫的 Volume 頁面。"]
+
+. * CIFS 設定 * ：如果您選擇 CIFS 傳輸協定、請設定 CIFS 伺服器。
++
+[cols="25,75"]
+|===
+| 欄位 | 說明 
+
+
+| DNS 主要和次要 IP 位址 | 提供 CIFS 伺服器名稱解析的 DNS 伺服器 IP 位址。列出的 DNS 伺服器必須包含所需的服務位置記錄（ SRV), 才能找到 CIFS 伺服器要加入之網域的 Active Directory LDAP 伺服器和網域控制器。 
+
+
+| 要加入的 Active Directory 網域 | 您要 CIFS 伺服器加入之 Active Directory （ AD ）網域的 FQDN 。 
+
+
+| 授權加入網域的認證資料 | 具有足夠權限的 Windows 帳戶名稱和密碼、可將電腦新增至 AD 網域內的指定組織單位（ OU ）。 
+
+
+| CIFS 伺服器 NetBios 名稱 | AD 網域中唯一的 CIFS 伺服器名稱。 
+
+
+| 組織單位 | AD 網域中與 CIFS 伺服器相關聯的組織單位。預設值為「 CN= 電腦」。 
+
+
+| DNS 網域 | 適用於整個儲存虛擬 Cloud Volumes ONTAP 機器（ SVM ）的 DNS 網域。在大多數情況下、網域與 AD 網域相同。 
+
+
+| NTP 伺服器 | 選擇 * 使用 Active Directory 網域 * 來使用 Active Directory DNS 設定 NTP 伺服器。如果您需要使用不同的位址來設定 NTP 伺服器、則應該使用 API 。請參閱 link:api.html["Cloud Manager API 開發人員指南"^] 以取得詳細資料。 
+|===
+. *使用率設定檔、磁碟類型及分層原則*：視需要選擇是否要啟用儲存效率功能並變更分層原則。
++
+如需詳細資訊、請參閱 link:task_planning_your_config.html#choosing-a-volume-usage-profile["瞭解 Volume 使用量設定檔"] 和 link:concept_data_tiering.html["資料分層總覽"]。
+
+. * Google Cloud Platform Account for Data Tiering *：為Google Cloud Platform帳戶提供可互通的儲存存取金鑰、以設定資料分層。按一下*跳過*以停用資料分層。
++
+這些關鍵功能可讓 Cloud Manager 設定雲端儲存庫、以利資料分層。如需詳細資料、請參閱 link:task_adding_gcp_accounts.html["設定GCP帳戶並將其新增至Cloud Manager"]。
+
+. * 審查與核准 * ：檢閱並確認您的選擇。
++
+.. 檢閱組態的詳細資料。
+.. 按一下 * 更多資訊 * 以檢閱 Cloud Manager 將購買的支援與 GCP 資源詳細資料。
+.. 選取「 * 我瞭解 ... * 」核取方塊。
+.. 按一下「 * 執行 * 」。
+
+
+
+
+Cloud Manager 部署 Cloud Volumes ONTAP 了這個功能。您可以追蹤時間表的進度。
+
+如果您在部署 Cloud Volumes ONTAP 此系統時遇到任何問題、請檢閱故障訊息。您也可以選取工作環境、然後按一下 * 重新建立環境 * 。
+
+如需其他協助、請前往 https://mysupport.netapp.com/cloudontap["NetApp Cloud Volumes ONTAP 支援"^]。
+
+.完成後
+* 如果您已配置 CIFS 共用區、請授予使用者或群組檔案和資料夾的權限、並確認這些使用者可以存取共用區並建立檔案。
+* 如果您要將配額套用至磁碟區、請使用 System Manager 或 CLI 。
++
+配額可讓您限制或追蹤使用者、群組或 qtree 所使用的磁碟空間和檔案數量。
+
+

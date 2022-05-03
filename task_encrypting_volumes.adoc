@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: task_encrypting_volumes.html 
+keywords: encrypt, encryption, data, volumes, netapp volume encryption, volume encryption, nve, key managers, kmip, key management servers, license, ssl certificates 
+summary: NetApp Volume Encryption是一項軟體技術、可一次加密一個磁碟區的閒置資料。資料、Snapshot複本和中繼資料都會加密。資料的存取權是由唯一的XTS-AES-256金鑰提供、每個磁碟區一個金鑰。 
+---
+= 使用NetApp Volume Encryption加密磁碟區
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+NetApp Volume Encryption（NVE）是一項軟體技術、可一次加密閒置一個磁碟區的資料。資料、Snapshot複本和中繼資料都會加密。資料的存取權是由唯一的XTS-AES-256金鑰提供、每個磁碟區一個金鑰。
+
+.關於這項工作
+* 從 Cloud Manager 3.7.1 開始、 NetApp Volume Encryption 授權會自動安裝在 Cloud Volumes ONTAP 每個已註冊 NetApp 支援的支援系統上。
++
+** link:task_adding_nss_accounts.html["新增 NetApp 支援網站帳戶至 Cloud Manager"]
+** link:task_registering.html["註冊隨用隨付系統"]
++
+
+NOTE: Cloud Manager不會在中國地區的系統上安裝NVE授權。
+
+
+
+* 目前、利用外部金鑰管理伺服器、支援NetApp Volume Encryption。Cloud Volumes ONTAP不支援Onboard Key Manager。
+* 您需要從ONTAP 功能完善的CLI設定NetApp Volume Encryption。
++
+然後、您可以使用CLI或System Manager在特定磁碟區上啟用加密功能。Cloud Manager不支援從使用者介面及API進行NetApp Volume Encryption。
+
+
+
+link:concept_security.html["深入瞭解支援的加密技術"]。
+
+.步驟
+. 檢閱中支援的關鍵管理程式清單 http://mysupport.netapp.com/matrix["NetApp 互通性對照表工具"^]。
++
+
+TIP: 搜尋 * 關鍵經理 * 解決方案。
+
+. link:task_connecting_to_otc.html["連線 Cloud Volumes ONTAP 至 CLI"^]。
+. 安裝 SSL 憑證並連線至外部金鑰管理伺服器。
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-DD718B42-038D-4009-84FF-20BBD6530BC2.html["《 NetApp 加密電源指南》（英文） 9 ：設定外部金鑰管理 ONTAP"^]
+
+. 使用CLI或System Manager建立新的加密磁碟區、或轉換現有的未加密磁碟區。
++
+** CLI：
++
+*** 對於新磁碟區、請使用* volume cre%*命令搭配-加密 參數。
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-A5D3FDEF-CA10-4A54-9E17-DB9E9954082E.html["《NetApp加密電源指南》（英文）9：在新磁碟區上啟用加密功能ONTAP"^]
+
+*** 對於現有磁碟區、請使用* Volume加密轉換start*命令。
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-1468CE48-A0D9-4D45-BF78-A11C26724051.html["《NetApp加密電源指南》（英文）9：使用Volume Encryption Conversion start命令、在現有磁碟區上啟用加密功能ONTAP"^]
+
+
+
+** 系統管理員：
++
+*** 如需新磁碟區、請按一下「*儲存設備>磁碟區>建立>建立FlexVol Sfor *」、然後選取「*加密*」。
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help-950/GUID-3FA865E2-AE14-40A9-BF76-A2D7EB44D387.html["使用System Manager進行的叢集管理功能：建立功能區ONTAP FlexVol"^]
+
+*** 對於現有磁碟區、請選取磁碟區、按一下*編輯*、然後選取*加密*。
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help-950/GUID-906E88E4-8CE9-465F-8AC7-0C089080B2C5.html["使用System Manager進行的叢集管理功能：編輯Volume內容ONTAP"^]
+
+
+
+
+
+

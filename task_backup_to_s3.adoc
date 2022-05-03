@@ -1,0 +1,333 @@
+---
+sidebar: sidebar 
+permalink: task_backup_to_s3.html 
+keywords: backing up, restoring, back up, backup, restore, cloud volumes ontap, aws, back up volumes, backup to s3, restore volumes, vpc endpoint, billing, cost 
+summary: 備份到S3是Cloud Volumes ONTAP 適用於整個功能的附加功能、可提供完全管理的備份與還原功能、以保護雲端資料、並長期歸檔。備份儲存在S3物件儲存設備中、獨立於用於近期恢復或複製的Volume Snapshot複本。 
+---
+= 將資料備份至 Amazon S3
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+備份到S3是Cloud Volumes ONTAP 適用於整個功能的附加功能、可提供完全管理的備份與還原功能、以保護雲端資料、並長期歸檔。備份儲存在S3物件儲存設備中、獨立於用於近期恢復或複製的Volume Snapshot複本。
+
+啟用「備份至S3」時、服務會執行資料的完整備份。所有額外的備份都是遞增的、這表示只會備份變更的區塊和新的區塊。
+
+https://cloud.netapp.com/cloud-backup-service["如需價格詳細資料、請前往NetApp Cloud Central"^]。
+
+請注意、您必須使用Cloud Manager進行所有備份與還原作業。任何直接從ONTAP 支援或Amazon S3採取的行動、都會導致不受支援的組態設定。
+
+
+
+== 快速入門
+
+請依照下列步驟快速入門、或向下捲動至其餘部分以取得完整詳細資料。
+
+
+
+==== 確認您的組態支援
+
+[role="quick-margin-para"]
+驗證下列項目：
+
+* 支援的AWS區域正在執行支援的支援範圍：Cloud Volumes ONTAP N維吉尼亞州、奧勒岡州、愛爾蘭、法蘭克福或悉尼
+* 您已訂閱新的 https://aws.amazon.com/marketplace/pp/B07QX2QLXX["Cloud Manager Marketplace產品"^]
+* TCP連接埠5010已開啟、可用於安全群組Cloud Volumes ONTAP 上的傳出流量、以供執行下列操作（預設為開啟）
+* Cloud Manager安全性群組上的傳出流量已開啟TCP連接埠8088（預設為開啟）
+* 可從Cloud Manager存取下列端點：
++
+\https://w86yt021u5.execute-api.us-east-1.amazonaws.com/production/whitelist
+
+* Cloud Manager可在VPC中配置最多兩個介面VPC端點（每VPC的AWS上限為20）
+* Cloud Manager有權使用最新列出的VPC端點權限 https://mysupport.netapp.com/cloudontap/iampolicies["Cloud Manager 原則"^]：
++
+[source, json]
+----
+"ec2:DescribeVpcEndpoints",
+"ec2:CreateVpcEndpoint",
+"ec2:ModifyVpcEndpoint",
+"ec2:DeleteVpcEndpoints"
+----
+
+
+
+
+==== 在新系統或現有系統上啟用「備份至S3」
+
+* 新系統：工作環境精靈預設會啟用「備份至S3」功能。請務必保持啟用選項。
+* 現有系統：開啟工作環境、按一下備份設定圖示並啟用備份。
++
+image:screenshot_backup_to_s3_icon.gif["顯示「備份到S3」圖示的快照、可在您開啟工作環境之後使用。"]
+
+
+
+
+
+==== 如有需要、請修改備份原則
+
+[role="quick-margin-para"]
+預設原則每天備份磁碟區、並保留每個磁碟區的30個備份複本。如有需要、您可以變更要保留的備份複本數量。
+
+[role="quick-margin-para"]
+image:screenshot_backup_to_s3_settings.gif["螢幕擷取畫面會顯示「Backup to S3」設定、您可以在其中啟用或停用此功能、然後選擇備份保留。"]
+
+
+
+==== 視需要還原資料
+
+[role="quick-margin-para"]
+在Cloud Manager頂端、按一下*備份與還原*、選取磁碟區、選取備份、然後將資料從備份還原至新磁碟區。
+
+[role="quick-margin-para"]
+image:screenshot_backup_to_s3_restore_icon.gif["選取磁碟區後、用於備份的還原圖示快照。"]
+
+
+
+== 需求
+
+請先閱讀下列需求、確認您擁有支援的組態、再開始將磁碟區備份至 S3 。
+
+支援 ONTAP 的支援版本:: Cloud Volume ONTAP S9.4及更新版本支援備份至S3。
+支援的 AWS 區域:: 下列AWS區域支援使用支援將備份至S3：Cloud Volumes ONTAP
++
+--
+* 美國東部（北維吉尼亞州）
+* 美國西部（俄勒岡州）
+* 歐盟（愛爾蘭）
+* 歐盟（法蘭克福）
+* 亞太地區（悉尼）
+
+
+--
+需要 AWS 權限:: 為Cloud Manager提供權限的IAM角色必須包括下列項目：
++
+--
+[source, json]
+----
+"ec2:DescribeVpcEndpoints",
+"ec2:CreateVpcEndpoint",
+"ec2:ModifyVpcEndpoint",
+"ec2:DeleteVpcEndpoints"
+----
+--
+AWS訂閱需求:: 從3.7.3版開始、AWS Marketplace提供新的Cloud Manager訂閱服務。這項訂閱可部署Cloud Volumes ONTAP 支援支援使用支援支援支援支援支援支援支援支援支援支援支援支援功能的32個版本的更新版PAYGO系統和Backup to S3。您需要 https://aws.amazon.com/marketplace/pp/B07QX2QLXX["訂閱此新的Cloud Manager訂閱"^] 在您啟用「備份至S3」之前。備份到S3功能的計費是透過此訂閱完成。
+連接埠需求::
++
+--
+* TCP連接埠5010必須開啟、才能讓從Cloud Volumes ONTAP 無法從功能到備份服務的傳出流量使用。
+* Cloud Manager安全性群組上的傳出流量必須開啟TCP連接埠8088。
++
+如果您使用預先定義的安全性群組、這些連接埠已經開啟。但如果您使用自己的連接埠、則必須開啟這些連接埠。
+
+
+
+--
+傳出網際網路存取:: 請確認可從Cloud Manager存取下列端點：\https://w86yt021u5.execute-api.us-east-1.amazonaws.com/production/whitelist
++
+--
+Cloud Manager會聯絡此端點、將您的AWS帳戶ID新增至允許備份到S3的使用者清單。
+
+--
+介面VPC端點:: 啟用「備份到S3」功能時、Cloud Manager會在Cloud Volumes ONTAP 執行了Windows的VPC上建立一個介面VPC端點。此_Backup端點_連接至執行Backup to S3的NetApp VPC。如果您還原Volume、Cloud Manager會建立額外的VPC端點介面（_restore端點）。
++
+--
+VPC中任何其他Cloud Volumes ONTAP 的不同步系統都會使用這兩個VPC端點。
+
+https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html#vpc-limits-endpoints["介面VPC端點的預設限制為每VPC 20個"^]。啟用此功能之前、請先確定VPC尚未達到上限。
+
+--
+
+
+
+
+== 在新系統上啟用S3的備份
+
+工作環境精靈預設會啟用「備份至S3」功能。請務必保持啟用選項。
+
+.步驟
+. 按一下「 * 建立 Cloud Volumes ONTAP 參考 * 」。
+. 選取 Amazon Web Services 做為雲端供應商、然後選擇單一節點或 HA 系統。
+. 填寫「詳細資料與認證」頁面。
+. 在「Backup to S3（備份到S3）」頁面上、讓此功能保持啟用狀態、然後按一下*繼續*。
++
+image:screenshot_backup_to_s3.gif["顯示工作環境精靈中的「Backup to S3（備份至S3）」選項。"]
+
+. 完成精靈中的頁面以部署系統。
+
+
+系統會啟用「備份至S3」功能、每天備份磁碟區、並保留30個備份複本。 <<Changing the backup retention,瞭解如何修改備份保留>>。
+
+
+
+== 在現有系統上啟用S3的備份
+
+只Cloud Volumes ONTAP 要您執行支援的組態、即可在現有的支援系統上啟用S3的備份。如需詳細資訊、請參閱 <<Requirements>>。
+
+.步驟
+. 開啟工作環境。
+. 按一下備份設定圖示。
++
+image:screenshot_backup_to_s3_icon.gif["顯示「Backup to S3 Settings」（備份至S3設定）圖示的快照、可在您開啟工作環境後使用。"]
+
+. 選擇*自動備份所有磁碟區*。
+. 選擇您的備份保留、然後按一下*「Save"（儲存）*。
++
+image:screenshot_backup_to_s3_settings.gif["螢幕擷取畫面會顯示「Backup to S3」設定、您可以在其中啟用或停用此功能、然後選擇備份保留。"]
+
+
+
+「備份到S3」功能會開始對每個磁碟區進行初始備份。
+
+
+
+== 變更備份保留
+
+預設原則每天備份磁碟區、並保留每個磁碟區的30個備份複本。您可以變更要保留的備份複本數量。
+
+.步驟
+. 開啟工作環境。
+. 按一下備份設定圖示。
++
+image:screenshot_backup_to_s3_icon.gif["顯示「備份到S3」圖示的快照、可在您開啟工作環境之後使用。"]
+
+. 變更備份保留、然後按一下*「Save"（儲存）*。
++
+image:screenshot_backup_to_s3_settings.gif["螢幕擷取畫面會顯示「Backup to S3」設定、您可以在其中啟用或停用此功能、然後選擇「Backup returse」（備份保留）。"]
+
+
+
+
+
+== 還原Volume
+
+從備份還原資料時、Cloud Manager會將完整Volume還原至_new Volume。您可以將資料還原至相同的工作環境或不同的工作環境。
+
+.步驟
+. 在Cloud Manager頂端、按一下*備份與還原*。
+. 選取您要還原的磁碟區。
++
+image:screenshot_backup_to_s3_volume.gif["「備份與還原」索引標籤的快照、顯示有備份的磁碟區。"]
+
+. 找到您要還原的備份、然後按一下還原圖示。
++
+image:screenshot_backup_to_s3_restore_icon.gif["選取磁碟區後、用於備份的還原圖示快照。"]
+
+. 選取您要還原磁碟區的工作環境。
+. 輸入磁碟區名稱。
+. 按一下 * 還原 * 。
++
+image:screenshot_backup_to_s3_restore_options.gif["顯示還原選項的快照：要還原的工作環境、磁碟區名稱及磁碟區資訊。"]
+
+
+
+
+
+== 刪除備份
+
+所有備份都會保留在S3中、直到您從Cloud Manager刪除為止。刪除磁碟區或刪除Cloud Volumes ONTAP 作業系統時、不會刪除備份。
+
+.步驟
+. 在Cloud Manager頂端、按一下*備份與還原*。
+. 選取一個Volume。
+. 尋找您要刪除的備份、然後按一下刪除圖示。
++
+image:screenshot_backup_to_s3_delete_icon.gif["選取磁碟區後、用於備份的刪除圖示快照。"]
+
+. 確認您要刪除備份。
+
+
+
+
+== 停用S3的備份
+
+停用備份至S3會停用系統上每個磁碟區的備份。不會刪除任何現有的備份。
+
+.步驟
+. 開啟工作環境。
+. 按一下備份設定圖示。
++
+image:screenshot_backup_to_s3_icon.gif["顯示「備份到S3」圖示的快照、可在您開啟工作環境之後使用。"]
+
+. 停用*自動備份所有磁碟區*、然後按一下「*儲存*」。
+
+
+
+
+== 備份到S3的運作方式
+
+以下各節提供有關「備份到S3」功能的詳細資訊。
+
+
+
+=== 備份所在位置
+
+備份複本儲存在NetApp擁有的S3儲存庫中、該儲存庫位於Cloud Volumes ONTAP 同一個地區、即整個系統所在的地區。
+
+
+
+=== 備份是遞增的
+
+在資料的初始完整備份之後、所有其他備份都是遞增的、這表示只會備份變更的區塊和新的區塊。
+
+
+
+=== 備份會在午夜進行
+
+每天的備份作業會在每天午夜之後才開始。此時、您無法在使用者指定的時間排程備份作業。
+
+
+
+=== 備份複本會與 Cloud Central 帳戶建立關聯
+
+備份複本與相關聯 link:concept_cloud_central_accounts.html["Cloud Central 帳戶"] Cloud Manager 所在位置。
+
+如果您在同一個 Cloud Central 帳戶中有多個 Cloud Manager 系統、則每個 Cloud Manager 系統都會顯示相同的備份清單。這包括Cloud Volumes ONTAP 與其他Cloud Manager系統上的執行個體相關的備份。
+
+
+
+=== 備份原則適用於全系統
+
+要保留的備份數量是在系統層級定義。您無法為系統上的每個磁碟區設定不同的原則。
+
+
+
+=== 安全性
+
+備份資料會以 AES-256 位元加密的閒置和 TLS 1.2 HTTPS 傳輸連線加以保護。
+
+資料會透過安全的Direct Connect連結傳輸至服務、並受到AES 256位元加密的保護。然後使用HTTPS TLS 1.2連線將加密資料寫入雲端。資料也只能透過安全的VPC端點連線傳輸至Amazon S3、因此不會透過網際網路傳送流量。
+
+除了服務擁有的整體加密金鑰之外、每位使用者都會被指派租戶金鑰。這項要求類似於需要一對金鑰、才能在銀行中安全地開啟客戶。所有金鑰（如雲端認證）均由服務安全儲存、僅限負責維護服務的特定NetApp人員使用。
+
+
+
+=== 限制
+
+* 如果您使用下列任一種執行個體類型、Cloud Volumes ONTAP 則支援一個不超過20個磁碟區備份到S3：
++
+** m4.xlarge
+** M5.xLarge
+** r4.xlarge
+** R5.xlarge
+
+
+* 您在Cloud Manager以外建立的磁碟區不會自動備份至S3。
++
+例如、如果您是從 ONTAP 無法使用的 CLI 、 ONTAP 還原 API 或系統管理程式建立磁碟區、就不會自動備份磁碟區。
+
++
+如果您要備份這些磁碟區、您必須停用備份到S3、然後重新啟用。
+
+* 從備份還原資料時、Cloud Manager會將完整Volume還原至_new Volume。此新磁碟區不會自動備份至S3。
++
+如果您想要備份從還原作業建立的磁碟區、您需要停用「備份到S3」、然後重新啟用。
+
+* 您可以備份大小不超過50 TB的磁碟區。
+* 備份到S3最多可維持245個磁碟區的總備份。
+* 啟用備份到S3時、WORM儲存設備不受Cloud Volumes ONTAP 支援。
+

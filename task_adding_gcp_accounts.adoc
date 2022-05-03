@@ -1,0 +1,67 @@
+---
+sidebar: sidebar 
+permalink: task_adding_gcp_accounts.html 
+keywords: permissions, gcp, data tiering, tiering, setup, requirements, account for data tiering, account for tiering, interoperable, interoperability, interoperable storage access keys, access keys 
+summary: 需要在Cloud Manager中新增Google Cloud Platform帳戶、才能在Cloud Volumes ONTAP 支援資料的系統上分層。資料分層會自動將冷資料分層至低成本的物件儲存設備、讓您回收主儲存設備的空間、並縮減二線儲存設備。 
+---
+= 設定GCP帳戶並將其新增至Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+如果您要啟用 link:concept_data_tiering.html["資料分層"] 在這個系統上、您需要為具有Storage Admin權限的服務帳戶、提供Cloud Manager儲存存取金鑰。Cloud Volumes ONTAPCloud Manager 使用存取金鑰來設定及管理雲端儲存庫、以利資料分層。
+
+
+
+== 設定 Google Cloud Storage 的服務帳戶和存取金鑰
+
+服務帳戶可讓 Cloud Manager 驗證及存取用於資料分層的雲端儲存桶。這些金鑰是必要的、以便 Google Cloud Storage 知道誰在提出要求。
+
+.步驟
+. 開啟 GCP IAM 主控台和 https://cloud.google.com/iam/docs/creating-custom-roles#creating_a_custom_role["建立具有 Storage Admin 角色的服務帳戶"^]。
++
+image:screenshot_gcp_service_account_role.gif["GCP IAM 主控台的快照、顯示服務帳戶的儲存管理角色選項。"]
+
+. 前往 https://console.cloud.google.com/storage/settings["GCP 儲存設定"^]。
+. 如果出現提示、請選取專案。
+. 按一下「 * 互通性 * 」索引標籤。
+. 如果您尚未啟用、請按一下 * 「啟用互通性存取」 * 。
+. 在 * 服務帳戶的存取金鑰 * 下、按一下 * 建立服務帳戶的金鑰 * 。
+. 選取您在步驟 1 中建立的服務帳戶。
++
+image:screenshot_gcp_access_key.gif["GCP 儲存主控台的快照、顯示新存取金鑰的所選服務帳戶。"]
+
+. 按一下「 * 建立金鑰 * 」。
+. 複製存取金鑰和密碼。
++
+新增 GCP 帳戶以進行資料分層時、您必須在 Cloud Manager 中輸入此資訊。
+
+
+
+
+
+== 將 GCP 帳戶新增至 Cloud Manager
+
+現在您已擁有服務帳戶的存取金鑰、可以將其新增至 Cloud Manager 。
+
+.步驟
+. 在Cloud Manager主控台右上角、按一下「設定」圖示、然後選取「* Cloud Provider & Support Account*」。
++
+image:screenshot_settings_icon.gif["顯示 Cloud Manager 主控台右上角「設定」圖示的快照。"]
+
+. 按一下「*新增帳戶*」並選取「* GCP*」。
+. 輸入服務帳戶的存取金鑰和密碼。
++
+這些關鍵功能可讓 Cloud Manager 設定雲端儲存庫、以利資料分層。
+
+. 確認已符合原則需求、然後按一下「 * 建立帳戶 * 」。
+
+
+現在、您可以在建立、修改或複寫個別磁碟區時、在這些磁碟區上啟用資料分層功能。如需詳細資訊、請參閱 link:task_tiering.html["將非作用中資料分層至低成本物件儲存設備"]。
+
+但在您之前、請確定 Cloud Volumes ONTAP 駐留的子網路已設定為私有 Google Access 。如需相關指示、請參閱 https://cloud.google.com/vpc/docs/configure-private-google-access["Google Cloud 文件：設定私有 Google Access"^]。

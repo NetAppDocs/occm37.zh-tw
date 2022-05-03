@@ -1,0 +1,61 @@
+---
+sidebar: sidebar 
+permalink: concept_accounts_azure.html 
+keywords: cloud provider accounts, azure, azure accounts, service principal, multiple accounts, permissions, policy, policies, subscriptions 
+summary: Cloud Manager可讓您選擇要部署Cloud Volumes ONTAP 的Azure帳戶。您可以在Cloud Volumes ONTAP 初始Azure帳戶中部署所有的整套系統、也可以設定其他帳戶。 
+---
+= Azure帳戶與權限
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager可讓您選擇要部署Cloud Volumes ONTAP 的Azure帳戶。您可以在Cloud Volumes ONTAP 初始Azure帳戶中部署所有的整套系統、也可以設定其他帳戶。
+
+
+
+== 初始Azure帳戶
+
+從NetApp Cloud Central部署Cloud Manager時、您需要使用具備部署Cloud Manager虛擬機器權限的Azure帳戶。所需權限列於 https://mysupport.netapp.com/cloudontap/iampolicies["適用於Azure的NetApp Cloud Central原則"^]。
+
+當Cloud Central在Azure中部署Cloud Manager虛擬機器時 https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["系統指派的託管身分識別"^] 在Cloud Manager虛擬機器上、建立自訂角色、並將其指派給虛擬機器。此角色可讓Cloud Manager在Cloud Volumes ONTAP 該Azure訂閱中部署及管理功能。 link:reference_permissions.html#what-cloud-manager-does-with-azure-permissions["檢閱 Cloud Manager 如何使用權限"]。
+
+image:diagram_permissions_initial_azure.png["顯示 Cloud Central 在 Azure 帳戶和訂閱中部署 Cloud Manager 的概念性映像。系統指派的託管身分識別已啟用、並將自訂角色指派給 Cloud Manager 虛擬機器。"]
+
+Cloud Manager會在您建立新的工作環境時、依預設選取此雲端供應商帳戶：
+
+image:screenshot_accounts_select_azure.gif["顯示「詳細資料 & 認證」頁面中「切換帳戶」選項的快照。"]
+
+
+
+== 初始帳戶的額外Azure訂閱
+
+託管身分識別與您啟動Cloud Manager的訂閱相關。如果您想要選擇不同的 Azure 訂閱、則需要 link:task_adding_azure_accounts.html#associating-additional-azure-subscriptions-with-a-managed-identity["將託管身分識別與這些訂閱建立關聯"]。
+
+
+
+== 其他Azure帳戶
+
+如果您想要在Cloud Volumes ONTAP 不同的Azure帳戶中部署功能、則必須授予所需的權限 link:task_adding_azure_accounts.html["在 Azure Active Directory 中建立及設定服務主體"] 針對每個 Azure 帳戶。下圖顯示兩個額外的帳戶、每個帳戶都設有提供權限的服務主體和自訂角色：
+
+image:diagram_permissions_multiple_azure.png["顯示初始 Azure 帳戶（透過自訂角色和託管身分識別接收權限）的概念性映像、以及透過自訂角色和服務主體接收權限的兩個額外帳戶。"]
+
+您可以 link:task_adding_azure_accounts.html#adding-azure-accounts-to-cloud-manager["將雲端供應商帳戶新增至Cloud Manager"] 提供 AD 服務主體的詳細資料。
+
+新增其他帳戶之後、您可以在建立新的工作環境時切換至該帳戶：
+
+image:screenshot_accounts_switch_azure.gif["在詳細資料 & 認證頁面中按一下「切換帳戶」之後、顯示在雲端供應商帳戶之間選取的快照。"]
+
+.Marketplace 部署和內部部署呢？
+****
+以上各節說明NetApp Cloud Central建議的部署方法。您也可以從部署Cloud Manager至Azure link:task_launching_azure_mktp.html["Azure Marketplace"]您也可以 link:task_installing_linux.html["在內部部署中安裝Cloud Manager"]。
+
+如果您使用 Marketplace 、則會以相同方式提供權限。您只需要手動建立及設定Cloud Manager的託管身分識別、然後為任何其他帳戶提供權限。
+
+對於內部部署、您無法為Cloud Manager系統設定託管身分識別、但您可以像提供其他帳戶一樣提供權限。
+
+****

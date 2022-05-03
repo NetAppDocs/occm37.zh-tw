@@ -1,0 +1,27 @@
+---
+sidebar: sidebar 
+permalink: task_uninstalling.html 
+keywords: uninstalling, uninstall, reinstall 
+summary: Cloud Manager包含一個解除安裝指令碼、可用來解除安裝軟體、以疑難排解問題或從主機永久移除軟體。 
+---
+= 正在解除安裝Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager包含一個解除安裝指令碼、可用來解除安裝軟體、以疑難排解問題或從主機永久移除軟體。
+
+.步驟
+. 從 Linux 主機執行解除安裝指令碼：
++
+* /opt/application/NetApp/cloudmanager/in/uninstall.sh [silined]*
+
++
+_silon_ 執行指令碼時不會提示您確認。
+
+

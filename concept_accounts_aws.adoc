@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: concept_accounts_aws.html 
+keywords: cloud provider accounts, aws, aws accounts, keys, multiple accounts, permissions, aws permissions, policy, policies, json 
+summary: Cloud Manager可讓您選擇想要部署Cloud Volumes ONTAP 的AWS帳戶。您可以在Cloud Volumes ONTAP 初始AWS帳戶中部署所有的整套系統、也可以設定其他帳戶。 
+---
+= AWS帳戶和權限
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager可讓您選擇想要部署Cloud Volumes ONTAP 的AWS帳戶。您可以在Cloud Volumes ONTAP 初始AWS帳戶中部署所有的整套系統、也可以設定其他帳戶。
+
+
+
+== 初始AWS帳戶
+
+從NetApp Cloud Central部署Cloud Manager時、您需要使用具有啟動Cloud Manager執行個體權限的AWS帳戶。所需權限列於 https://mysupport.netapp.com/cloudontap/iampolicies["適用於AWS的NetApp Cloud Central原則"^]。
+
+Cloud Central在AWS中啟動Cloud Manager執行個體時、會為執行個體建立IAM角色和執行個體設定檔。它也附加原則、讓Cloud Manager有權限在Cloud Volumes ONTAP 該AWS帳戶中部署及管理功能。 link:reference_permissions.html#what-cloud-manager-does-with-aws-permissions["檢閱 Cloud Manager 如何使用權限"]。
+
+image:diagram_permissions_initial_aws.png["顯示 Cloud Central 在 AWS 帳戶中部署 Cloud Manager 的概念性映像。IAM 原則會指派給附加至 Cloud Manager 執行個體的 IAM 角色。"]
+
+Cloud Manager會在您建立新的工作環境時、依預設選取此雲端供應商帳戶：
+
+image:screenshot_accounts_select_aws.gif["顯示「詳細資料 & 認證」頁面中「切換帳戶」選項的快照。"]
+
+
+
+== 其他AWS帳戶
+
+如果您想要在 Cloud Volumes ONTAP 不同的 AWS 帳戶中啟動功能、您也可以選擇 link:task_adding_aws_accounts.html["為 IAM 使用者或信任帳戶中角色的 ARN 提供 AWS 金鑰"]。下圖顯示兩個額外的帳戶、一個透過信任帳戶中的 IAM 角色提供權限、另一個則透過 IAM 使用者的 AWS 金鑰提供權限：
+
+image:diagram_permissions_multiple_aws.png["顯示兩個額外帳戶的概念性映像。每個都有 IAM 原則、一個附加到 IAM 使用者、另一個附加到 IAM 角色。"]
+
+您可以 link:task_adding_aws_accounts.html#adding-aws-accounts-to-cloud-manager["將雲端供應商帳戶新增至Cloud Manager"] 指定 IAM 角色的 Amazon 資源名稱（ ARN ）或 IAM 使用者的 AWS 金鑰。
+
+新增其他帳戶之後、您可以在建立新的工作環境時切換至該帳戶：
+
+image:screenshot_accounts_switch_aws.gif["在詳細資料 & 認證頁面中按一下「切換帳戶」之後、顯示在雲端供應商帳戶之間選取的快照。"]
+
+.Marketplace 部署和內部部署呢？
+****
+以上各節說明NetApp Cloud Central建議的部署方法。您也可以從部署Cloud Manager至AWS link:task_launching_aws_mktp.html["AWS Marketplace"] 您也可以 link:task_installing_linux.html["在內部部署中安裝Cloud Manager"]。
+
+如果您使用 Marketplace 、則會以相同方式提供權限。您只需要手動建立和設定 IAM 角色、然後為任何其他帳戶提供權限。
+
+對於內部部署、您無法為 Cloud Manager 系統設定 IAM 角色、但您可以像提供額外 AWS 帳戶一樣提供權限。
+
+****

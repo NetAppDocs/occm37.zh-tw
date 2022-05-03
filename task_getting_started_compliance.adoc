@@ -1,0 +1,219 @@
+---
+sidebar: sidebar 
+permalink: task_getting_started_compliance.html 
+keywords: cloud compliance, get started, enable cloud compliance, cifs credentials, smb credentials, outbound internet, endpoints, cloud compliance internet, web browser connectivity, cloud compliance access, privacy, compliance 
+summary: 完成幾個步驟、即可在Cloud Volumes ONTAP AWS或Azure的各個系統上開始使用Cloud Compliance。 
+---
+= Cloud Compliance for Cloud Volumes ONTAP NetApp入門
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+完成幾個步驟、即可開始使用Cloud Volumes ONTAP AWS或Azure中的Cloud Compliance for功能。
+
+
+
+== 快速入門
+
+請依照下列步驟快速入門、或向下捲動至其餘部分以取得完整詳細資料。
+
+
+
+==== 確認您的組態符合要求
+
+* 確保Cloud Compliance執行個體可存取傳出的網際網路。
++
+Cloud Manager會將執行個體部署在Cloud Volumes ONTAP 要求中第一個的VPC或vnet上。
+
+* 確保使用者可以從直接連線至AWS或Azure的主機、或是從與Cloud Compliance執行個體位於相同網路內的主機（執行個體將有私有IP位址）存取Cloud Manager介面。
+* 確保雲端法規遵循執行個體持續運作。
+
+
+
+
+==== 在Cloud Volumes ONTAP 支援的基礎上實現雲端法規遵循
+
+* 新的工作環境：建立工作環境（預設為啟用）時、請務必啟用雲端法規遵循。
+* 現有工作環境：按一下* Compliance *（符合法規）、編輯工作環境清單、然後按一下* Show Compliance Dashboard（顯示法規遵循儀表板）*。
+
+
+
+
+==== 確保能夠存取磁碟區
+
+[role="quick-margin-para"]
+雲端法規遵循已啟用、請確保 IT 能夠存取磁碟區。
+
+* Cloud Compliance執行個體需要網路連線至Cloud Volumes ONTAP 每個子網路。
+* 適用於此功能的安全群組 Cloud Volumes ONTAP 必須允許來自 Cloud Compliance 執行個體的傳入連線。
+* NFS Volume匯出原則必須允許從Cloud Compliance執行個體存取。
+* Cloud Compliance 需要 Active Directory 認證資料才能掃描 CIFS Volume 。
++
+按一下「* Compliance *>* CIFS Scan Status *>* Edit CIFS Credentials*」、然後提供認證資料。認證資料可以是唯讀的、但提供管理認證可確保Cloud Compliance能夠讀取需要提升權限的資料。
+
+
+
+
+
+==== 確保Cloud Manager與Cloud Compliance之間的連線能力
+
+* Cloud Manager的安全性群組必須允許來自連接埠80的傳入和傳出流量進出Cloud Compliance執行個體。
+* 如果AWS網路未使用NAT或Proxy進行網際網路存取、Cloud Manager的安全性群組必須允許來自Cloud Compliance執行個體的TCP連接埠3128傳入流量。
+
+
+
+
+== 檢閱先決條件
+
+在啟用 Cloud Compliance 之前、請先檢閱下列先決條件、確定您擁有支援的組態。啟用雲端法規遵循之後、您必須確保元件之間的連線能力。內容涵蓋如下：
+
+啟用傳出網際網路存取:: 雲端法規遵循需要外傳網際網路存取。如果您的虛擬網路使用Proxy伺服器進行網際網路存取、請確定Cloud Compliance執行個體具有傳出網際網路存取權限、以聯絡下列端點：
++
+--
+[cols="43,57"]
+|===
+| 端點 | 目的 
+
+
+| \https://cloudmanager.cloud.netapp.com | 與 Cloud Manager 服務（包括 Cloud Central 帳戶）進行通訊。 
+
+
+| \https://netapp-cloud-account.auth0.com | 與 NetApp Cloud Central 通訊、以進行集中式使用者驗證。 
+
+
+| \https://cloud-compliance-support-netapp.s3.us-west-1.amazonaws.com \https://hub.docker.com | 提供軟體映像、資訊清單和範本的存取權限。 
+
+
+| \https://kinesis.us-east-1.amazonaws.com | 讓 NetApp 能夠從稽核記錄串流資料。 
+
+
+| \https://cognito-idp.us-east-1.amazonaws.com \https://cognito-identity.us-east-1.amazonaws.com | 讓 Cloud Compliance 能夠存取及下載資訊清單和範本、並傳送記錄和指標。 
+|===
+--
+驗證網路瀏覽器是否能連線至Cloud Compliance:: Cloud Compliance 執行個體使用私有 IP 位址、確保索引資料無法存取網際網路。因此、您用來存取 Cloud Manager 的網頁瀏覽器必須連線至該私有 IP 位址。這種連線可能來自於 AWS 或 Azure （例如 VPN ）的直接連線、或來自與 Cloud Compliance 執行個體位於同一個網路內的主機。
++
+--
+
+TIP: 如果您是從公有IP位址存取Cloud Manager、則您的網頁瀏覽器可能並未在網路內部的主機上執行。
+
+--
+持續執行雲端法規遵循:: Cloud Compliance 執行個體必須持續執行、才能持續掃描資料。
+
+
+
+
+== 在新的工作環境中實現雲端法規遵循
+
+依預設、在工作環境精靈中會啟用「雲端法規遵循」。請務必保持啟用選項。
+
+.步驟
+. 按一下「 * 建立 Cloud Volumes ONTAP 參考 * 」。
+. 選取Amazon Web Services或Microsoft Azure做為雲端供應商、然後選擇單一節點或HA系統。
+. 填寫「詳細資料與認證」頁面。
+. 在「服務」頁面上、讓Cloud Compliance保持啟用狀態、然後按一下*繼續*。
++
+image:screenshot_cloud_compliance.gif["在工作環境精靈中顯示「服務」頁面的快照。"]
+
+. 完成精靈中的頁面以部署系統。
++
+如需協助、請參閱 link:task_deploying_otc_aws.html["在 Cloud Volumes ONTAP AWS 中啟動"] 和 link:task_deploying_otc_azure.html["在 Cloud Volumes ONTAP Azure 中啟動"]。
+
+
+
+Cloud Compliance可在Cloud Volumes ONTAP 整個系統上啟用。如果這是您第一次啟用Cloud Compliance、Cloud Manager會在雲端供應商中部署Cloud Compliance執行個體。只要執行個體可用、就會在資料寫入您建立的每個磁碟區時開始掃描資料。
+
+
+
+== 在現有的工作環境中實現雲端法規遵循
+
+從Cloud Manager的* Compliance *（法規遵循）標籤、在現有Cloud Volumes ONTAP 的支援系統上啟用Cloud Compliance（雲端法規遵循）。
+
+另一個選項是從*工作環境*索引標籤中個別選取每個工作環境、以啟用雲端法規遵循。除非您只有一個系統、否則需要更長的時間才能完成。
+
+.適用於多種工作環境的步驟
+. 在 Cloud Manager 頂端、按一下 * Compliance * 。
+. 如果您想在特定工作環境中啟用Cloud Compliance、請按一下編輯圖示。
++
+否則、Cloud Manager會在您有權存取的所有工作環境中、啟用Cloud Compliance（雲端法規遵循）。
+
++
+image:screenshot_show_compliance_dashboard.gif["「符合性」索引標籤的快照、顯示選擇要掃描的工作環境時要按一下的圖示。"]
+
+. 按一下*顯示法規遵循儀表板*。
+
+
+.單一工作環境的步驟
+. 在Cloud Manager頂端、按一下*工作環境*。
+. 選取工作環境。
+. 在右側窗格中、按一下「 * 啟用相容性 * 」。
++
+image:screenshot_enable_compliance.gif["在您選取工作環境之後、顯示「工作環境」索引標籤中可用的「啟用規範」圖示的快照。"]
+
+
+
+如果這是您第一次啟用Cloud Compliance、Cloud Manager會在雲端供應商中部署Cloud Compliance執行個體。
+
+Cloud Compliance會開始掃描每個工作環境中的資料。一旦Cloud Compliance完成初始掃描、資料就會出現在法規遵循儀表板中。所需時間取決於資料量、可能需要幾分鐘或幾小時。
+
+
+
+== 確認 Cloud Compliance 可存取磁碟區
+
+請檢查您的網路、安全群組和匯出原則、確保Cloud Compliance能夠存取Cloud Volumes ONTAP 位於Sure上的磁碟區。您必須提供符合雲端法規的 CIFS 認證資料、讓 IT 能夠存取 CIFS 磁碟區。
+
+.步驟
+. 確定Cloud Compliance執行個體與每Cloud Volumes ONTAP 個子網路之間都有網路連線。
++
+Cloud Manager會將Cloud Compliance執行個體部署在Cloud Volumes ONTAP 與申請中第一個的版本相同的VPC或vnet上。因此、如果某些Cloud Volumes ONTAP 支援的系統位於不同的子網路或虛擬網路中、這個步驟就很重要。
+
+. 確保 Cloud Volumes ONTAP 適用於此功能的安全群組允許來自 Cloud Compliance 執行個體的傳入流量。
++
+您可以從 Cloud Compliance 執行個體的 IP 位址開啟流量的安全性群組、也可以開啟虛擬網路內部所有流量的安全性群組。
+
+. 確保 NFS Volume 匯出原則包含 Cloud Compliance 執行個體的 IP 位址、以便存取每個 Volume 上的資料。
+. 如果您使用 CIFS 、請提供 Active Directory 認證的 Cloud Compliance 、以便掃描 CIFS Volume 。
++
+.. 在 Cloud Manager 頂端、按一下 * Compliance * 。
+.. 在右上角、按一下「* CIFS掃描狀態*」。
++
+image:screenshot_cifs_credentials.gif["「符合性」索引標籤的快照、顯示內容窗格右上角可用的「CIFS掃描狀態」按鈕。"]
+
+.. 針對每Cloud Volumes ONTAP 個作業系統、按一下*編輯CIFS認證*、然後輸入Cloud Compliance存取系統上CIFS Volume所需的使用者名稱和密碼。
++
+認證資料可以是唯讀的、但提供管理認證可確保 Cloud Compliance 能夠讀取任何需要提高權限的資料。認證資料儲存在 Cloud Compliance 執行個體上。
+
++
+輸入認證之後、您應該會看到一則訊息、指出所有 CIFS 磁碟區都已成功驗證。
+
++
+image:screenshot_cifs_status.gif["快照顯示CIFS掃描狀態頁面、以及Cloud Volumes ONTAP 成功提供CIFS認證的一個更新系統。"]
+
+
+
+
+
+
+
+== 驗證Cloud Manager是否可存取Cloud Compliance
+
+確保Cloud Manager與Cloud Compliance之間的連線能力、讓您檢視Cloud Compliance所發現的法規遵循洞見。
+
+.步驟
+. 請確定Cloud Manager的安全性群組允許透過連接埠80往返Cloud Compliance執行個體的傳入和傳出流量。
++
+此連線可讓您在「Compliance」（符合性）索引標籤中檢視資訊。
+
+. 如果您的AWS網路未使用NAT或Proxy進行網際網路存取、請修改Cloud Manager的安全性群組、以允許來自Cloud Compliance執行個體的TCP連接埠3128傳入流量。
++
+這是必要的、因為Cloud Compliance執行個體使用Cloud Manager做為Proxy來存取網際網路。
+
++
+
+NOTE: 此連接埠預設會在所有新的Cloud Manager執行個體上開啟、從3.7.5版開始。它不會在該版本之前所建立的Cloud Manager執行個體上開啟。
+
+

@@ -1,0 +1,113 @@
+---
+sidebar: sidebar 
+permalink: reference_deployment_overview.html 
+keywords: installation, installing, install, setting up, set up, setup, deploy, deployment, c2s, commerical cloud services, ic, intelligence community 
+summary: 在開始之前、您可能想要更深入瞭解部署Cloud Manager和Cloud Volumes ONTAP 解決方案的選項。 
+---
+= 部署總覽
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+在開始之前、您可能想要更深入瞭解部署Cloud Manager和Cloud Volumes ONTAP 解決方案的選項。
+
+
+
+== Cloud Manager安裝
+
+需要Cloud Manager軟體來部署和管理Cloud Volumes ONTAP 功能。您可以在下列任一位置部署Cloud Manager：
+
+* Amazon Web Services（AWS）
+* Microsoft Azure
+* Google Cloud Platform
++
+在Cloud Volumes ONTAP GCP中部署時、Cloud Manager必須位於Google Cloud Platform中。
+
+* IBM Cloud
+* 在您自己的網路中
+
+
+部署Cloud Manager的方式取決於您選擇的位置：
+
+[cols="35,65"]
+|===
+| Cloud Manager的位置 | 如何部署Cloud Manager 
+
+
+| AWS  a| 
+. link:task_getting_started_aws.html["從NetApp Cloud Central部署Cloud Manager"] （建議）
+. link:task_launching_aws_mktp.html["從AWS Marketplace部署"]
+. link:task_installing_linux.html["在Linux主機上下載並安裝軟體"]
+
+
+
+
+| AWS C2S | link:media/c2s.pdf["從AWS Intelligence Community Marketplace部署Cloud Manager"^] 
+
+
+| Azure一般適用地區  a| 
+. link:task_getting_started_azure.html["從NetApp Cloud Central部署Cloud Manager"] （建議）
+. link:task_launching_azure_mktp.html["從Azure Marketplace部署"]
+. link:task_installing_linux.html["在Linux主機上下載並安裝軟體"]
+
+
+
+
+| Azure政府 | link:task_installing_azure_gov.html["從Azure美國政府市場部署Cloud Manager"] 
+
+
+| Azure德國 | link:task_installing_azure_germany.html["在Linux主機上下載並安裝軟體"] 
+
+
+| Google Cloud Platform  a| 
+. link:task_getting_started_gcp.html["從NetApp Cloud Central部署Cloud Manager"] （建議）
+. link:task_installing_linux.html["在Linux主機上下載並安裝軟體"]
+
+
+
+NOTE: 您無法從GCP Marketplace在Google Cloud中部署Cloud Manager
+
+
+
+| IBM Cloud | link:task_installing_linux.html["在Linux主機上下載並安裝軟體"] 
+
+
+| 內部部署網路 | link:task_installing_linux.html["在Linux主機上下載並安裝軟體"] 
+|===
+
+
+== Cloud Manager設定
+
+您可能想在安裝Cloud Manager之後執行其他設定、例如新增其他雲端供應商帳戶、安裝HTTPS憑證等。
+
+* link:task_setting_up_cloud_central_accounts.html["設定Cloud Central帳戶"]
+* link:task_adding_aws_accounts.html["將AWS帳戶新增至Cloud Manager"]
+* link:task_adding_azure_accounts.html["將Azure帳戶新增至Cloud Manager"]
+* link:task_installing_https_cert.html["安裝 HTTPS 憑證"]
+* link:task_setting_up_kms.html["設定 AWS KMS"]
+
+
+
+
+== 部署Cloud Volumes ONTAP
+
+在Cloud Manager啟動並開始運作之後、您可以開始在Cloud Volumes ONTAP 雲端供應商部署功能。
+
+link:task_getting_started_aws.html["AWS快速入門"]、 link:task_getting_started_azure.html["Azure入門"]和 link:task_getting_started_gcp.html["GCP入門"] 提供快速Cloud Volumes ONTAP 執行和升級的指示。如需其他說明、請參閱下列內容：
+
+* https://docs.netapp.com/us-en/cloud-volumes-ontap/reference_configs_aws_97.html["支援Cloud Volumes ONTAP AWS中的支援的支援組態"^]
+* https://docs.netapp.com/us-en/cloud-volumes-ontap/reference_configs_azure_97.html["Azure支援的支援功能組態Cloud Volumes ONTAP"^]
+* https://docs.netapp.com/us-en/cloud-volumes-ontap/reference_configs_gcp_97.html["支援的GCP中的VMWare 9.7組態Cloud Volumes ONTAP"^]
+* link:task_planning_your_config.html["規劃組態"]
+* link:task_deploying_otc_aws.html["在 Cloud Volumes ONTAP AWS 中啟動"]
+* link:task_deploying_otc_azure.html["在 Cloud Volumes ONTAP Azure 中啟動"]
+* link:task_deploying_gcp.html["在 Cloud Volumes ONTAP GCP 中啟動"]
+

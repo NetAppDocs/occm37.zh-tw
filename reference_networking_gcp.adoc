@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: reference_networking_gcp.html 
+keywords: networking, network, requirements, connection, connections, subnet, vpn, internet, proxy, HTTP, private, proxy server, routing, firewall, autosupport, connection, jump host, outbound, ports, tiering, data tiering, bucket, private google access, set up data tiering, data tiering requirement, gcp networking, google networking, shared vpc, host project, service project 
+summary: 設定您的 Google Cloud Platform 網路功能、 Cloud Volumes ONTAP 讓支援的系統能夠正常運作。 
+---
+= GCP 中的功能需求 Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+設定您的 Google Cloud Platform 網路功能、 Cloud Volumes ONTAP 讓支援的系統能夠正常運作。
+
+共享VPC:: Cloud Manager與Cloud Volumes ONTAP 功能不受Google Cloud Platform共享VPC支援。
++
+--
+共享 VPC 可讓您設定及集中管理多個專案中的虛擬網路。您可以在_主機專案_中設定共享VPC網路、並在Cloud Volumes ONTAP _服務專案_中部署Cloud Manager與支援虛擬機器執行個體。 https://cloud.google.com/vpc/docs/shared-vpc["Google Cloud 文件：共享 VPC 總覽"^]。
+
+唯一的要求是在共享VPC主機專案中、為Cloud Manager服務帳戶提供下列權限：
+
+compute。防火牆。* compute.networks.* compute。子網路。*
+
+Cloud Manager 需要這些權限、才能查詢主機專案中的防火牆、 VPC 和子網路。
+
+--
+輸出網際網路存取 Cloud Volumes ONTAP 功能:: 支援向 NetApp 支援部門傳送訊息、以便主動監控儲存設備的健全狀況。 Cloud Volumes ONTAP AutoSupport
++
+--
+路由和防火牆原則必須允許將 HTTP / HTTPS 流量傳送至下列端點、 Cloud Volumes ONTAP 才能讓下列端點傳送 AutoSupport 動態訊息：
+
+* \https://support.netapp.com/aods/asupmessage
+* \https://support.netapp.com/asupprod/post/1.0/postAsup
+
+
+--
+IP 位址數:: Cloud Manager會在Cloud Volumes ONTAP GCP中分配5個IP位址給功能不全的人。
++
+--
+請注意、Cloud Manager不會在Cloud Volumes ONTAP GCP中建立SVM管理LIF以供使用。
+
+
+TIP: LIF 是與實體連接埠相關聯的 IP 位址。諸如 VMware 的管理工具需要 SVM 管理 LIF SnapCenter 。
+
+--
+防火牆規則:: 您不需要建立防火牆規則、因為 Cloud Manager 能為您做到這一點。如果您需要使用自己的、請參閱 link:reference_firewall_rules_gcp.html["GCP防火牆規則"]。
+從 Cloud Volumes ONTAP 功能區連接到 Google Cloud Storage 、以利資料分層:: 如果您想要將冷資料分層至 Google Cloud Storage 資源桶、 Cloud Volumes ONTAP 則必須將駐留的子網路設定為私有 Google Access 。如需相關指示、請參閱 https://cloud.google.com/vpc/docs/configure-private-google-access["Google Cloud 文件：設定私有 Google Access"^]。
++
+--
+如需在 Cloud Manager 中設定資料分層所需的其他步驟、請參閱 link:task_tiering.html["將冷資料分層至低成本物件儲存設備"]。
+
+--
+連線 ONTAP 至其他網路中的不二系統:: 若要在 Cloud Volumes ONTAP GCP 中的某個系統與 ONTAP 其他網路中的某個系統之間複寫資料、您必須在 VPC 與另一個網路（例如您的公司網路）之間建立 VPN 連線。
++
+--
+如需相關指示、請參閱 https://cloud.google.com/vpn/docs/concepts/overview["Google Cloud 文件：雲端 VPN 概述"^]。
+
+--
+

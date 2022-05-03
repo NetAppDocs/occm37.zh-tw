@@ -1,0 +1,145 @@
+---
+sidebar: sidebar 
+permalink: concept_cloud_central_accounts.html 
+keywords: accounts, workspaces, service connector, users, cloud central, admin, Account Admin, Workspace Admin 
+summary: 每個Cloud Manager系統都會與NetApp Cloud Central帳戶建立關聯。Cloud Central帳戶是Cloud Manager系統的容器、也是使用者部署Cloud Volumes ONTAP 的工作空間。 
+---
+= Cloud Central帳戶
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+每個Cloud Manager系統都會與_NetApp Cloud Central帳戶建立關聯。Cloud Central帳戶提供多租戶共享、可讓您在隔離的工作區中組織使用者和資源。
+
+Cloud Central帳戶可實現多租戶共享：
+
+* 單一Cloud Central帳戶可包含多個Cloud Manager系統、以滿足不同的業務需求。
++
+由於使用者與Cloud Central帳戶相關聯、因此不需要為每個Cloud Manager系統設定使用者。
+
+* 在每個Cloud Manager系統中、有多位使用者可以在Cloud Volumes ONTAP 稱為工作區的隔離環境中部署及管理功能完善的系統。
++
+除非共用這些工作區、否則其他使用者無法看到這些工作區。
+
+
+
+部署Cloud Manager時、您可以選取要與系統建立關聯的Cloud Central帳戶：
+
+image:screenshot_account_selection.gif["Cloud Manager 設定精靈的快照、會提示您輸入要在其中建立 Cloud Manager 的 Cloud Central 帳戶。"]
+
+接著、帳戶管理員可以管理使用者、工作區和服務連接器、藉此修改此帳戶的設定：
+
+image:screenshot_account_settings.gif["顯示「帳戶設定」小工具的快照、您可從中管理使用者、工作區和服務連接器。"]
+
+如需逐步指示、請參閱 link:task_setting_up_cloud_central_accounts.html["設定 Cloud Central 帳戶"]。
+
+
+NOTE: Cloud Manager需要存取_\https://cloudmanager.cloud.netapp.com_才能連線至Cloud Central帳戶服務。在防火牆上開啟此URL、以確保Cloud Manager可以聯絡該服務。
+
+
+
+== 使用者、工作區和服務連接器
+
+Cloud Manager 中的「帳戶設定」小工具可讓帳戶管理員管理 Cloud Central 帳戶。如果您剛建立帳戶、就會從頭開始。但如果您已經設定帳戶、您會看到_所有_與帳戶相關聯的使用者、工作區和服務連接器。
+
+使用者:: 這些是您與Cloud Central帳戶建立關聯的NetApp Cloud Central使用者。將使用者與該帳戶中的帳戶和一或多個工作區建立關聯、可讓這些使用者在 Cloud Manager 中建立及管理工作環境。
++
+--
+當您建立使用者關聯時、您會指派一個角色給他們：
+
+* _Account admin_ ：可在 Cloud Manager 中執行任何動作。
+* _Workspace 管理 _ ：可在指派的工作區中建立及管理資源。
+
+
+--
+工作區:: 在 Cloud Manager 中、工作區會將任何數量的工作環境與其他工作環境隔離。除非帳戶管理員將該管理員與該工作區建立關聯、否則 Workspace 系統管理員無法存取工作區中的工作環境。
++
+--
+工作環境代表儲存系統：
+
+* 單節點 Cloud Volumes ONTAP 的不完整系統或 HA 配對
+* 您網路中的內部部署 ONTAP 式叢集
+* NetApp 私有儲存組態中的一個叢集 ONTAP
+
+
+--
+服務連接器:: 服務連接器是Cloud Manager的一部分。它執行大部分的Cloud Manager軟體（例如使用者介面）、除了它所連線的幾項Cloud Central服務（auth0和Cloud Central帳戶）。服務連接器可在部署於雲端供應商的虛擬機器執行個體上執行、或是在您設定的內部部署主機上執行。
++
+--
+您可以將服務連接器與多個NetApp雲端資料服務搭配使用。例如、如果您已經有Cloud Manager的服務連接器、則可在設定Cloud Tiering服務時加以選取。
+
+--
+
+
+
+
+== 範例
+
+以下範例顯示使用兩個工作區來建立孤立環境Cloud Volumes ONTAP 的帳戶。例如、其中一個工作區可能用於接移環境、另一個工作區則用於正式作業環境。
+
+
+NOTE: Cloud Manager和Cloud Volumes ONTAP 這個功能不屬於NetApp Cloud Central帳戶、而是在雲端供應商中執行。這是每個元件之間關係的概念呈現。
+
+image:diagram_cloud_central_accounts_one.png["顯示單一 Cloud Central 帳戶的圖表、其中包含兩個工作區。每個工作區都與相同的服務連接器相關聯、而且每個工作區都有自己的Workspace管理"]
+
+以下是使用兩個獨立 Cloud Central 帳戶、顯示最高層級的多租戶共享的另一個範例。例如、服務供應商可能會在一個Cloud Central帳戶中使用Cloud Manager來為客戶提供服務、而使用另一個帳戶來為其中一個業務單位提供災難恢復。
+
+請注意、帳戶2包含兩個獨立的服務連接器。如果您的系統位於不同的地區、或是位於不同的雲端供應商、就可能發生這種情況。
+
+
+NOTE: 同樣地、Cloud Manager和Cloud Volumes ONTAP 整個系統並未真正位於NetApp Cloud Central帳戶中、而是在雲端供應商中執行。這是每個元件之間關係的概念呈現。
+
+image:diagram_cloud_central_accounts_two.png["顯示兩個 Cloud Central 帳戶的圖表、每個帳戶各有多個工作區及其相關的 Workspace Admins 。"]
+
+
+
+== 與Cloud Central帳戶整合的常見問題集
+
+在您升級至Cloud Manager 3.7之後的一段時間內、NetApp會選擇特定的Cloud Manager系統來與Cloud Central帳戶整合。此常見問題集可回答您對此程序可能有的問題。
+
+
+
+=== 程序需要多久時間？
+
+只需幾分鐘。
+
+
+
+=== Cloud Manager是否無法使用？
+
+否、您仍可存取Cloud Manager系統。
+
+
+
+=== 關於此功能呢 Cloud Volumes ONTAP ？
+
+您的整個系統不會中斷運作Cloud Volumes ONTAP 。
+
+
+
+=== 在此過程中會發生什麼事？
+
+NetApp會在整合程序中執行下列作業：
+
+. 建立新的Cloud Central帳戶、並將其與Cloud Manager系統建立關聯。
+. 指派新角色給每位現有使用者：
++
+** Cloud Manager管理員成為帳戶管理員
+** 租戶管理員和工作環境管理員會成為Workspace Admins
+
+
+. 建立取代現有租戶的工作區。
+. 將您的工作環境放在這些工作區中。
+. 將服務連接器與所有工作區建立關聯。
+
+
+
+
+=== 我的Cloud Manager系統安裝位置是否重要？
+
+不可以無論系統位於AWS、Azure或內部部署環境、NetApp都能將其與Cloud Central帳戶整合。

@@ -1,0 +1,94 @@
+---
+sidebar: sidebar 
+permalink: task_generating_compliance_reports.html 
+keywords: report, privacy, risk, privacy risk assessment, compliance status, severity, compliance, privacy risk, data subjects, privacy 
+summary: 隱私風險評估報告概述貴組織的隱私風險狀態。產生報告並將其傳送給組織中的其他群組、包括高階主管、法規遵循團隊和法律團隊。 
+---
+= 檢視隱私風險評估報告
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+隱私權風險評估報告概述貴組織的隱私權風險狀態、如 GDPR 和 CCPA 等隱私權法規要求。
+
+
+NOTE: NetApp 無法保證 Cloud Compliance 所識別的個人資料和敏感個人資料 100% 準確無誤。您應該一律檢閱資料來驗證資訊。
+
+報告包含下列資訊：
+
+法規遵循狀態:: 嚴重性分數（請參閱下方以瞭解更多詳細資料）以及資料的散佈、無論是不敏感、個人或敏感的個人資料。
+評估總覽:: 所找到的個人資料類型及資料類別的明細。
+本評估的資料主題:: 按地點列出找到國家識別碼的人數。
+
+
+
+
+== 產生隱私風險評估報告
+
+前往「 Compliance 」（法規遵循）索引標籤以產生報告。
+
+.步驟
+. 在 Cloud Manager 頂端、按一下 * Compliance * 。
+. 在「 * 報告 * 」下、按一下「 * 隱私風險評估 * 」旁的下載圖示。
++
+image:screenshot_privacy_risk_assessment.gif["Cloud Manager 中法規遵循索引標籤的螢幕擷取畫面、會顯示「報告」窗格、您可在其中按一下「隱私風險評估」。"]
+
+
+
+Cloud Compliance 會產生一份 PDF 報告、您可以視需要檢閱並傳送給其他群組。
+
+
+
+== 嚴重性分數
+
+Cloud Compliance 會根據三個變數來計算隱私風險評估報告的嚴重性分數：
+
+* 所有資料中的個人資料百分比。
+* 所有資料中敏感個人資料的百分比。
+* 包含資料主體的檔案百分比、由國家識別碼、社會安全號碼及稅務 ID 等國家識別碼所決定。
+
+
+用來判斷分數的邏輯如下：
+
+[cols="29,71"]
+|===
+| 嚴重性分數 | 邏輯 
+
+
+| 0 | 這三個變數都是 0% 
+
+
+| 1. | 其中一個變數大於 0% 
+
+
+| 2. | 其中一個變數大於 3% 
+
+
+| 3. | 其中兩個變數大於 3% 
+
+
+| 4. | 其中三個變數大於 3% 
+
+
+| 5. | 其中一個變數較大6% 
+
+
+| 6. | 其中兩個變數較大6% 
+
+
+| 7. | 其中有三個變數較大6% 
+
+
+| 8. | 其中一個變數大於15% 
+
+
+| 9. | 其中兩個變數較大15% 
+
+
+| 10. | 其中有三個變數較大15% 
+|===

@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: task_setting_up_cloud_manager.html 
+keywords:  
+summary: 您可以Cloud Volumes ONTAP 在部署Cloud Manager之後立即開始建立功能不全的系統。不過、您可能想要先設定Cloud Central帳戶、新增雲端供應商帳戶、安裝HTTPS憑證等、以執行其他設定。 
+---
+= 設定Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以Cloud Volumes ONTAP 在部署Cloud Manager之後立即開始建立功能不全的系統。不過、您可能想要先設定Cloud Central帳戶、新增雲端供應商帳戶、安裝HTTPS憑證等、以執行其他設定。
+
+* link:task_setting_up_cloud_central_accounts.html["設定Cloud Central帳戶"]
+* link:task_adding_aws_accounts.html["將AWS帳戶新增至Cloud Manager"]
+* link:task_adding_azure_accounts.html["將Azure帳戶新增至Cloud Manager"]
+* link:task_adding_gcp_accounts.html["將GCP帳戶新增至Cloud Manager"]
+* link:task_adding_nss_accounts.html["新增 NetApp 支援網站帳戶至 Cloud Manager"]
+* link:task_installing_https_cert.html["安裝 HTTPS 憑證"]
+* link:task_setting_up_kms.html["設定 AWS KMS"]
+
