@@ -55,7 +55,7 @@ image:screenshot_sync_to_s3.gif["螢幕擷取畫面：顯示資料代理程式�
 
 如果您想要直接從Cloud Manager將磁碟區同步至Amazon S3、則必須將工作環境與Cloud Sync 該服務整合。
 
-video::3hOtLs70_xE[youtube, width=848,height=480]
+video::3hOtLs70_xE[youtube,width=848,height=480]
 .步驟
 . 開啟工作環境、然後按一下*「同步至S3」。
 . 按一下「*同步*」、然後依照提示將資料同步至S3。
