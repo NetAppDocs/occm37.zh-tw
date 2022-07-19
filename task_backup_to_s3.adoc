@@ -160,13 +160,13 @@ image:screenshot_backup_to_s3.gif["顯示工作環境精靈中的「Backup to S3
 . 完成精靈中的頁面以部署系統。
 
 
-系統會啟用「備份至S3」功能、每天備份磁碟區、並保留30個備份複本。 <<Changing the backup retention,瞭解如何修改備份保留>>。
+系統會啟用「備份至S3」功能、每天備份磁碟區、並保留30個備份複本。  the backup retention,瞭解如何修改備份保留。
 
 
 
 == 在現有系統上啟用S3的備份
 
-只Cloud Volumes ONTAP 要您執行支援的組態、即可在現有的支援系統上啟用S3的備份。如需詳細資訊、請參閱 <<Requirements>>。
+只Cloud Volumes ONTAP 要您執行支援的組態、即可在現有的支援系統上啟用S3的備份。如需詳細資訊、請參閱 。
 
 .步驟
 . 開啟工作環境。

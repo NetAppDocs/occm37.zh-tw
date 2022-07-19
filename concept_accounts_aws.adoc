@@ -28,7 +28,7 @@ image:diagram_permissions_initial_aws.png["顯示 Cloud Central 在 AWS 帳戶�
 
 Cloud Manager會在您建立新的工作環境時、依預設選取此雲端供應商帳戶：
 
-image:screenshot_accounts_select_aws.gif["顯示「詳細資料 & 認證」頁面中「切換帳戶」選項的快照。"]
+image:screenshot_accounts_select_aws.gif["顯示「詳細資料  認證」頁面中「切換帳戶」選項的快照。"]
 
 
 
@@ -42,7 +42,7 @@ image:diagram_permissions_multiple_aws.png["顯示兩個額外帳戶的概念性
 
 新增其他帳戶之後、您可以在建立新的工作環境時切換至該帳戶：
 
-image:screenshot_accounts_switch_aws.gif["在詳細資料 & 認證頁面中按一下「切換帳戶」之後、顯示在雲端供應商帳戶之間選取的快照。"]
+image:screenshot_accounts_switch_aws.gif["在詳細資料  認證頁面中按一下「切換帳戶」之後、顯示在雲端供應商帳戶之間選取的快照。"]
 
 .Marketplace 部署和內部部署呢？
 ****

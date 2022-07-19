@@ -82,7 +82,7 @@ image:screenshot_anf_account_info.gif["全新Azure NetApp Files 的《帳戶資�
 .. 選取Vnet和子網路。
 .. 設定匯出原則以控制對磁碟區的存取。
 +
-image:screenshot_anf_location.gif["新Azure NetApp Files 版功能適用的「位置&匯出原則」頁面的快照。"]
+image:screenshot_anf_location.gif["新Azure NetApp Files 版功能適用的「位置"]
 
 
 

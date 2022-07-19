@@ -29,9 +29,9 @@ summary: 您可以將熱資料的SSD或HDD效能層與非作用中資料的物�
 
 ==== 確保 Cloud Volumes ONTAP 在物件儲存設備與物件儲存設備之間建立連線
 
-* 對於 AWS 、您需要 VPC 端點對 S3 。 <<Requirements for tiering data in AWS,深入瞭解>>。
-* 對於 Azure 而言、只要 Cloud Manager 具備必要的權限、您就不需要執行任何操作。 <<Requirements for tiering data in Microsoft Azure,深入瞭解>>。
-* 對於GCP、您需要將GCP帳戶新增至Cloud Manager、並設定私有Google Access的子網路。 <<Requirements for tiering data in Google Cloud Platform,深入瞭解>>。
+* 對於 AWS 、您需要 VPC 端點對 S3 。  for tiering data in AWS,深入瞭解。
+* 對於 Azure 而言、只要 Cloud Manager 具備必要的權限、您就不需要執行任何操作。  for tiering data in Microsoft Azure,深入瞭解。
+* 對於GCP、您需要將GCP帳戶新增至Cloud Manager、並設定私有Google Access的子網路。  for tiering data in Google Cloud Platform,深入瞭解。
 
 
 
