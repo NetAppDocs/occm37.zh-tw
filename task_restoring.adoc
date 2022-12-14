@@ -45,4 +45,5 @@ link:reference_deployment_overview.html["部署選項"]
 
 
 
+.結果
 您的Cloud Manager組態現已隨帳戶、設定和工作環境一起還原。

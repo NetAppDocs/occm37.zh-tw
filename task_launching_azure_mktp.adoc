@@ -69,6 +69,7 @@ image:screenshot_set_up_cloud_manager.gif["螢幕快照顯示「Set Up Cloud Man
 
 
 
+.結果
 雲端管理程式現已安裝並設定完成。您必須先授予 Azure 權限、使用者才能在 Cloud Volumes ONTAP Azure 中部署不必要的功能。
 
 
@@ -125,4 +126,5 @@ NOTE: 中提供的預設名稱為「Cloud Manager操作員」OnCommand https://m
 
 
 
+.結果
 Cloud Manager現在擁有在Cloud Volumes ONTAP Azure中部署及管理功能所需的權限。

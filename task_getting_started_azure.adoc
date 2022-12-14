@@ -19,7 +19,7 @@ summary: 只要完成幾個快速步驟、就能在Cloud Volumes ONTAP Azure中�
 
 
 
-=== 設定您的網路
+=== image:number1.png["第1名"] 設定您的網路
 
 [role="quick-margin-para"]
 啟用從目標vnet的傳出網際網路存取、讓Cloud Manager和Cloud Volumes ONTAP 支援中心能夠連絡多個端點。
@@ -29,11 +29,12 @@ summary: 只要完成幾個快速步驟、就能在Cloud Volumes ONTAP Azure中�
 
 
 
-=== 提供必要的Azure權限
+=== image:number2.png["第2名"] 提供必要的Azure權限
 
 [role="quick-margin-para"]
 從NetApp Cloud Central部署Cloud Manager時、您需要使用具備部署Cloud Manager虛擬機器權限的Azure帳戶。
 
+[role="quick-margin-list"]
 . 下載 https://mysupport.netapp.com/cloudontap/iampolicies["適用於Azure的NetApp Cloud Central原則"^]。
 . 若要修改Json檔案、請將Azure訂閱ID新增至「AscignableScopes」欄位。
 . 使用Json檔案在Azure中建立自訂角色、名稱為_Azure Setup AsService_。
@@ -45,14 +46,14 @@ summary: 只要完成幾個快速步驟、就能在Cloud Volumes ONTAP Azure中�
 
 
 
-=== 從NetApp Cloud Central啟動Cloud Manager
+=== image:number3.png["第3名"] 從NetApp Cloud Central啟動Cloud Manager
 
 [role="quick-margin-para"]
 需要Cloud Manager軟體來部署和管理Cloud Volumes ONTAP 功能。從啟動Cloud Manager執行個體只需幾分鐘的時間 https://cloud.netapp.com["Cloud Central"^]。
 
 
 
-=== 使用 Cloud Manager 啟動 Cloud Volumes ONTAP
+=== image:number4.png["第4名"] 使用 Cloud Manager 啟動 Cloud Volumes ONTAP
 
 [role="quick-margin-para"]
 Cloud Manager準備好之後、只要按一下「Create（建立）」、選取您要部署的系統類型、然後完成精靈中的步驟即可。25分鐘後、您的第一個Cloud Volumes ONTAP 作業系統應該會啟動並開始運作。

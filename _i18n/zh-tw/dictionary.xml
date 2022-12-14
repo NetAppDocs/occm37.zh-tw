@@ -186,7 +186,6 @@
   <block id="3f2391bf0bf195baa38844264d82deec" category="inline-image-macro">新Azure NetApp Files 版功能適用的「位置&amp;amp;匯出原則」頁面的快照。</block>
   <block id="275ef20320dc0df7a60a8f6b71daf5c0" category="paragraph"><block ref="4273a1c1436b84dd20765361e2df5522" category="inline-image-macro-rx" type="image"></block></block>
   <block id="05ff9017ade4661d59fe98b0a98d68de" category="list-text">按一下「 * 執行 * 」。</block>
-  <block id="37a8ea88d3576c29189c2e66216954a3" category="section-title">取得磁碟區的掛載路徑</block>
   <block id="ab6fa71f7fae22c4abd40243e67181c3" category="paragraph">複製磁碟區的掛載路徑、以便將磁碟區掛載至Linux機器。</block>
   <block id="29abcdf350daebca41f2a079a6057c87" category="list-text">將游標暫留在Volume上、然後按一下功能表。</block>
   <block id="b6099a382bf4eea7ff4c99e8e377cb11" category="inline-image-macro">顯示右上角可用磁碟區和功能表的快照。</block>
@@ -425,12 +424,10 @@
   <block id="9f1d2f3c4dbb5115ce0b33dc6990cd18" category="summary">設定GCP、Cloud Volumes ONTAP 然後從NetApp Cloud Central部署Cloud Manager軟體、即可開始使用此功能。</block>
   <block id="2999d7917442ae89cec56fc05837303f" category="doc">在 Google Cloud Platform 中開始 Cloud Volumes ONTAP 使用功能</block>
   <block id="d4155fd051b455aca71bdd1478b9573f" category="paragraph">Cloud Manager必須安裝在Google Cloud Platform中、才能在Cloud Volumes ONTAP GCP中部署。</block>
-  <block id="4e85b7aafac6d2da235acd904c8d01ca" category="section-title">設定您的網路</block>
   <block id="a681991b631a5acb29733a0b7730e52d" category="paragraph">啟用從目標VPC的傳出網際網路存取、讓Cloud Manager和Cloud Volumes ONTAP 支援中心能夠連絡多個端點。</block>
   <block id="315474a8ef79b74899073fc979f12da4" category="inline-link-macro">Cloud Manager</block>
   <block id="117bdbda976fe8b3212bc3b6327a0a1b" category="inline-link-macro">Cloud Volumes ONTAP</block>
   <block id="ae13ab3182004ab975178282e8bafb5f" category="paragraph">這個步驟很重要、因為Cloud Manager Cloud Volumes ONTAP 無法在沒有外傳網際網路存取的情況下部署不穩定功能。如果您需要限制傳出連線、請參閱的端點清單 <block ref="258d0bfeed07e9f3f800353fd17d365f" category="inline-link-macro-rx"></block> 和 <block ref="fae9a20d884d35f17af4227c6769a5b8" category="inline-link-macro-rx"></block>。</block>
-  <block id="836685a14473b34c338e3ee28c00de7f" category="section-title">設定GCP權限和專案</block>
   <block id="9776b08e93c765756b313f5bf3d9151a" category="paragraph">確定已設置兩組權限：</block>
   <block id="5f1026af7536884d83c5761dd874ab44" category="inline-link">適用於GCP的Cloud Central原則</block>
   <block id="b31ff10c44cf52133d5f648ec26cd22e" category="list-text">確保從 NetApp Cloud Central 部署 Cloud Manager 的 GCP 使用者擁有中的權限<block ref="ea1c9857ecfebae84c6d5bb1c50a29bc" category="inline-link-rx"></block>。</block>
@@ -446,7 +443,6 @@
   <block id="c30c9ad6a6f620b9a2a07c6f14399a1e" category="list-text"><block ref="63a6eacd526447284dd7555861e56994" category="inline-link-rx"></block>。</block>
   <block id="37a4b78df3288cf5c1bd086a6d1d5f9f" category="inline-link">將具有 Cloud Manager 角色的服務帳戶新增至該專案、以授予存取權</block>
   <block id="24e3dee161bfcb834ffc481206a123e7" category="list-text">如果您想要在 Cloud Volumes ONTAP 其他專案中部署<block ref="7fd81496d9765541412df8e9d20889a5" category="inline-link-rx"></block>。您必須針對每個專案重複此步驟。</block>
-  <block id="b2640d276819894e87137588e21cb75b" category="section-title">設定GCP以進行資料分層</block>
   <block id="a442ff694a0aec8e606fe974a1569043" category="paragraph">必須滿足兩項要求、才能將冷資料從Cloud Volumes ONTAP NetApp 9.7分層到低成本物件儲存（Google Cloud Storage儲存庫）：</block>
   <block id="41d9e1257b3e21add2e59d038938ea94" category="inline-link">建立服務帳戶</block>
   <block id="534c6957312dc1c4d65e8e8955e45588" category="list-text"><block ref="919f5da2e9d66e8d4d72efd441aaae3d" category="inline-link-rx"></block> 其使用者為預先定義的Storage Admin角色和Cloud Manager服務帳戶。</block>
@@ -455,21 +451,17 @@
   <block id="d2907cc9adcfbea41e4dd52371c016a4" category="list-text"><block ref="2435466b99ebb077da49570ea0f39e4b" category="inline-link-rx"></block>。</block>
   <block id="5a322eb6d2a1a2e7f2e8cd15ff3722a8" category="inline-link-macro">然後依照下列步驟操作</block>
   <block id="e7fabe64fbde57cc4faeaddb0ff9f88d" category="paragraph">如果您想使用Cloud Volumes ONTAP 資料分層功能搭配使用 <block ref="874ae6ad6daa0045da93ad9178b96693" category="inline-link-macro-rx"></block>。</block>
-  <block id="3824876226172edfe0f17e8022b60fda" category="section-title">啟用 Google Cloud API</block>
   <block id="e478bf49f8034f2197e96520fa338da6" category="inline-link">在專案中啟用下列 Google Cloud API</block>
   <block id="2cccfc516c376eec029002f805976371" category="paragraph"><block ref="dc5737502524148f78bf03ba18318700" category="inline-link-rx"></block>。部署Cloud Manager和Cloud Volumes ONTAP 功能完善的應用程式需要這些API。</block>
   <block id="d82c8fcef9b6dd8fb6808c96dcbc5bb5" category="list-text">Cloud Deployment Manager V2 API</block>
   <block id="9e636409b20980fb5089c87705851b4d" category="list-text">Cloud Resource Manager API</block>
   <block id="1101b09020ade12e90a562489e315c8d" category="list-text">運算引擎 API</block>
   <block id="83e18a385cbb3846ca3c76899207aedc" category="list-text">StackdrivER記錄API</block>
-  <block id="f4c00c2164e413b88032a7e12507d5e3" category="section-title">從GCP Marketplace訂閱</block>
   <block id="7bec88f466ae34c19e5888a8f88a760b" category="inline-link">從Cloud Volumes ONTAP GCP Marketplace訂閱</block>
   <block id="d1a65a4bbf225b6585598c328e7788a2" category="paragraph"><block ref="13341228176eee7627f01e15afd30b70" category="inline-link-rx"></block> 確保在免費試用結束後不會中斷服務。您所Cloud Volumes ONTAP 建立的每個功能不只是功能不全的功能不全、您將會從訂閱中收取費用。</block>
-  <block id="8a150b1735194cf0c703f98bd7de9682" category="section-title">從NetApp Cloud Central啟動Cloud Manager</block>
   <block id="8ee8d65142a1b5ef6e397b75587b4e61" category="inline-link">Cloud Central</block>
   <block id="e004a4e8251ac41dee6d3235a791dd8d" category="paragraph">需要Cloud Manager軟體來部署和管理Cloud Volumes ONTAP 功能。從GCP啟動Cloud Manager執行個體只需幾分鐘的時間<block ref="dd2262940c431e31dfcd64b1f8a27d38" category="inline-link-rx"></block>。</block>
   <block id="4c953f889d1a7a3f081b489cccd6645f" category="paragraph">當您選擇GCP做為雲端供應商時、Google會提示您登入您的帳戶並授予權限。按一下「允許」可授予部署Cloud Manager所需的運算API存取權限。</block>
-  <block id="161814f2b49992da7596b7b7fc9f77ae" category="section-title">使用 Cloud Manager 啟動 Cloud Volumes ONTAP</block>
   <block id="e8d9c9558f90fed7859f1bef1e630707" category="paragraph">Cloud Manager準備好之後、只要按一下「Create（建立）」、選取您要部署的系統類型、然後完成精靈中的步驟即可。25分鐘後、您的第一個Cloud Volumes ONTAP 作業系統應該會啟動並開始運作。</block>
   <block id="be64d9d97cf79e96941a831e40507ca5" category="inline-link-macro">評估</block>
   <block id="d3d4bcd36068d41a0acad7e8aad646db" category="list-text"><block ref="d3d4bcd36068d41a0acad7e8aad646db" category="inline-link-macro-rx"></block></block>
@@ -627,7 +619,6 @@
   <block id="28b05291adad7c873ac102ba84821b36" category="summary">歡迎使用Cloud Manager與Cloud Volumes ONTAP 解決方案的文件入口網站。</block>
   <block id="684c574c7f4f96c8a8169a7ac2bda18e" category="doc">Cloud Manager 與 Cloud Volumes ONTAP 技術文件</block>
   <block id="8c4a0d57689d740644da872a9872fa0e" category="paragraph">Cloud Manager可讓您部署及管理NetApp Cloud Volumes ONTAP 功能、這是一套資料管理解決方案、可為雲端型工作負載提供保護、可見度及控制能力。</block>
-  <block id="1fde0727b387439572ade83eecff4f68" category="section-title">瞭解新功能</block>
   <block id="dcc605ce865f82b52df30a38895a0a28" category="inline-link-macro">Cloud Manager 的新功能</block>
   <block id="edb072b4e9ed25ee40010488a956934f" category="list-text"><block ref="edb072b4e9ed25ee40010488a956934f" category="inline-link-macro-rx"></block></block>
   <block id="dd47c5ffc608943bbe951c1bc249e4a3" category="inline-link">更新功能 Cloud Volumes ONTAP</block>
@@ -993,7 +984,6 @@
   <block id="55622a0174c818a7d2974d9fc5819ae3" category="paragraph">這個步驟很重要、因為Cloud Manager Cloud Volumes ONTAP 無法在沒有外傳網際網路存取的情況下部署不穩定功能。如果您需要限制傳出連線、請參閱的端點清單 <block ref="258d0bfeed07e9f3f800353fd17d365f" category="inline-link-macro-rx"></block> 和 <block ref="82273ff2b165ec558cf6885df6c1a399" category="inline-link-macro-rx"></block>。</block>
   <block id="c1540e16429791c7515c0322aad07fcf" category="list-text">設定 S3 服務的 VPC 端點。</block>
   <block id="4274b83eccea8c2453ce00d6c7cde54e" category="paragraph">如果您想要將冷資料從 Cloud Volumes ONTAP 不願儲存到低成本物件儲存設備、則需要 VPC 端點。</block>
-  <block id="fcb13a1250c0b335c18418ea431681f2" category="section-title">提供必要的AWS權限</block>
   <block id="b99486f44ccd43f06815851fcef5a3bc" category="paragraph">當您從NetApp Cloud Central部署Cloud Manager時、您需要使用具有部署執行個體權限的AWS帳戶。</block>
   <block id="d44b2f7de3bd687b27cc738262b8bdf4" category="inline-link">適用於AWS的NetApp Cloud Central原則</block>
   <block id="f84694bd2204c771ef8e329f1ff15cd4" category="list-text">前往AWS IAM主控台、然後複製並貼上的內容來建立原則<block ref="467dbce35aa796ce72a03c7f71443016" category="inline-link-rx"></block>。</block>
@@ -1539,7 +1529,6 @@
   <block id="cb5a77137c556beb113a10125d01c7a6" category="paragraph">請注意、您必須使用Cloud Manager進行所有備份與還原作業。任何直接從ONTAP 支援或Amazon S3採取的行動、都會導致不受支援的組態設定。</block>
   <block id="06ad314b340900d226b1196e1fe289e9" category="section-title">快速入門</block>
   <block id="2433628c53fed80ea9d352a1bcd9ce45" category="paragraph">請依照下列步驟快速入門、或向下捲動至其餘部分以取得完整詳細資料。</block>
-  <block id="b70f6a951e89b0cf19d78de39f9fd2ce" category="section-title">確認您的組態支援</block>
   <block id="ad817a18d31f7a53702bd26570845b05" category="paragraph">驗證下列項目：</block>
   <block id="5516d50b3484470aee4219fe29a0c5a9" category="list-text">支援的AWS區域正在執行支援的支援範圍：Cloud Volumes ONTAP N維吉尼亞州、奧勒岡州、愛爾蘭、法蘭克福或悉尼</block>
   <block id="5a9aa80bfb9c93fe3026461a4217bb24" category="inline-link">Cloud Manager Marketplace產品</block>
@@ -1550,16 +1539,13 @@
   <block id="418c6ffbb6f44370bf5fceb394aeb89b" category="paragraph">\https://w86yt021u5.execute-api.us-east-1.amazonaws.com/production/whitelist</block>
   <block id="ad4c0ad9c2f9bc5c665a9acf1dfb46f6" category="list-text">Cloud Manager可在VPC中配置最多兩個介面VPC端點（每VPC的AWS上限為20）</block>
   <block id="7273eca4a76cbf4f4dd893c19b6cd48d" category="list-text">Cloud Manager有權使用最新列出的VPC端點權限<block ref="f799ed91ee819e95a0cab4701802c726" category="inline-link-rx"></block>：</block>
-  <block id="b2ddd19ff2854435a43d263c32de733c" category="section-title">在新系統或現有系統上啟用「備份至S3」</block>
   <block id="580486b4241b5757d5db24d655796e78" category="list-text">新系統：工作環境精靈預設會啟用「備份至S3」功能。請務必保持啟用選項。</block>
   <block id="207b7f74f4e39a12e22d2776ce74bc23" category="list-text">現有系統：開啟工作環境、按一下備份設定圖示並啟用備份。</block>
   <block id="99e2988591ca3dc92116874dd0102c1f" category="inline-image-macro">顯示「備份到S3」圖示的快照、可在您開啟工作環境之後使用。</block>
   <block id="42afbc98ba58f1922f8dd659716ab439" category="paragraph"><block ref="42afbc98ba58f1922f8dd659716ab439" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="fa7975a2f4393e660a83db34050bf064" category="section-title">如有需要、請修改備份原則</block>
   <block id="195b3defcff10891ebb400aaeadf31db" category="paragraph">預設原則每天備份磁碟區、並保留每個磁碟區的30個備份複本。如有需要、您可以變更要保留的備份複本數量。</block>
   <block id="addb422c7287b63d466baf8e9ec03f2b" category="inline-image-macro">螢幕擷取畫面會顯示「Backup to S3」設定、您可以在其中啟用或停用此功能、然後選擇備份保留。</block>
   <block id="8d82669b8bb69cd10bcc3c4e05fd7eb6" category="paragraph"><block ref="8d82669b8bb69cd10bcc3c4e05fd7eb6" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="813dc01dbd6a87212ea12478d22b116a" category="section-title">視需要還原資料</block>
   <block id="4f4aa893cd0b2dc4fbf67c54cf4ea9be" category="paragraph">在Cloud Manager頂端、按一下*備份與還原*、選取磁碟區、選取備份、然後將資料從備份還原至新磁碟區。</block>
   <block id="e73b6f86fed29437a1aff0fcd7855fdd" category="inline-image-macro">選取磁碟區後、用於備份的還原圖示快照。</block>
   <block id="64ba49ffeb3c11e2c16eee272880a790" category="paragraph"><block ref="64ba49ffeb3c11e2c16eee272880a790" category="inline-image-macro-rx" type="image"></block></block>
@@ -2628,22 +2614,18 @@
   <block id="1cc79921da24f4e844cf18f8564b7636" category="paragraph">完成這些步驟之前、您必須先完成 <block ref="bc2e521f9ec1051eaaefc7b7ab032f58" category="inline-link-macro-rx"></block> 或 <block ref="77a4b0dd95900c58fb7d7d616b0fc39e" category="inline-link-macro-rx"></block> 來自Cloud Manager。</block>
   <block id="234670c6936863be5df76e89d43f6839" category="inline-link">NetApp Kubernetes服務</block>
   <block id="a14d72ed5dcd2af3c8de2d38e1cce7f4" category="paragraph">如果您使用部署Kubernetes叢集<block ref="4039676aa53969da934d824de6b5ae64" category="inline-link-rx"></block>Cloud Manager可自動從您的NetApp Cloud Central帳戶探索叢集。如果是這種情況、請跳過前兩個步驟、從步驟3開始。</block>
-  <block id="66fd4a5928a9410b6d0484b91e95ec73" category="section-title">驗證網路連線能力</block>
   <block id="54ec996700c1afa8a5307bd5288a75c8" category="list-text">Cloud Manager和Kubernetes叢集之間、以及Kubernetes叢集到ONTAP 支援的系統之間、都必須有網路連線。</block>
   <block id="dcb9677328ce110eccce4861e794d6db" category="list-text">安裝Trident時、Cloud Manager需要連線到外傳網際網路、才能存取下列端點：</block>
   <block id="b5bf90cd586056ebba08ac4f2c2b2ca8" category="paragraph">\https://packages.cloud.google.com/yum \https://github.com/NetApp/trident/releases/download/</block>
   <block id="ca2f8a989dd9c49097cbd2a29eae79f4" category="paragraph">當您將工作環境連線至叢集時、Cloud Manager會在Kubernetes叢集上安裝Trident。</block>
-  <block id="70c2574420ea451459b76abad35d0a96" category="section-title">將Kubernetes組態檔案上傳至Cloud Manager</block>
   <block id="f767696e0231824621dea056761dc5bb" category="paragraph">對於每個Kubernetes叢集、Account Admin需要上傳Yaml格式的組態檔（Kubeconfig）。上傳檔案之後、 Cloud Manager 會驗證與叢集的連線、並儲存 Kbeconfig 檔案的加密複本。</block>
   <block id="08cbb53df36a11f3c34ff8bbf0a53284" category="paragraph">按一下「* Kubernetes叢集&gt;探索&gt;上傳檔案*」、然後選取Kubeconfig檔案。</block>
   <block id="2b644a62dc968865bc0f4cf15dfd2358" category="inline-image-macro">螢幕擷取畫面會顯示Kubernetes叢集索引標籤、並顯示「探索」按鈕、然後按一下「上傳檔案」以上傳Kubeconfig檔案的畫面。</block>
   <block id="a383a41a0fc074e4ef5381e9f57bcb22" category="paragraph"><block ref="a383a41a0fc074e4ef5381e9f57bcb22" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="cb14b279d631c8e74799c921cd2c867a" category="section-title">將您的工作環境連接至Kubernetes叢集</block>
   <block id="fefbb8429dd5d0ac68daf5f2db279b8e" category="paragraph">在工作環境中、按一下Kubernetes圖示、然後依照提示進行。您可以將不同的叢集連接至不同ONTAP 的支援系統、並將多個叢集連接至同ONTAP 一個支援系統。</block>
   <block id="788a24cf94f4a26d6316c05faa57cc90" category="paragraph">您可以選擇將NetApp儲存類別設為Kubernetes叢集的預設儲存類別。當使用者建立持續磁碟區時、Kubernetes叢集ONTAP 預設會使用連線的支援功能作為後端儲存設備。</block>
   <block id="914e5153d477e8c54df1ab2f0368c6d5" category="inline-image-macro">螢幕快照顯示Kubernetes圖示的內部及Cloud Volumes ONTAP 運作環境、以及可讓您選取Kubernetes叢集的後續頁面、然後按一下「Connect（連線）」。</block>
   <block id="72a73eb8e668012880132ace57b572f6" category="paragraph"><block ref="72a73eb8e668012880132ace57b572f6" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3131838ab26e8cd5c452aaac1467f3b4" category="section-title">開始配置持續磁碟區</block>
   <block id="f22d025e4fbf0c84f0e7b7a1aad5e276" category="paragraph">使用原生 Kubernetes 介面和架構來要求及管理持續磁碟區。Cloud Manager會建立四個Kubernetes儲存類別、供您在配置持續磁碟區時使用：</block>
   <block id="b37182a7f257a93a2e2e005ddaae75f7" category="list-text">* NetApp-file*：將持續磁碟區繫結至單節點ONTAP 的各種系統</block>
   <block id="3b3c5ca3a270163870dc3d01b4117540" category="list-text">* NetApp-file-San*：將iSCSI持續磁碟區繫結至單節點ONTAP 的支援系統</block>
@@ -2951,7 +2933,6 @@
   <block id="3a32d557503f5052920d016bfbf3fa43" category="paragraph">設定Azure、Cloud Volumes ONTAP 然後從NetApp Cloud Central部署Cloud Manager軟體、即可開始使用此功能。可在中部署Cloud Manager的個別指示 <block ref="da7f489839113ef2991f8fcc148cc547" category="inline-link-macro-rx"></block> 和 <block ref="1e349e6e8f72c1a1fe1f77ef3a422193" category="inline-link-macro-rx"></block>。</block>
   <block id="2166ecbf4859162bda081330f902ad53" category="paragraph">啟用從目標vnet的傳出網際網路存取、讓Cloud Manager和Cloud Volumes ONTAP 支援中心能夠連絡多個端點。</block>
   <block id="276a89edea106f206e74969bd2f976bb" category="paragraph">這個步驟很重要、因為Cloud Manager Cloud Volumes ONTAP 無法在沒有外傳網際網路存取的情況下部署不穩定功能。如果您需要限制傳出連線、請參閱的端點清單 <block ref="258d0bfeed07e9f3f800353fd17d365f" category="inline-link-macro-rx"></block> 和 <block ref="79a77371eaced9bdf59c560110560e49" category="inline-link-macro-rx"></block>。</block>
-  <block id="408bb88553711d2fd59ba113d098f8dd" category="section-title">提供必要的Azure權限</block>
   <block id="3f19c3e0aa6f5f945c948f6796417dfc" category="paragraph">從NetApp Cloud Central部署Cloud Manager時、您需要使用具備部署Cloud Manager虛擬機器權限的Azure帳戶。</block>
   <block id="c4a2429a67db9d91e1319fb991f0f462" category="list-text">下載<block ref="b53bbbe2ee3ee99c628f8f7ef4fae3a1" category="inline-link-rx"></block>。</block>
   <block id="7933f6d359b0a3ae0e533f710648404c" category="list-text">若要修改Json檔案、請將Azure訂閱ID新增至「AscignableScopes」欄位。</block>
@@ -3058,13 +3039,10 @@
   <block id="a0228797162e3598c8f3840abbb347a9" category="summary">您可以將熱資料的SSD或HDD效能層與非作用中資料的物件儲存容量層結合、以降低儲存成本。</block>
   <block id="2520a3f91dc795ea5b60ffdbde8c3d5c" category="paragraph">您可以將熱資料的SSD或HDD效能層與非作用中資料的物件儲存容量層結合、以降低儲存成本。如需詳細概述、請參閱 <block ref="c724ee9f84bb0e8fa565112910275d83" category="inline-link-macro-rx"></block>。</block>
   <block id="386a88fbab9b8c50cfcb5d0bba67b30f" category="paragraph">若要設定資料分層、您只需執行下列動作：</block>
-  <block id="86ad5905cc5b5dcbf6a3ff485ec8d229" category="section-title">選擇支援的組態</block>
   <block id="ba918ba698486ee8a89a9f897fe04f16" category="paragraph">支援大部分的組態。如果您的 Cloud Volumes ONTAP 系統執行的是最新版本、則使用的是「不含更新版本」、「高階」或「 BYOL 」、您應該會很滿意。 <block ref="0b0938edb8c7beded03783521b9fb004" category="inline-link-macro-rx"></block>。</block>
-  <block id="06d3481607558231341deee573470e0b" category="section-title">確保 Cloud Volumes ONTAP 在物件儲存設備與物件儲存設備之間建立連線</block>
   <block id="683cc6d6b68e5527f2cef764c4047d5d" category="list-text">對於 AWS 、您需要 VPC 端點對 S3 。 <block ref="242ed49872b33b515a131cb455d30e74" category="inline-xref-macro-rx"></block>。</block>
   <block id="688a9b6bafe8fb9aea6563bb69ca0708" category="list-text">對於 Azure 而言、只要 Cloud Manager 具備必要的權限、您就不需要執行任何操作。 <block ref="22ccef81918132fffe8ed7a4cacab047" category="inline-xref-macro-rx"></block>。</block>
   <block id="a555192a4044ed2ac63760ed078c303c" category="list-text">對於GCP、您需要將GCP帳戶新增至Cloud Manager、並設定私有Google Access的子網路。 <block ref="7d9a5fe96979bced5f00da3df7d6155d" category="inline-xref-macro-rx"></block>。</block>
-  <block id="1eabdf61d5d5290de86aa1ce83194c03" category="section-title">建立、修改或複寫磁碟區時、請選擇分層原則</block>
   <block id="1a9e931f53a32cc1b5ceeebef21b8880" category="paragraph">Cloud Manager 會在您建立、修改或複寫磁碟區時、提示您選擇分層原則。</block>
   <block id="aee34f99cc65679272b711e8a3804b3b" category="inline-link-macro">在讀寫磁碟區上分層資料</block>
   <block id="3161de5db0fdecb5c470d6a56eb5afee" category="list-text"><block ref="3161de5db0fdecb5c470d6a56eb5afee" category="inline-link-macro-rx"></block></block>
@@ -3464,7 +3442,6 @@
   <block id="2079bc33153a98975920a0db7f19f315" category="summary">AWS 和 Azure 中的 Cloud Volumes ONTAP 某些支援功能組態包括本機 NVMe 儲存設備、 Cloud Volumes ONTAP 這些儲存設備可做為 Flash Cache 、以獲得更好的效能。</block>
   <block id="1cc8255ff342b8eb4badebf4c9b37443" category="doc">啟用Cloud Volumes ONTAP Flash Cache on功能</block>
   <block id="f1826d507ec43590779916360d0985cf" category="paragraph">AWS 和 Azure 中的 Cloud Volumes ONTAP 某些支援功能組態包括本機 NVMe 儲存設備、 Cloud Volumes ONTAP 這些儲存設備可做為 _Flash Cache 來提供更好的效能。</block>
-  <block id="e0c8b3ee252e2f32575e8c863dbc2dd2" category="section-title">什麼是 Flash Cache ？</block>
   <block id="c96e551f253c0da767556854da421c51" category="paragraph">Flash Cache 可透過即時智慧快取來加速資料存取、快取最近讀取的使用者資料和 NetApp 中繼資料。它適用於隨機讀取密集的工作負載、包括資料庫、電子郵件和檔案服務。</block>
   <block id="341cc964e0c52fec40f9705182116dda" category="list-text">所有磁碟區都必須停用壓縮、才能充分發揮 Flash Cache 效能的改善效益。</block>
   <block id="444f10b28a63ab25d9664d0647602d07" category="list-text">重新開機後的快取重新溫熱功能不支援 Cloud Volumes ONTAP 使用此功能。</block>
@@ -3518,7 +3495,6 @@
   <block id="d589453989cf88b69ce662003709e569" category="paragraph"><block ref="d589453989cf88b69ce662003709e569" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6bd6a4807d0f305654a405a52bb8f189" category="list-text">按一下 * 解除使用者關聯 * 、然後按一下 * 解除關聯 * 以確認。</block>
   <block id="bc4502cc703c46a62bd856724adfc66e" category="paragraph">使用者無法再存取此 Cloud Central 帳戶中的資源。</block>
-  <block id="c467a2567dd5be7e777708d1616b892d" category="section-title">管理 Workspace 管理的工作區</block>
   <block id="8ecff25aa4ee2497099b60f83bd4dde7" category="paragraph">您可以隨時建立工作區管理員與工作區的關聯和取消關聯。建立使用者關聯可讓他們在該工作區中建立及檢視工作環境。</block>
   <block id="20c165118f7907a441e0a3fe5213b892" category="list-text">按一下 * 管理工作區 * 。</block>
   <block id="9c3fb861370470582b50839e482bd5f9" category="list-text">選取要與使用者建立關聯的工作區、然後按一下「 * 套用 * 」。</block>
@@ -3530,7 +3506,6 @@
   <block id="e6b782b96ee9fd72a275037e1f900b6f" category="list-text">按一下 * 新增工作區 * 以建立新的工作區。</block>
   <block id="9606b9dd050f482ce022efaf9f3754c9" category="list-text">按一下 * 重新命名 * 以重新命名工作區。</block>
   <block id="ca4a2e09f147267af54ea5fd1d962c6a" category="list-text">按一下 * 刪除 * 以刪除工作區。</block>
-  <block id="52064fc4d7849f3822cc18abff712330" category="section-title">管理服務連接器的工作區</block>
   <block id="afec10a920cee85db2ed5a2cb352f16f" category="paragraph">您需要將服務連接器與工作區建立關聯、以便Workspace Admins可從Cloud Manager存取這些工作區。</block>
   <block id="293a92c7062d8bb7075b8fbb77d08ec9" category="paragraph">如果您只有帳戶管理員、則不需要將服務連接器與工作區建立關聯。根據預設、 Account Admins 可存取 Cloud Manager 中的所有工作區。</block>
   <block id="804091d3f7fddd5ef7994356cc379285" category="inline-link-macro">深入瞭解使用者、工作區和服務連接器</block>
@@ -3571,22 +3546,18 @@
   <block id="d1a3e1bc552585f5961691bae3d30c96" category="summary">完成幾個步驟、即可在Cloud Volumes ONTAP AWS或Azure的各個系統上開始使用Cloud Compliance。</block>
   <block id="f17008b61c3f1027c7e772a9c94418a5" category="doc">Cloud Compliance for Cloud Volumes ONTAP NetApp入門</block>
   <block id="13f5a43a4f8f09fc5bcb0e5e59f46b9c" category="paragraph">完成幾個步驟、即可開始使用Cloud Volumes ONTAP AWS或Azure中的Cloud Compliance for功能。</block>
-  <block id="4502190d2799ad6996511888d29b6f5d" category="section-title">確認您的組態符合要求</block>
   <block id="9d3b514098a542f62dc2679ea96b2525" category="list-text">確保Cloud Compliance執行個體可存取傳出的網際網路。</block>
   <block id="f0b0017645f7e05554b4600a9f75eeb4" category="paragraph">Cloud Manager會將執行個體部署在Cloud Volumes ONTAP 要求中第一個的VPC或vnet上。</block>
   <block id="746676655227d479ea2992d569504032" category="list-text">確保使用者可以從直接連線至AWS或Azure的主機、或是從與Cloud Compliance執行個體位於相同網路內的主機（執行個體將有私有IP位址）存取Cloud Manager介面。</block>
   <block id="b5a8dfb009cb24f36d8847ba3fc0859c" category="list-text">確保雲端法規遵循執行個體持續運作。</block>
-  <block id="7e3383d9809fef6526a4a6b75e6aa2ab" category="section-title">在Cloud Volumes ONTAP 支援的基礎上實現雲端法規遵循</block>
   <block id="1d758bd758be021e9b52fb9553ad3484" category="list-text">新的工作環境：建立工作環境（預設為啟用）時、請務必啟用雲端法規遵循。</block>
   <block id="d00e4424ab5c721196ba91a19f866c29" category="list-text">現有工作環境：按一下* Compliance *（符合法規）、編輯工作環境清單、然後按一下* Show Compliance Dashboard（顯示法規遵循儀表板）*。</block>
-  <block id="40733d51554cd03755a3c45936e9ba72" category="section-title">確保能夠存取磁碟區</block>
   <block id="cb69f1cc4d6db8aa9d9848f2243024a2" category="paragraph">雲端法規遵循已啟用、請確保 IT 能夠存取磁碟區。</block>
   <block id="d431a46c3d467bfcfd1554a38e2fc47b" category="list-text">Cloud Compliance執行個體需要網路連線至Cloud Volumes ONTAP 每個子網路。</block>
   <block id="7c7226e9a80bf0a4032888ef63440547" category="list-text">適用於此功能的安全群組 Cloud Volumes ONTAP 必須允許來自 Cloud Compliance 執行個體的傳入連線。</block>
   <block id="d3ce81b5037496c4ee726255e7372eab" category="list-text">NFS Volume匯出原則必須允許從Cloud Compliance執行個體存取。</block>
   <block id="b1c46e2accf63f430648a32bfa04dfe5" category="list-text">Cloud Compliance 需要 Active Directory 認證資料才能掃描 CIFS Volume 。</block>
   <block id="da8ebd902a225bf77a3cb7bfbd54f432" category="paragraph">按一下「* Compliance *&gt;* CIFS Scan Status *&gt;* Edit CIFS Credentials*」、然後提供認證資料。認證資料可以是唯讀的、但提供管理認證可確保Cloud Compliance能夠讀取需要提升權限的資料。</block>
-  <block id="70b2c58e0988efefa11f0ecd645d2988" category="section-title">確保Cloud Manager與Cloud Compliance之間的連線能力</block>
   <block id="c63e7d604dcff6e3da6acd28243b6d37" category="list-text">Cloud Manager的安全性群組必須允許來自連接埠80的傳入和傳出流量進出Cloud Compliance執行個體。</block>
   <block id="e1048f25b07c70fc018f8a69e9177231" category="list-text">如果AWS網路未使用NAT或Proxy進行網際網路存取、Cloud Manager的安全性群組必須允許來自Cloud Compliance執行個體的TCP連接埠3128傳入流量。</block>
   <block id="636fc171536ff74e5a90b2da701bb09c" category="section-title">檢閱先決條件</block>
@@ -4368,4 +4339,47 @@
   <block id="d08ccf52b4cdd08e41cfb99ec42e0b29" category="sidebar">權限</block>
   <block id="f4040f71a7d553f2519487070892b115" category="sidebar">使用者角色</block>
   <block id="93168a8084b3e838d2932c4734bd234e" category="sidebar">舊版</block>
+  <block id="8eea62084ca7e541d918e823422bd82e" category="paragraph-title">結果</block>
+  <block id="9b1146da7e8885b360bcba1784bf6d6c" category="inline-image-macro">第1名</block>
+  <block id="8c84ec36974f014b3b6a2bd07a30a831" category="section-title"><block ref="dfda45ebcbf64ca08d06a80353e9cf6f" category="inline-image-macro-rx" type="image"></block> 確認您的組態符合要求</block>
+  <block id="6518735ebbb492ee2f8f5dfee52f3842" category="inline-image-macro">第2名</block>
+  <block id="fb990f5c87525fa1eb89a44790226746" category="section-title"><block ref="b496ee93dbdd8d3b796a1af3fe777064" category="inline-image-macro-rx" type="image"></block> 在Cloud Volumes ONTAP 支援的基礎上實現雲端法規遵循</block>
+  <block id="a4c574c9c96d1cf8d9986e0d17dbe38b" category="inline-image-macro">第3名</block>
+  <block id="673be64cc34cfe0793aff320631eec30" category="section-title"><block ref="f99fa24d03c6ef96c556af7cdf23810f" category="inline-image-macro-rx" type="image"></block> 確保能夠存取磁碟區</block>
+  <block id="fa8bdf405671f556729a131b30bab6af" category="inline-image-macro">第4名</block>
+  <block id="b57c4104d61d845c1112aaab208fd96f" category="section-title"><block ref="d0f5cff2b8e0ecc91e360a74276cf2dd" category="inline-image-macro-rx" type="image"></block> 確保Cloud Manager與Cloud Compliance之間的連線能力</block>
+  <block id="58eaebf972358f1cf03d386a4ade1a0f" category="paragraph-title">接下來呢？</block>
+  <block id="1323d5a65678d7001c29460122ccc820" category="section-title"><block ref="dfda45ebcbf64ca08d06a80353e9cf6f" category="inline-image-macro-rx" type="image"></block> 驗證網路連線能力</block>
+  <block id="94ed2c35dc25a4c6a2f0ff7f42fbbee8" category="section-title"><block ref="b496ee93dbdd8d3b796a1af3fe777064" category="inline-image-macro-rx" type="image"></block> 將Kubernetes組態檔案上傳至Cloud Manager</block>
+  <block id="5e661dcc3402ab309aa8ed30318888c7" category="section-title"><block ref="f99fa24d03c6ef96c556af7cdf23810f" category="inline-image-macro-rx" type="image"></block> 將您的工作環境連接至Kubernetes叢集</block>
+  <block id="a2a98c975ba9db610320c9f064248420" category="section-title"><block ref="d0f5cff2b8e0ecc91e360a74276cf2dd" category="inline-image-macro-rx" type="image"></block> 開始配置持續磁碟區</block>
+  <block id="492e5546e60705134bff8d7f80511a8d" category="section-title">瞭解最新資訊</block>
+  <block id="b8a940dca4bf7b191c03c2f08b52b754" category="section-title">取得磁碟區的掛載路徑</block>
+  <block id="be4475d44b787a12f755fdcce268c239" category="section-title"><block ref="dfda45ebcbf64ca08d06a80353e9cf6f" category="inline-image-macro-rx" type="image"></block> 確認您的組態支援</block>
+  <block id="c70fb3694cfb7be8cbce89f7129296cc" category="section-title"><block ref="b496ee93dbdd8d3b796a1af3fe777064" category="inline-image-macro-rx" type="image"></block> 在新系統或現有系統上啟用「備份至S3」</block>
+  <block id="cb61dba1e93e5ecc391eaa6e12e708de" category="section-title"><block ref="f99fa24d03c6ef96c556af7cdf23810f" category="inline-image-macro-rx" type="image"></block> 如有需要、請修改備份原則</block>
+  <block id="d43bf159b34d85f095d2958297ee20fd" category="section-title"><block ref="d0f5cff2b8e0ecc91e360a74276cf2dd" category="inline-image-macro-rx" type="image"></block> 視需要還原資料</block>
+  <block id="ada4f28c1d7a2b6deafbea15522101b4" category="section-title"><block ref="dfda45ebcbf64ca08d06a80353e9cf6f" category="inline-image-macro-rx" type="image"></block> 選擇支援的組態</block>
+  <block id="bf30ec6e5b418236529d5fb8a008f7a1" category="section-title"><block ref="b496ee93dbdd8d3b796a1af3fe777064" category="inline-image-macro-rx" type="image"></block> 確保 Cloud Volumes ONTAP 在物件儲存設備與物件儲存設備之間建立連線</block>
+  <block id="4f171aaed4814825b1b6cd26e8bca8be" category="section-title"><block ref="f99fa24d03c6ef96c556af7cdf23810f" category="inline-image-macro-rx" type="image"></block> 建立、修改或複寫磁碟區時、請選擇分層原則</block>
+  <block id="f744727b72c0e98e6caa53f045e617cd" category="section-title"><block ref="dfda45ebcbf64ca08d06a80353e9cf6f" category="inline-image-macro-rx" type="image"></block> 設定您的網路</block>
+  <block id="a54be7273c9d5f0b0e985696ae41550c" category="section-title"><block ref="b496ee93dbdd8d3b796a1af3fe777064" category="inline-image-macro-rx" type="image"></block> 提供必要的AWS權限</block>
+  <block id="df697150ca6823221d73aed2f97405ba" category="section-title"><block ref="f99fa24d03c6ef96c556af7cdf23810f" category="inline-image-macro-rx" type="image"></block> 從AWS Marketplace訂閱</block>
+  <block id="d32db7792895fcf20faa24c02cd968ad" category="section-title"><block ref="d0f5cff2b8e0ecc91e360a74276cf2dd" category="inline-image-macro-rx" type="image"></block> 從NetApp Cloud Central啟動Cloud Manager</block>
+  <block id="6a604e45dcab200406f10c70d639255a" category="inline-image-macro">第5名</block>
+  <block id="67467aa7bd51d7bbe961339db94944ba" category="section-title"><block ref="c8b82927684b7195fa645497b5fcc719" category="inline-image-macro-rx" type="image"></block> 使用 Cloud Manager 啟動 Cloud Volumes ONTAP</block>
+  <block id="832eb2addfeb7baf5b285a22aaeb4161" category="section-title"><block ref="b496ee93dbdd8d3b796a1af3fe777064" category="inline-image-macro-rx" type="image"></block> 提供必要的Azure權限</block>
+  <block id="55656479963c4d6faa53aa52af17bb58" category="section-title"><block ref="f99fa24d03c6ef96c556af7cdf23810f" category="inline-image-macro-rx" type="image"></block> 從NetApp Cloud Central啟動Cloud Manager</block>
+  <block id="fc6a1c4bfdea701c7028d4b2604689fb" category="section-title"><block ref="d0f5cff2b8e0ecc91e360a74276cf2dd" category="inline-image-macro-rx" type="image"></block> 使用 Cloud Manager 啟動 Cloud Volumes ONTAP</block>
+  <block id="675d38d552c49bbf67606b2c5f1d5bed" category="section-title">什麼是Flash Cache？</block>
+  <block id="570d39faec30fabdf90898b70ceaa735" category="section-title"><block ref="b496ee93dbdd8d3b796a1af3fe777064" category="inline-image-macro-rx" type="image"></block> 設定GCP權限和專案</block>
+  <block id="a01706da536bf2b2ac8d57c4976994ad" category="section-title"><block ref="f99fa24d03c6ef96c556af7cdf23810f" category="inline-image-macro-rx" type="image"></block> 設定GCP以進行資料分層</block>
+  <block id="4a735f69c7efb3248a39c186b9f8898b" category="section-title"><block ref="d0f5cff2b8e0ecc91e360a74276cf2dd" category="inline-image-macro-rx" type="image"></block> 啟用 Google Cloud API</block>
+  <block id="5bd8d5bcaf86116688b8fecfd649c684" category="section-title"><block ref="c8b82927684b7195fa645497b5fcc719" category="inline-image-macro-rx" type="image"></block> 從GCP Marketplace訂閱</block>
+  <block id="e8655d81e5341b6de5242894893cfd0f" category="inline-image-macro">數字6.</block>
+  <block id="34797ede91f726eade3fdbf38979c246" category="section-title"><block ref="37140c340d57bff74ec463795f4bc377" category="inline-image-macro-rx" type="image"></block> 從NetApp Cloud Central啟動Cloud Manager</block>
+  <block id="d4fc0d9ce7d0fa9be0409ba4d0973cb7" category="inline-image-macro">第7名</block>
+  <block id="d82f79a731e59f35df4d972176f21d86" category="section-title"><block ref="ee7780d13d268d291c14f07e87b1b8ae" category="inline-image-macro-rx" type="image"></block> 使用 Cloud Manager 啟動 Cloud Volumes ONTAP</block>
+  <block id="5ccc745272c52ce1868d5bcf2b07705a" category="section-title">管理Workspace管理的工作區</block>
+  <block id="d46c994bf0fc996e0688f4f3c54602cd" category="section-title">管理服務連接器的工作區</block>
 </blocks>

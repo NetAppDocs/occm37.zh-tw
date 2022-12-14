@@ -21,6 +21,7 @@ Cloud Manager 可在 ONTAP 內部部署環境、 NetApp 私有儲存組態和 IB
 
 在ONTAP Cloud Manager中探索一個支援功能的叢集、可讓您在混合雲中配置儲存設備並複寫資料。
 
+.開始之前
 您必須擁有叢集管理IP位址和管理員使用者帳戶密碼、才能將叢集新增至Cloud Manager。
 
 Cloud Manager 使用 ONTAP HTTPS 探索各個叢集。如果使用自訂防火牆原則、則必須符合下列需求：
@@ -44,6 +45,7 @@ image:screenshot_discover_ontap.gif["螢幕快照顯示ONTAP 「叢集詳細資�
 . 在「詳細資料」頁面上、輸入工作環境的名稱和說明、然後按一下「 * 執行 * 」。
 
 
+.結果
 Cloud Manager會探索叢集。您現在可以建立磁碟區、在叢集之間複寫資料、以及啟動OnCommand 「系統管理程式」來執行進階工作。
 
 
@@ -52,8 +54,10 @@ Cloud Manager會探索叢集。您現在可以建立磁碟區、在叢集之間�
 
 Cloud Manager可讓您在ONTAP 不支援的叢集上配置NFS和CIFS磁碟區。
 
+.開始之前
 必須在叢集上設定NFS或CIFS。您可以使用System Manager或CLI設定NFS和CIFS。
 
+.關於這項工作
 您可以在現有的集合體上建立磁碟區。您無法從Cloud Manager建立新的Aggregate。
 
 .步驟

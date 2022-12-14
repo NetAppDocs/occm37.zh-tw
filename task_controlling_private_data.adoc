@@ -20,9 +20,9 @@ summary: 檢視組織中個人資料和敏感個人資料的詳細資料、以�
 
 == 個人資料
 
-Cloud Compliance 會自動識別資料內部的特定字詞、字串和模式（ Regex ）。例如、個人識別資訊（ PII ）、信用卡號碼、社會安全號碼、銀行帳戶號碼等。  of personal data,請參閱完整清單。
+Cloud Compliance 會自動識別資料內部的特定字詞、字串和模式（ Regex ）。例如、個人識別資訊（ PII ）、信用卡號碼、社會安全號碼、銀行帳戶號碼等。 <<個人資料類型,請參閱完整清單>>。
 
-對於某些類型的個人資料、 Cloud Compliance 會使用 _ 近接驗證 _ 來驗證其發現結果。驗證的方式是在找到的個人資料附近尋找一或多個預先定義的關鍵字。例如、 Cloud Compliance 可識別美國社會安全號碼（ SSN ）若在 SSN 旁看到鄰近的詞彙、例如 _SSN_ 或 _Social SECURITY 。  of personal data,下表 顯示 Cloud Compliance 何時使用接近驗證。
+對於某些類型的個人資料、 Cloud Compliance 會使用 _ 近接驗證 _ 來驗證其發現結果。驗證的方式是在找到的個人資料附近尋找一或多個預先定義的關鍵字。例如、 Cloud Compliance 可識別美國社會安全號碼（ SSN ）若在 SSN 旁看到鄰近的詞彙、例如 _SSN_ 或 _Social SECURITY 。 <<個人資料類型,下表>> 顯示 Cloud Compliance 何時使用接近驗證。
 
 
 
@@ -40,7 +40,7 @@ image:screenshot_personal_files.gif["個人檔案對話方塊的快照、您可�
 
 === 個人資料類型
 
-檔案中的個人資料可以是一般個人資料或國家識別碼。第三欄指出雲端法規遵循是否使用  data,鄰近驗證 驗證識別碼的發現。
+檔案中的個人資料可以是一般個人資料或國家識別碼。第三欄指出雲端法規遵循是否使用 <<個人資料,鄰近驗證>> 驗證識別碼的發現。
 
 [cols="20,50,18"]
 |===
@@ -143,7 +143,7 @@ image:screenshot_personal_files.gif["個人檔案對話方塊的快照、您可�
 
 == 敏感的個人資料
 
-Cloud Compliance 會自動識別特殊類型的敏感個人資訊、如隱私權法規所定義 https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679&from=EN#d1e2051-1-1["GDPR 第 9 和第 10 條"^]。例如、關於個人健康、族群或性取向的資訊。  of sensitive personal data,請參閱完整清單。
+Cloud Compliance 會自動識別特殊類型的敏感個人資訊、如隱私權法規所定義 https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679&from=EN#d1e2051-1-1["GDPR 第 9 和第 10 條"^]。例如、關於個人健康、族群或性取向的資訊。 <<敏感個人資料的類型,請參閱完整清單>>。
 
 Cloud Compliance 使用人工智慧（ AI ）、自然語言處理（ NLP ）、機器學習（ ML ）和認知運算（ CC ）來瞭解其掃描內容的意義、以便擷取實體並據此分類。
 
@@ -182,7 +182,7 @@ Cloud Compliance 可在檔案中找到的敏感個人資料包括：
 
 == 類別
 
-Cloud Compliance 會將掃描的資料分成不同類別、類別是以 AI 分析每個檔案的內容和中繼資料為基礎的主題。  of categories,請參閱類別清單。
+Cloud Compliance 會將掃描的資料分成不同類別、類別是以 AI 分析每個檔案的內容和中繼資料為基礎的主題。 <<類別類型,請參閱類別清單>>。
 
 類別可顯示您擁有的資訊類型、協助您瞭解資料的現況。例如、簡歷或員工合約等類別可能包含敏感資料。下載CSV報告時、您可能會發現員工合約儲存在不安全的位置。然後您就可以修正該問題。
 

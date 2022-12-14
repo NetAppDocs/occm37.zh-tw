@@ -19,8 +19,9 @@ summary: 只要完成幾個快速步驟、即可在Cloud Volumes ONTAP AWS中開
 
 
 
-=== 設定您的網路
+=== image:number1.png["第1名"] 設定您的網路
 
+[role="quick-margin-list"]
 . 啟用從目標VPC的傳出網際網路存取、讓Cloud Manager和Cloud Volumes ONTAP 支援中心能夠連絡多個端點。
 +
 這個步驟很重要、因為Cloud Manager Cloud Volumes ONTAP 無法在沒有外傳網際網路存取的情況下部署不穩定功能。如果您需要限制傳出連線、請參閱的端點清單 link:reference_networking_cloud_manager.html#outbound-internet-access["Cloud Manager"] 和 link:reference_networking_aws.html#general-aws-networking-requirements-for-cloud-volumes-ontap["Cloud Volumes ONTAP"]。
@@ -33,18 +34,19 @@ summary: 只要完成幾個快速步驟、即可在Cloud Volumes ONTAP AWS中開
 
 
 
-=== 提供必要的AWS權限
+=== image:number2.png["第2名"] 提供必要的AWS權限
 
 [role="quick-margin-para"]
 當您從NetApp Cloud Central部署Cloud Manager時、您需要使用具有部署執行個體權限的AWS帳戶。
 
+[role="quick-margin-list"]
 . 前往AWS IAM主控台、然後複製並貼上的內容來建立原則 https://mysupport.netapp.com/cloudontap/iampolicies["適用於AWS的NetApp Cloud Central原則"^]。
 . 將原則附加至IAM使用者。
 
 
 
 
-=== 從AWS Marketplace訂閱
+=== image:number3.png["第3名"] 從AWS Marketplace訂閱
 
 [role="quick-margin-para"]
 https://aws.amazon.com/marketplace/pp/B07QX2QLXX["從AWS Marketplace訂閱Cloud Manager"^] 確保在免費試用Cloud Volumes ONTAP 完VMware後、服務不會中斷。您將會從這項訂閱中、針對Cloud Volumes ONTAP 您所建立的每個功能、以及您啟用的每個附加功能、收取費用。
@@ -54,14 +56,14 @@ https://aws.amazon.com/marketplace/pp/B07QX2QLXX["從AWS Marketplace訂閱Cloud 
 
 
 
-=== 從NetApp Cloud Central啟動Cloud Manager
+=== image:number4.png["第4名"] 從NetApp Cloud Central啟動Cloud Manager
 
 [role="quick-margin-para"]
 需要Cloud Manager軟體來部署和管理Cloud Volumes ONTAP 功能。從啟動Cloud Manager執行個體只需幾分鐘的時間 https://cloud.netapp.com["Cloud Central"^]。
 
 
 
-=== 使用 Cloud Manager 啟動 Cloud Volumes ONTAP
+=== image:number5.png["第5名"] 使用 Cloud Manager 啟動 Cloud Volumes ONTAP
 
 [role="quick-margin-para"]
 Cloud Manager準備好之後、只要按一下「Create（建立）」、選取您要啟動的系統類型、然後完成精靈中的步驟。25分鐘後、您的第一個Cloud Volumes ONTAP 作業系統應該會啟動並開始運作。

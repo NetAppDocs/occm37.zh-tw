@@ -54,6 +54,7 @@ image:screenshot_cvs_aws_details.gif["「更新詳細資料」頁面的快照Clo
 
 
 
+.結果
 Cloud Manager現在應會在Cloud Volumes Service 「工作環境」頁面上顯示您的for AWS組態。
 
 image:screenshot_cvs_aws_cloud.gif["工作環境頁面上的《 AWS 版》擷取畫面 Cloud Volumes Service 。"]
@@ -79,6 +80,7 @@ image:screenshot_cvs_discover_region.gif["顯示「探索Cloud Volumes Service �
 
 
 
+.結果
 Cloud Manager會探索所選區域的雲端磁碟區相關資訊。
 
 

@@ -21,8 +21,8 @@ NOTE: 當您從Cloud Central部署Cloud Manager時、Cloud Manager會自動新�
 
 * 選項 *
 
-*  permissions by providing AWS keys
-*  permissions by assuming IAM roles in other accounts
+* <<提供 AWS 金鑰來授予權限>>
+* <<在其他帳戶中假設 IAM 角色來授予權限>>
 
 
 
@@ -45,7 +45,8 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html["AW
 
 
 
-帳戶現在擁有必要的權限。  AWS accounts to Cloud Manager,您現在可以將它新增至 Cloud Manager。
+.結果
+帳戶現在擁有必要的權限。 <<將AWS帳戶新增至Cloud Manager,您現在可以將它新增至 Cloud Manager>>。
 
 
 
@@ -89,7 +90,8 @@ image:screenshot_iam_create_role.gif["顯示 AWS IAM Console 中「 Create role 
 
 
 
-帳戶現在擁有必要的權限。  AWS accounts to Cloud Manager,您現在可以將它新增至 Cloud Manager。
+.結果
+帳戶現在擁有必要的權限。 <<將AWS帳戶新增至Cloud Manager,您現在可以將它新增至 Cloud Manager>>。
 
 
 
@@ -107,6 +109,7 @@ image:screenshot_settings_icon.gif["顯示 Cloud Manager 主控台右上角「�
 . 確認已符合原則需求、然後按一下「 * 建立帳戶 * 」。
 
 
+.結果
 您現在可以在建立新的工作環境時、從「詳細資料與認證」頁面切換至其他帳戶：
 
 image:screenshot_accounts_switch_aws.gif["在詳細資料  認證頁面中按一下「切換帳戶」之後、顯示在雲端供應商帳戶之間選取的快照。"]

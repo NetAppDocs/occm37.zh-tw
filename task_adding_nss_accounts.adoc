@@ -40,6 +40,7 @@ image:screenshot_settings_icon.gif["顯示 Cloud Manager 主控台右上角「�
 . 按一下「 * 建立帳戶 * 」
 
 
+.接下來呢？
 使用者現在可以在建立新 Cloud Volumes ONTAP 的功能表系統和註冊現有系統時、選擇帳戶。
 
 * link:task_deploying_otc_aws.html["在 Cloud Volumes ONTAP AWS 中啟動"]

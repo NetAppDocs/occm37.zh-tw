@@ -21,7 +21,7 @@ Cloud Manager必須安裝在Google Cloud Platform中、才能在Cloud Volumes ON
 
 
 
-=== 設定您的網路
+=== image:number1.png["第1名"] 設定您的網路
 
 [role="quick-margin-para"]
 啟用從目標VPC的傳出網際網路存取、讓Cloud Manager和Cloud Volumes ONTAP 支援中心能夠連絡多個端點。
@@ -31,11 +31,12 @@ Cloud Manager必須安裝在Google Cloud Platform中、才能在Cloud Volumes ON
 
 
 
-=== 設定GCP權限和專案
+=== image:number2.png["第2名"] 設定GCP權限和專案
 
 [role="quick-margin-para"]
 確定已設置兩組權限：
 
+[role="quick-margin-list"]
 . 確保從 NetApp Cloud Central 部署 Cloud Manager 的 GCP 使用者擁有中的權限 https://occm-sample-policies.s3.amazonaws.com/Setup_As_Service_3.7.3_GCP.yaml["適用於GCP的Cloud Central原則"^]。
 +
 https://cloud.google.com/iam/docs/creating-custom-roles#iam-custom-roles-create-gcloud["您可以使用 Yaml 檔案建立自訂角色"^] 然後附加到使用者。您需要使用 gCloud 命令列來建立角色。
@@ -57,11 +58,12 @@ https://cloud.google.com/iam/docs/creating-custom-roles#iam-custom-roles-create-
 
 
 
-=== 設定GCP以進行資料分層
+=== image:number3.png["第3名"] 設定GCP以進行資料分層
 
 [role="quick-margin-para"]
 必須滿足兩項要求、才能將冷資料從Cloud Volumes ONTAP NetApp 9.7分層到低成本物件儲存（Google Cloud Storage儲存庫）：
 
+[role="quick-margin-list"]
 . https://cloud.google.com/iam/docs/creating-managing-service-accounts#creating_a_service_account["建立服務帳戶"^] 其使用者為預先定義的Storage Admin角色和Cloud Manager服務帳戶。
 +
 您稍後在建立Cloud Volumes ONTAP 運作環境時、需要選擇此服務帳戶。此服務帳戶與您在步驟2中建立的服務帳戶不同。
@@ -74,11 +76,12 @@ https://cloud.google.com/iam/docs/creating-custom-roles#iam-custom-roles-create-
 
 
 
-=== 啟用 Google Cloud API
+=== image:number4.png["第4名"] 啟用 Google Cloud API
 
 [role="quick-margin-para"]
 https://cloud.google.com/apis/docs/getting-started#enabling_apis["在專案中啟用下列 Google Cloud API"^]。部署Cloud Manager和Cloud Volumes ONTAP 功能完善的應用程式需要這些API。
 
+[role="quick-margin-list"]
 * Cloud Deployment Manager V2 API
 * Cloud Resource Manager API
 * 運算引擎 API
@@ -87,14 +90,14 @@ https://cloud.google.com/apis/docs/getting-started#enabling_apis["在專案中�
 
 
 
-=== 從GCP Marketplace訂閱
+=== image:number5.png["第5名"] 從GCP Marketplace訂閱
 
 [role="quick-margin-para"]
 https://console.cloud.google.com/marketplace/details/netapp-cloudmanager/cloud-manager["從Cloud Volumes ONTAP GCP Marketplace訂閱"^] 確保在免費試用結束後不會中斷服務。您所Cloud Volumes ONTAP 建立的每個功能不只是功能不全的功能不全、您將會從訂閱中收取費用。
 
 
 
-=== 從NetApp Cloud Central啟動Cloud Manager
+=== image:number6.png["數字6."] 從NetApp Cloud Central啟動Cloud Manager
 
 [role="quick-margin-para"]
 需要Cloud Manager軟體來部署和管理Cloud Volumes ONTAP 功能。從GCP啟動Cloud Manager執行個體只需幾分鐘的時間 https://cloud.netapp.com["Cloud Central"^]。
@@ -104,7 +107,7 @@ https://console.cloud.google.com/marketplace/details/netapp-cloudmanager/cloud-m
 
 
 
-=== 使用 Cloud Manager 啟動 Cloud Volumes ONTAP
+=== image:number7.png["第7名"] 使用 Cloud Manager 啟動 Cloud Volumes ONTAP
 
 [role="quick-margin-para"]
 Cloud Manager準備好之後、只要按一下「Create（建立）」、選取您要部署的系統類型、然後完成精靈中的步驟即可。25分鐘後、您的第一個Cloud Volumes ONTAP 作業系統應該會啟動並開始運作。

@@ -62,6 +62,7 @@ image:screenshot_settings_icon.gif["顯示 Cloud Manager 主控台右上角「�
 . 確認已符合原則需求、然後按一下「 * 建立帳戶 * 」。
 
 
+.接下來呢？
 現在、您可以在建立、修改或複寫個別磁碟區時、在這些磁碟區上啟用資料分層功能。如需詳細資訊、請參閱 link:task_tiering.html["將非作用中資料分層至低成本物件儲存設備"]。
 
 但在您之前、請確定 Cloud Volumes ONTAP 駐留的子網路已設定為私有 Google Access 。如需相關指示、請參閱 https://cloud.google.com/vpc/docs/configure-private-google-access["Google Cloud 文件：設定私有 Google Access"^]。

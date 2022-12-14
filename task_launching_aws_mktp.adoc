@@ -19,6 +19,7 @@ summary: 最好使用NetApp Cloud Central在AWS中啟動Cloud Manager、但您�
 
 TIP: 如果您從AWS Marketplace啟動Cloud Manager、Cloud Manager仍會與NetApp Cloud Central整合。 link:concept_cloud_central.html["深入瞭解整合"]。
 
+.關於這項工作
 下列步驟說明如何從EC2主控台啟動執行個體、因為主控台可讓您將IAM角色附加至Cloud Manager執行個體。這無法使用*從網站啟動*動作。
 
 .步驟
@@ -74,4 +75,5 @@ image:screenshot_set_up_cloud_manager.gif["螢幕快照顯示「Set Up Cloud Man
 
 
 
+.結果
 雲端管理程式現已安裝並設定完成。

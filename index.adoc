@@ -16,7 +16,7 @@ Cloud Manager可讓您部署及管理NetApp Cloud Volumes ONTAP 功能、這是�
 
 
 
-== 瞭解新功能
+== 瞭解最新資訊
 
 * link:reference_new_occm.html["Cloud Manager 的新功能"]
 * https://docs.netapp.com/us-en/cloud-volumes-ontap/reference_new_97.html["更新功能 Cloud Volumes ONTAP"^]

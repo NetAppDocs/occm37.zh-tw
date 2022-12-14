@@ -30,11 +30,12 @@ https://cloud.netapp.com/cloud-backup-service["如需價格詳細資料、請前
 
 
 
-==== 確認您的組態支援
+==== image:number1.png["第1名"] 確認您的組態支援
 
 [role="quick-margin-para"]
 驗證下列項目：
 
+[role="quick-margin-list"]
 * 支援的AWS區域正在執行支援的支援範圍：Cloud Volumes ONTAP N維吉尼亞州、奧勒岡州、愛爾蘭、法蘭克福或悉尼
 * 您已訂閱新的 https://aws.amazon.com/marketplace/pp/B07QX2QLXX["Cloud Manager Marketplace產品"^]
 * TCP連接埠5010已開啟、可用於安全群組Cloud Volumes ONTAP 上的傳出流量、以供執行下列操作（預設為開啟）
@@ -57,8 +58,9 @@ https://cloud.netapp.com/cloud-backup-service["如需價格詳細資料、請前
 
 
 
-==== 在新系統或現有系統上啟用「備份至S3」
+==== image:number2.png["第2名"] 在新系統或現有系統上啟用「備份至S3」
 
+[role="quick-margin-list"]
 * 新系統：工作環境精靈預設會啟用「備份至S3」功能。請務必保持啟用選項。
 * 現有系統：開啟工作環境、按一下備份設定圖示並啟用備份。
 +
@@ -68,7 +70,7 @@ image:screenshot_backup_to_s3_icon.gif["顯示「備份到S3」圖示的快照�
 
 
 
-==== 如有需要、請修改備份原則
+==== image:number3.png["第3名"] 如有需要、請修改備份原則
 
 [role="quick-margin-para"]
 預設原則每天備份磁碟區、並保留每個磁碟區的30個備份複本。如有需要、您可以變更要保留的備份複本數量。
@@ -78,7 +80,7 @@ image:screenshot_backup_to_s3_settings.gif["螢幕擷取畫面會顯示「Backup
 
 
 
-==== 視需要還原資料
+==== image:number4.png["第4名"] 視需要還原資料
 
 [role="quick-margin-para"]
 在Cloud Manager頂端、按一下*備份與還原*、選取磁碟區、選取備份、然後將資料從備份還原至新磁碟區。
@@ -160,13 +162,14 @@ image:screenshot_backup_to_s3.gif["顯示工作環境精靈中的「Backup to S3
 . 完成精靈中的頁面以部署系統。
 
 
-系統會啟用「備份至S3」功能、每天備份磁碟區、並保留30個備份複本。  the backup retention,瞭解如何修改備份保留。
+.結果
+系統會啟用「備份至S3」功能、每天備份磁碟區、並保留30個備份複本。 <<變更備份保留,瞭解如何修改備份保留>>。
 
 
 
 == 在現有系統上啟用S3的備份
 
-只Cloud Volumes ONTAP 要您執行支援的組態、即可在現有的支援系統上啟用S3的備份。如需詳細資訊、請參閱 。
+只Cloud Volumes ONTAP 要您執行支援的組態、即可在現有的支援系統上啟用S3的備份。如需詳細資訊、請參閱 <<需求>>。
 
 .步驟
 . 開啟工作環境。
@@ -181,6 +184,7 @@ image:screenshot_backup_to_s3_settings.gif["螢幕擷取畫面會顯示「Backup
 
 
 
+.結果
 「備份到S3」功能會開始對每個磁碟區進行初始備份。
 
 

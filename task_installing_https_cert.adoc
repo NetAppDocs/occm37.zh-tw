@@ -53,6 +53,7 @@ Cloud Manager 會顯示憑證簽署要求。
 |===
 
 
+.結果
 Cloud Manager 現在使用 CA 簽署的憑證來提供安全的 HTTPS 存取。下圖顯示 Cloud Manager 系統的安全存取設定：
 
 image:screenshot_https_cert.gif["螢幕擷取畫面：顯示您安裝簽署憑證後的 HTTPS 設定頁面。頁面會顯示憑證內容和續約憑證的選項。"]

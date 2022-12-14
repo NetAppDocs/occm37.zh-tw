@@ -27,8 +27,8 @@ link:https://docs.netapp.com/us-en/occm34/reference_new_occm.html["3.4的新功�
 
 此更新包括下列增強功能：
 
-*  Volumes ONTAP 9.7
-*  Compliance for Cloud Volumes ONTAP
+* <<更新Cloud Volumes ONTAP>>
+* <<Cloud Compliance for Cloud Volumes ONTAP 解決此問題>>
 
 
 
@@ -55,11 +55,11 @@ link:concept_cloud_compliance.html["深入瞭解雲端法規遵循"]。
 
 Cloud Manager 3.7.5包含下列增強功能。
 
-*  write speed for Cloud Volumes ONTAP in GCP
-*  ONTAP clusters as persistent storage for Kubernetes
-*  Trident version for Kubernetes
-*  for Azure general-purpose v2 storage accounts
-*  in Azure storage account names using APIs
+* <<GCP的高速寫入速度Cloud Volumes ONTAP>>
+* <<內部ONTAP 使用的叢集可作為Kubernetes的持續儲存設備>>
+* <<Kubernetes的最新Trident版本>>
+* <<支援Azure通用v2儲存帳戶>>
+* <<Azure儲存帳戶名稱中使用API的前置詞>>
 
 
 
@@ -110,12 +110,12 @@ link:api.html["如需使用API的詳細資訊、請參閱《API開發人員指�
 
 Cloud Manager 3.7.4包含下列增強功能。
 
-*  for Azure NetApp Files
-*  Volumes ONTAP for GCP enhancements
-*  to S3 enhancement
-*  of boot and root disks in AWS
-*  for the AWS Bahrain region
-*  for the Azure UAE North region
+* <<支援Azure NetApp Files 功能>>
+* <<適用於GCP增強功能Cloud Volumes ONTAP>>
+* <<備份至S3增強功能>>
+* <<加密AWS中的開機和根磁碟>>
+* <<支援AWS巴林地區>>
+* <<支援Azure UAE北區>>
 
 
 
@@ -239,9 +239,9 @@ link:task_backup_to_s3.html["瞭解如何開始使用"]。
 
 Cloud Manager 3.7.3包含下列增強功能。
 
-*  and management of Cloud Volumes Service for AWS
-*  subscription required in the AWS Marketplace
-*  for AWS GovCloud (US-East)
+* <<探索Cloud Volumes Service 及管理AWS適用的功能>>
+* <<AWS Marketplace需要新的訂閱>>
+* <<支援AWS GovCloud（美國東部）>>
 
 
 
@@ -282,11 +282,11 @@ Cloud Manager和Cloud Volumes ONTAP 功能不只支援AWS GovCloud（美國東�
 
 == Cloud Manager 3.7.2（2019年8月5日）
 
-*  licenses
-*  storage classes for iSCSI
-*  of inodes
-*  for the Hong Kong region in AWS
-*  for the Australia Central regions in Azure
+* <<不需要授權FlexCache>>
+* <<適用於iSCSI的Kubernetes儲存類別>>
+* <<管理inode>>
+* <<支援AWS中的香港地區>>
+* <<支援Azure中的澳洲中部地區>>
 
 
 
@@ -370,9 +370,9 @@ https://docs.netapp.com/us-en/cloud-volumes-ontap/reference_new_96.html["瞭Clou
 
 == Cloud Manager 3.7（2019年6月5日）
 
-*  for upcoming Cloud Volumes ONTAP 9.6 release
-*  Cloud Central accounts
-*  and restore with the Cloud Backup Service
+* <<支援即將Cloud Volumes ONTAP 推出的版次更新>>
+* <<NetApp Cloud Central帳戶>>
+* <<利用這個功能進行備份與還原Cloud Backup Service>>
 
 
 

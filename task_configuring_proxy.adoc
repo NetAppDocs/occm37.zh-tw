@@ -16,6 +16,7 @@ summary: 第一次部署Cloud Manager時、如果系統無法存取網際網路�
 [role="lead"]
 第一次部署Cloud Manager時、如果系統無法存取網際網路、系統會提示您輸入Proxy伺服器。您也可以從Cloud Manager的設定手動輸入及修改Proxy。
 
+.關於這項工作
 如果您的企業原則規定您使用 Proxy 伺服器來進行所有的網際網路 HTTP 通訊、則必須設定 Cloud Manager 以使用該 Proxy 伺服器。Proxy 伺服器可以位於雲端或網路中。
 
 當您將Cloud Manager設定為使用Proxy伺服器時、Cloud Manager、Cloud Volumes ONTAP 效益分析和HA中介器都會使用Proxy伺服器。
@@ -32,4 +33,5 @@ NOTE: Cloud Manager不支援包含@字元的密碼。
 
 
 
+.結果
 指定 Proxy 伺服器之後、系統 Cloud Volumes ONTAP 會自動設定新的更新功能、讓您在傳送 AutoSupport 更新訊息時使用 Proxy 伺服器。如果您在使用者建立Cloud Volumes ONTAP 不必要的系統之前未指定Proxy伺服器、則他們必須使用System Manager在AutoSupport 各個系統的「更新」選項中手動設定Proxy伺服器。

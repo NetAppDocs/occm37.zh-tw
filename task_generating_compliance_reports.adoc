@@ -40,6 +40,7 @@ image:screenshot_privacy_risk_assessment.gif["Cloud Manager 中法規遵循索�
 
 
 
+.結果
 Cloud Compliance 會產生一份 PDF 報告、您可以視需要檢閱並傳送給其他群組。
 
 

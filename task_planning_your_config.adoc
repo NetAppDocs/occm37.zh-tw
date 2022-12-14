@@ -85,8 +85,8 @@ NetApp 儲存效率功能提供下列效益：
 
 規劃您在Cloud Volumes ONTAP AWS中部署的功能、方法是調整系統規模、並檢閱您需要輸入的網路資訊。
 
-*  your system in AWS
-*  network information worksheet
+* <<在 AWS 中調整系統規模>>
+* <<AWS 網路資訊工作表>>
 
 
 
@@ -210,8 +210,8 @@ video::GELcXmOuYPw[youtube,width=848,height=480]
 
 規劃您在Cloud Volumes ONTAP Azure中部署的功能、方法是調整系統規模、並檢閱您需要輸入的網路資訊。
 
-*  your system in Azure
-*  network information worksheet
+* <<在 Azure 中調整系統規模>>
+* <<Azure 網路資訊工作表>>
 
 
 
@@ -291,8 +291,8 @@ Azure Premium Storage 的效能與磁碟大小有關。較大的磁碟可提供�
 
 規劃您在Cloud Volumes ONTAP Google Cloud Platform中部署的功能、方法是調整系統規模、並檢閱您需要輸入的網路資訊。
 
-*  your system in GCP
-*  network information worksheet
+* <<在 GCP 中調整系統規模>>
+* <<GCP 網路資訊工作表>>
 
 
 
