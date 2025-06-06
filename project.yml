@@ -1,4 +1,5 @@
 ---
+jekyll: staging
 settings:
   name: Cloud Manager 3.7
   nss_product: OnCommand Cloud Manager
