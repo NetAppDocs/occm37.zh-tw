@@ -1,5 +1,4 @@
 ---
-jekyll: staging
 settings:
   name: Cloud Manager 3.7
   nss_product: OnCommand Cloud Manager
@@ -255,4 +254,4 @@ sidebar:
   - title: 舊版
     url: "/reference_earlier_versions.html"
   - title: 法律聲明
-    url: "/reference_legal_notices.html"
+    url: "/legal-notices.html"
